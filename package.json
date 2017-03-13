@@ -38,9 +38,7 @@
     "cuid": "^1.3.8",
     "express": "^4.13.4",
     "intl": "^1.2.4",
-    "intl-locales-supported": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "limax": "^1.3.0",
     "mongoose": "^4.4.20",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -49,8 +47,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0",
-    "sanitize-html": "^1.11.4"
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "ava": "^0.15.2",
@@ -79,14 +76,12 @@
     "eslint-plugin-react": "^5.1.1",
     "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
     "jsdom": "^9.2.1",
     "json-loader": "^0.5.4",
     "mock-css-modules": "^1.0.0",
     "mockgoose": "^6.0.3",
     "nock": "^8.0.0",
     "nodemon": "^1.9.2",
-    "null-loader": "^0.1.1",
     "nyc": "^6.4.4",
     "postcss-cssnext": "^2.6.0",
     "postcss-focus": "^1.0.0",
@@ -106,7 +101,6 @@
     "url-loader": "^0.5.7",
     "webpack": "2.1.0-beta.8",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-externals-plugin": "^1.0.0",
     "webpack-hot-middleware": "^2.10.0",
     "webpack-manifest-plugin": "^1.0.1"

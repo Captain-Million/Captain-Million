@@ -1,9 +1,19 @@
 import React from 'react';
 
+// Import Style
+// 
+import main from './main.css';
+import list_view from './list_view.css';
+import document_container from './document_container.css';
+import document__header from './document__header.css';
+import document__table from './document__table.css';
+import document__controls from './document__controls.css';
+import nav from './nav.css';
+
 const Home = () => {
   return (
-    <div className="main">
-      <div className="list_view">
+    <div className={main.main}>
+      <div className={list_view.list_view}>
         <span className="list__header">Inventory acts</span>
         <ul>
           <li>Inventory act 17.01.17 09:12</li>
@@ -13,11 +23,11 @@ const Home = () => {
           <li>Inventory act 17.01.17 13:12</li>
         </ul>
       </div>
-      <div className="document_view">
-        <div className="document__header">
+      <div className={document_container.document_container}>
+        <div className={document__header.document__header}>
           <span className="header__type">Inventory act</span> <span className="header__id">17.01.17 10:12</span>
         </div>
-        <div className="document__table">
+        <div className={document__table.document__table}>
           <table>
             <thead>
               <tr className="product">
@@ -116,12 +126,12 @@ const Home = () => {
             </tbody>
           </table>
         </div>
-        <div className="document__controls">
+        <div className={document__controls.document__controls}>
           <a href="#" className="button button-default">Save</a>
           <a href="#" className="button">Cancel</a>
         </div>
       </div>
-      <div className="subsystems_view">
+      <div className={nav.nav}>
         <ul>
           <li>
             <a href="#"><img src="img/a.png" role="presentation" /><span>Arrival</span></a>

@@ -1,12 +1,13 @@
-.subsystems_view {
+.nav {
   background-color: #424242;
+  order: 3;
 }
 
-.subsystems_view li+li {
+.nav li+li {
   margin-top: 1em;
 }
 
-.subsystems_view a {
+.nav a {
   display: block;
   color: #FAFAFA;
   text-decoration: none;
@@ -14,16 +15,17 @@
   font-size: 13px;
 }
 
-.subsystems_view a span {
+.nav a span {
   display: block;
 }
 
-.subsystems_view a:hover, .subsystems_view a.current {
+.nav a:hover, .nav a.current {
   opacity: 1;
 }
 
-.subsystems_view a img{
+.nav a img{
   max-width: 36px;
   text-align: center;
   margin-bottom: .3em;
 }
+

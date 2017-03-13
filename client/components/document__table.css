@@ -1,14 +1,3 @@
-.document_view {
-  padding: 1em;
-  background-color: #E0E0E0;
-}
-
-.document_view > div + div {
-  margin-top: 1em;
-  display: block;
-  clear: both;
-}
-
 /* document__table */
 
 table {
