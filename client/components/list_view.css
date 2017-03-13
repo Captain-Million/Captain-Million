@@ -9,7 +9,7 @@
   clear: both;
 }
 
-.list_view span {
+.list_view .list__header {
   font-size: 1.5em;
   font-weight: 300;
   color: #212121;
@@ -23,6 +23,6 @@
   margin-top: .5em;
 }
 
-.list_view .selected {
+.selected {
   font-weight: 500;
 }

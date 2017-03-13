@@ -2,11 +2,6 @@
   Global CSS file
 */
 
-body, html {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-}
-
 .main {
   height: 100vh;
   display: -webkit-box;
@@ -16,6 +11,8 @@ body, html {
   display: flex;  
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
 }
 
 .main > div {
