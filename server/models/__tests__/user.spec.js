@@ -26,10 +26,11 @@ test('registerDate is set correctly for a new user', t => {
 test('User name is trimmed', t => {
   const name = 'I am awesome';
 
-  return User.create({ name: `  ${name}  `})
+  return User.create({ name: `  ${name}  ` })
     .then(user => t.is(user.name, name));
 });
 
 test('User cannot be created without a name', t => {
   t.throws(User.create({ foo: 'bar' }));
 });
+
