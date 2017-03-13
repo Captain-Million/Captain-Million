@@ -1,0 +1,29 @@
+.subsystems_view {
+  background-color: #424242;
+}
+
+.subsystems_view li+li {
+  margin-top: 1em;
+}
+
+.subsystems_view a {
+  display: block;
+  color: #FAFAFA;
+  text-decoration: none;
+  opacity: .7;
+  font-size: 13px;
+}
+
+.subsystems_view a span {
+  display: block;
+}
+
+.subsystems_view a:hover, .subsystems_view a.current {
+  opacity: 1;
+}
+
+.subsystems_view a img{
+  max-width: 36px;
+  text-align: center;
+  margin-bottom: .3em;
+}

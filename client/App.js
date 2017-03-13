@@ -10,6 +10,12 @@ import routes from './routes';
 
 // Base stylesheet
 require('./main.css');
+require('./components/reset.css');
+require('./components/document__controls.css');
+require('./components/document__header.css');
+require('./components/list_view.css');
+require('./components/document_view.css');
+require('./components/subsystems_view.css');
 
 export default function App(props) {
   return (

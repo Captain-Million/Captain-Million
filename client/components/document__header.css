@@ -1,0 +1,11 @@
+.document__header {
+  font-size: 1.5em;
+  color: #000;
+  font-weight: 300;
+}
+.header__type {
+  color: #777;
+}
+.header__id {
+  color: #444;
+}
