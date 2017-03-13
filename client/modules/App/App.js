@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
 // Import Style
-import styles from './App.css';
+/* NOTE:
+ * there is a wierd bug in this beta version of webpack that means that
+ * importing empty css files will cause all hell to break loose
+ * for more info see this https://github.com/Hashnode/mern-starter/issues/224
+*/
+const styles = {};
 
 // Import Components
 import Helmet from 'react-helmet';
@@ -14,7 +19,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.setState({ isMounted: true }); // eslint-disable-line
   }
 
   render() {

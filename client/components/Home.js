@@ -1,7 +1,10 @@
+/*  eslint camelcase:0  */
+// TODO: object names (lines 8 to 12) need to be in camelCase
+
 import React from 'react';
+import cn from 'classnames';
 
 // Import Style
-// 
 import main from './main.css'; // 100% OK
 import list_view from './list_view.css'; // 100% OK
 import document_container from './document_container.css'; // 100% OK
@@ -25,7 +28,8 @@ const Home = () => {
       </div>
       <div className={document_container.document_container}>
         <div className={document__header.document__header}>
-          <span className={document__header.header__type}>Inventory act</span> <span className={document__header.header__id}>17.01.17 10:12</span>
+          <span className={document__header.header__type}>Inventory act</span>
+          <span className={document__header.header__id}>17.01.17 10:12</span>
         </div>
         <div className={document__table.document__table}>
           <table>
@@ -44,90 +48,90 @@ const Home = () => {
                 <td className={document__table.text}><span>HP ProBook</span></td>
                 <td className={document__table.number}><span>1</span></td>
                 <td className={document__table.number}><span>1</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>2</span></td>
                 <td className={document__table.text}><span>Apple Macbook</span></td>
                 <td className={document__table.number}><span>12</span></td>
                 <td className={document__table.number}><span>12</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>3</span></td>
                 <td className={document__table.text}><span>Asus Gaming Laptop</span></td>
                 <td className={document__table.number}><span>2</span></td>
                 <td className={document__table.number}><span>1</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span>-1</span></td>
+                <td className={cn(document__table.number, document__table.results)}><span>-1</span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>4</span></td>
                 <td className={document__table.text}><span>HTC Hero</span></td>
                 <td className={document__table.number}><span>4</span></td>
                 <td className={document__table.number}><span>5</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span>+1</span></td>
+                <td className={cn(document__table.number, document__table.results)}><span>+1</span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>5</span></td>
                 <td className={document__table.text}><span>Samsung Galaxy</span></td>
                 <td className={document__table.number}><span>2</span></td>
                 <td className={document__table.number}><span>2</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>6</span></td>
                 <td className={document__table.text}><span>Apple iPhone</span></td>
                 <td className={document__table.number}><span>5</span></td>
                 <td className={document__table.number}><span>5</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>7</span></td>
                 <td className={document__table.text}><span>Sony Xperia</span></td>
                 <td className={document__table.number}><span>3</span></td>
                 <td className={document__table.number}><span>3</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>8</span></td>
                 <td className={document__table.text}><span>JavaScript book</span></td>
                 <td className={document__table.number}><span>3</span></td>
                 <td className={document__table.number}><span>3</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>9</span></td>
                 <td className={document__table.text}><span>Design Patterns book</span></td>
                 <td className={document__table.number}><span>1</span></td>
                 <td className={document__table.number}><span>2</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span>+1</span></td>
+                <td className={cn(document__table.number, document__table.results)}><span>+1</span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>10</span></td>
                 <td className={document__table.text}><span>Scala book</span></td>
                 <td className={document__table.number}><span>1</span></td>
                 <td className={document__table.number}><span>1</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>10</span></td>
                 <td className={document__table.text}><span>Clean Code book</span></td>
                 <td className={document__table.number}><span>2</span></td>
                 <td className={document__table.number}><span>2</span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
               <tr className="product">
                 <td className={document__table.line_number}><span>+</span></td>
                 <td className={document__table.text}><span></span></td>
                 <td className={document__table.number}><span></span></td>
                 <td className={document__table.number}><span></span></td>
-                <td className={`${document__table.number} ${document__table.results}`}><span></span></td>
+                <td className={cn(document__table.number, document__table.results)}><span></span></td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className={document__controls.document__controls}>
-          <a href="#" className={`${document__controls.button} ${document__controls.button_default}`}>Save</a>
+          <a href="#" className={cn(document__controls.button, document__controls.button_default)}>Save</a>
           <a href="#" className={document__controls.button}>Cancel</a>
         </div>
       </div>

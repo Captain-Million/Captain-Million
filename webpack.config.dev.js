@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     app: [
       'eventsource-polyfill',
+      'babel-polyfill',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
@@ -16,14 +17,14 @@ module.exports = {
     ],
     vendor: [
       'react',
-      'react-dom',
+      'react-dom'
     ],
   },
 
   output: {
     path: __dirname,
     filename: 'app.js',
-    publicPath: 'http://0.0.0.0:8000/',
+    publicPath: '/',
   },
 
   resolve: {
@@ -39,7 +40,20 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: 'style-loader!css-loader?CamelCase=true&localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              camelCase: true,
+              importLoaders: 1,
+              sourceMap: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          'postcss-loader'
+        ]
       }, {
         test: /\.css$/,
         include: /node_modules/,

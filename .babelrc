@@ -3,7 +3,11 @@
   "plugins": ["react-hot-loader/babel"],
   "env": {
     "production": {
-      "presets": ["es2015", "react", "react-optimize", "es2015-native-modules", "stage-0"]
+      "presets": ["es2015", "react", "react-optimize", "es2015-native-modules", "stage-0"],
+      "plugins": [
+        "transform-react-remove-prop-types",
+        "transform-react-constant-elements"
+      ]
     }
   }
 }

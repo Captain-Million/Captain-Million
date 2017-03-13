@@ -11,7 +11,7 @@ import routes from './routes';
 export default function App(props) {
   return (
     <Provider store={props.store}>
-      <Router history={browserHistory}>
+      <Router history={browserHistory} key={Math.random()}>
         {routes}
       </Router>
     </Provider>
