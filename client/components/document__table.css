@@ -1,0 +1,55 @@
+.document__table table {
+  width: 100%;
+  border-radius: 2px;
+}
+
+.document__table td, .document__table th {
+  border: 1px solid #d4d4d4;
+  font-size: 13px;
+  padding: .4em .4em .3em .4em;
+  color: #444;
+}
+
+.document__table td {
+  background-color: #fff;
+}
+
+.document__table th, .document__table td:first-child, .document__table tr:last-child td {
+  background-color: #f5f5f5;
+}
+
+.document__table th {
+  font-weight: 400;
+}
+
+.line_number  {
+  text-align: center;
+  padding-left: .7em;
+  padding-right: .7em;
+  width: auto;
+  background-color: red;
+}
+
+.number {
+  text-align: right;
+}
+
+.text {
+  text-align: left;
+}
+
+/* Active row */
+.document__table tr:hover td {
+  background-color: #eaeaea;
+}
+
+.document__table tr:hover td:first-child {
+  background-color: #c8c8c8;
+}
+
+/* results layer */
+.results {
+  color: #F4511E;
+  font-weight: 400;
+  background-color: #fafafa;
+}

@@ -1,0 +1,32 @@
+/* controls */
+.document__controls {
+  text-align: right;
+}
+
+.button + .button {
+  margin-left: 1em;
+}
+
+.button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+  font-weight: 300;
+  color: #212121;
+  background-color: #f5f5f5;
+  border: 1px solid #d4d4d4;
+  border-radius: 2px;
+  padding: .5em .7em .4em .7em;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  border-bottom-width: 3px;
+}
+
+.button_default {
+  border-bottom: 3px solid #424242;
+}
+
+.button:hover {
+  background-color: #f3f3f3;
+  border-bottom: 3px solid #4DD0E1;
+}

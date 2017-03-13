@@ -1,0 +1,20 @@
+/*
+  Global CSS file
+*/
+
+.main {
+  height: 100vh;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;  
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.main > div {
+  padding: 1em;
+}
