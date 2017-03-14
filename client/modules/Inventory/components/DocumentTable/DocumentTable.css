@@ -13,7 +13,7 @@
   color: #444;
 }
 
-.document__table th, .document__table td:first-child, .document__table tr:last-child td {
+.document__table th, .document__table td:first-child {
   background-color: #f5f5f5;
 }
 

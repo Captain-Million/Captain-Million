@@ -1,5 +1,4 @@
-
-.results {
+.product .results {
   color: #F4511E;
   font-weight: 400;
   background-color: #fafafa;
@@ -19,3 +18,4 @@
 .number {
   text-align: right;
 }
+

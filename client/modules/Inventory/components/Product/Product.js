@@ -3,14 +3,15 @@ import cn from 'classnames';
 
 import styles from './Product.css';
 
-const Product = () => {
+const Product = ({ lineNumber = '', name = '', expected = 0, actual = 0, divergence } = {}) => {
+  const divergenceDisplay = divergence || (actual - expected) || '';
   return (
     <tr className={styles.product}>
-      <td className={styles.line_number}><span>1</span></td>
-      <td className={styles.text}><span>HP ProBook</span></td>
-      <td className={styles.number}><span>1</span></td>
-      <td className={styles.number}><span>1</span></td>
-      <td className={cn(styles.number, styles.results)}><span></span></td>
+      <td className={styles.line_number}><span>{lineNumber}</span></td>
+      <td className={styles.text}><span>{name}</span></td>
+      <td className={styles.number}><span>{expected}</span></td>
+      <td className={styles.number}><span>{actual}</span></td>
+      <td className={cn(styles.number, styles.results)}><span>{divergenceDisplay}</span></td>
     </tr>
   );
 };
