@@ -59,41 +59,24 @@ app.use(bodyParser.urlencoded({
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 
 // Render Initial HTML
-const renderFullPage = (html, initialState) => {
+app.set('view engine', 'ejs');
+app.set('views', path.join(process.cwd(), 'views'));
+
+const renderFullPage = (initialView, initialState) => {
   const head = Helmet.rewind();
 
   // Import Manifests
   const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
   const chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        ${head.base.toString()}
-        ${head.title.toString()}
-        ${head.meta.toString()}
-        ${head.link.toString()}
-        ${head.script.toString()}
-
-        ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
-        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
-        <link rel="shortcut icon" href="" type="image/png" />
-      </head>
-      <body>
-        <div id="root">${html}</div>
-        <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-          ${process.env.NODE_ENV === 'production' ?
-      `//<![CDATA[
-          window.webpackManifest = ${JSON.stringify(chunkManifest)};
-          //]]>` : ''}
-        </script>
-        <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js'}'></script>
-        <script src='${process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js'}'></script>
-      </body>
-    </html>
-  `;
+  return {
+    isProduction: process.env.NODE_ENV === 'production',
+    head,
+    assetsManifest,
+    chunkManifest,
+    initialView,
+    initialState,
+  };
 };
 
 const renderError = err => {
@@ -104,7 +87,7 @@ const renderError = err => {
 };
 
 // Server Side Rendering based on routes matched by React-router.
-app.use((req, res, next) => {
+app.get('*', (req, res, next) => {
   match({
     routes,
     location: req.url,
@@ -132,10 +115,7 @@ app.use((req, res, next) => {
         );
         const finalState = store.getState();
 
-        res
-          .set('Content-Type', 'text/html')
-          .status(200)
-          .end(renderFullPage(initialView, finalState));
+        res.render('index', renderFullPage(initialView, finalState));
       })
       .catch((error) => next(error));
   });
