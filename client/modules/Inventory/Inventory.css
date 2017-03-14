@@ -1,9 +1,6 @@
-/*
-  Global CSS file
-*/
-
-.main {
-  height: 100vh;
+.inventory {
+  min-height: 100vh;
+  flex-direction: column;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -15,6 +12,6 @@
   font-weight: 300;
 }
 
-.main > div {
+.inventory > div {
   padding: 1em;
 }
