@@ -1,6 +1,6 @@
 import Inventory from '../models/inventory';
 
-function makeDocument({ doc, inventoryID }) {
+function makeDocument({ doc, inventoryID, userID }) {
   return Inventory.findById(inventoryID).exec()
     .then(inventory => {
       if (!inventory) throw new Error(`Inventory not found: ${inventoryID}`);
@@ -11,44 +11,36 @@ function makeDocument({ doc, inventoryID }) {
 
       if (!isValidContent) throw new Error('Unknown product!');
 
-      let operator;
-      switch (doc.act) {
-        case 'arrival':
-          operator = '$inc';
-          break;
-
-        case 'dispatch':
-          operator = '$inc';
-          break;
-
-        case 'inventory':
-          operator = '$set';
-          break;
-
-        default:
-          throw new Error(`Invalid ACT: ${doc.act}`);
-      }
-
-      const updates = {
-        $push: { documents: doc },
-        [operator]: {},
-      };
-
       doc.content.forEach(prod => {
-        const index = productList.findIndex(p => p === prod.name);
-        const value = doc.act === 'dispatch' ?
-          -1 * prod.quantity :
-          prod.quantity;
-        updates[operator][`products.${index}.quantity`] = value;
+        const prodToUpdate = inventory.products
+          .find(p => p.name === prod.name);
+        switch (doc.act) {
+          case 'arrival':
+            prodToUpdate.quantity += prod.quantity;
+            break;
+
+          case 'dispatch':
+            prodToUpdate.quantity -= prod.quantity;
+            break;
+
+          case 'inventory':
+            prodToUpdate.quantity = prod.quantity;
+            break;
+
+          default:
+            throw new Error(`Invalid ACT: ${doc.act}`);
+        }
       });
 
-      const options = {
-        new: true,
-        setDefaultsOnInsert: true,
-        runValidators: true,
-      };
+      inventory.documents.push({
+        ...doc,
+        lastEdit: {
+          user: userID,
+          date: new Date(),
+        },
+      });
 
-      return Inventory.findByIdAndUpdate(inventoryID, updates, options);
+      return inventory.save();
     });
 }
 
