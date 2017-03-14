@@ -1,6 +1,7 @@
 .nav {
   background-color: #424242;
   order: 3;
+  flex: 0 0;
 }
 
 .nav li+li {
@@ -28,4 +29,5 @@
   text-align: center;
   margin-bottom: .3em;
 }
+
 

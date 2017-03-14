@@ -1,0 +1,15 @@
+/* TODO: MIXIN */
+.line_number  {
+  text-align: center;
+  padding-left: .7em;
+  padding-right: .7em;
+  width: auto;
+  background-color: red;
+}
+.text {
+  text-align: left;
+}
+.number {
+  text-align: right;
+}
+
