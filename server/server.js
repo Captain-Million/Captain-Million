@@ -16,7 +16,10 @@ const app = new Express();
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
   app.use(webpackHotMiddleware(compiler));
 }
 
@@ -46,8 +49,13 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
-app.use(bodyParser.json({ limit: '20mb' }));
-app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
+app.use(bodyParser.json({
+  limit: '20mb'
+}));
+app.use(bodyParser.urlencoded({
+  limit: '20mb',
+  extended: false
+}));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 
 // Render Initial HTML
@@ -97,7 +105,10 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
+  match({
+    routes,
+    location: req.url
+  }, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end(renderError(err));
     }
@@ -115,7 +126,7 @@ app.use((req, res, next) => {
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
         const initialView = renderToString(
-          <Provider store={store}>
+          <Provider store={ store }>
             <RouterContext {...renderProps} />
           </Provider>
         );
@@ -133,7 +144,7 @@ app.use((req, res, next) => {
 // start app
 app.listen(serverConfig.port, (error) => {
   if (!error) {
-    console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+    console.log(`WMS proj. is running on port: ${serverConfig.port}!`); // eslint-disable-line
   }
 });
 

@@ -1,10 +1,10 @@
 {
   "name": "wms-proj",
   "version": "1.0.0",
-  "description": "",
+  "description": "Warehouse management, Data exchange, Advertising",
   "scripts": {
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
-    "watch:test": "npm run test -- --watch",
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/wms-proj node_modules/.bin/nyc node node_modules/.bin/ava",
+    "watch:test": "npm run test --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
     "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
@@ -22,17 +22,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/"
+    "url": "git+https://github.com/wms-proj/wms-proj.git"
   },
   "bugs": {
-    "url": "https://github.com/{placeholder}/issues"
+    "url": "https://github.com/wms-proj/wms-proj/issues"
   },
-  "homepage": "https://github.com/{placeholder}#readme",
-  "author": "Oussama Bouguerne <oussama.bouguerneg@gmail.com>, ",
+  "homepage": "https://github.com/wms-proj/wms-proj#readme",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.9.1",
     "body-parser": "^1.15.1",
+    "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "cross-env": "^1.0.8",
     "cuid": "^1.3.8",
@@ -56,8 +57,9 @@
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.3.2",
     "babel-plugin-webpack-loaders": "^0.7.0",
+    "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2015-native-modules": "^6.6.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.5.0",
@@ -77,6 +79,7 @@
     "eslint-plugin-react": "^5.1.1",
     "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.10.1",
     "jsdom": "^9.2.1",
     "json-loader": "^0.5.4",
     "mock-css-modules": "^1.0.0",
