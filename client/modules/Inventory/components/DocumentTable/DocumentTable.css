@@ -1,6 +1,9 @@
 .document__table table {
   width: 100%;
-  border-radius: 2px;
+}
+
+.document__table td {
+  background-color: #fff;
 }
 
 .document__table td, .document__table th {
@@ -10,10 +13,6 @@
   color: #444;
 }
 
-.document__table td {
-  background-color: #fff;
-}
-
 .document__table th, .document__table td:first-child, .document__table tr:last-child td {
   background-color: #f5f5f5;
 }
@@ -21,6 +20,17 @@
 .document__table th {
   font-weight: 400;
 }
+
+/* Active row */
+.document__table tr:hover td {
+  background-color: #eaeaea;
+}
+
+.document__table tr:hover td:first-child {
+  background-color: #c8c8c8;
+}
+
+/* TODO: MIXIN */
 
 .line_number  {
   text-align: center;
@@ -36,20 +46,4 @@
 
 .text {
   text-align: left;
-}
-
-/* Active row */
-.document__table tr:hover td {
-  background-color: #eaeaea;
-}
-
-.document__table tr:hover td:first-child {
-  background-color: #c8c8c8;
-}
-
-/* results layer */
-.results {
-  color: #F4511E;
-  font-weight: 400;
-  background-color: #fafafa;
 }

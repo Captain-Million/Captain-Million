@@ -1,16 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 
-// Import Style
+import DevTools from './components/DevTools';
+
 /* NOTE:
  * there is a wierd bug in this beta version of webpack that means that
  * importing empty css files will cause all hell to break loose
  * for more info see this https://github.com/Hashnode/mern-starter/issues/224
 */
 const styles = {};
-
-// Import Components
-import Helmet from 'react-helmet';
-import DevTools from './components/DevTools';
 
 export class App extends Component {
   constructor(props) {
@@ -28,8 +26,8 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            title="Default"
+            titleTemplate="%s - WMS proj."
             meta={[
               { charset: 'utf-8' },
               {

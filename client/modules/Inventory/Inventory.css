@@ -1,8 +1,4 @@
-/*
-  Global CSS file
-*/
-
-.main {
+.inventory {
   height: 100vh;
   display: -webkit-box;
   display: -moz-box;
@@ -15,6 +11,6 @@
   font-weight: 300;
 }
 
-.main > div {
+.inventory > div {
   padding: 1em;
 }
