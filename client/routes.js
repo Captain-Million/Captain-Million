@@ -4,11 +4,14 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './modules/App/App';
 import Inventory from './modules/Inventory/Inventory';
-import Navigation from './modules/Inventory/components/Navigation/Navigation';
+import LandingPage from './modules/LandingPage/LandingPage';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={Inventory} />
-    <Route path="/nav" component={Navigation} />
+    <IndexRoute component={LandingPage} />
+    <Route path="/wms" component={Inventory}>
+      <Route path="/wms/inventory" component={Inventory} />
+    </Route>
+    <Route path="*" component={LandingPage} />
   </Route>
 );

@@ -3,12 +3,7 @@ import Helmet from 'react-helmet';
 
 import DevTools from './components/DevTools';
 
-/* NOTE:
- * there is a wierd bug in this beta version of webpack that means that
- * importing empty css files will cause all hell to break loose
- * for more info see this https://github.com/Hashnode/mern-starter/issues/224
-*/
-const styles = {};
+import styles from './App.css';
 
 export class App extends Component {
   constructor(props) {
