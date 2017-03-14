@@ -19,7 +19,7 @@
     <script>
       window.__INITIAL_STATE__ = <%- JSON.stringify(initialState) %>;
       <% if (isProduction) {%>
-        window.webpackManifest = <%- JSON.stringify(chunkManifest) %>;
+        window.webpackManifest = <%- JSON.stringify(chunkManifest).replace(/</g, '\\u003c') %>;
       <% } %>
     </script>
     <% if (isProduction) {%>
