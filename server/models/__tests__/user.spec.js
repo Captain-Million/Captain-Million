@@ -9,8 +9,10 @@ test.before(() => mongoose.connect(serverConfig.mongoURL));
 
 test.beforeEach(() => User.remove({}));
 
-test('User can be created with a name', () => {
-  return User.create({ name: 'John Doe' });
+test('User has a name', t => {
+  const name = 'John Doe';
+  return User.create({ name })
+    .then(user => t.is(user.name, name));
 });
 
 test('registerDate is set correctly for a new user', t => {
