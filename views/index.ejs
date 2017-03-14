@@ -17,7 +17,7 @@
   <body>
     <div id="root"><%- initialView %></div>
     <script>
-      window.__INITIAL_STATE__ = <%- JSON.stringify(initialState) %>;
+      window.__INITIAL_STATE__ = <%- JSON.stringify(initialState).replace(/</g, '\\u003c') %>;
       <% if (isProduction) {%>
         window.webpackManifest = <%- JSON.stringify(chunkManifest).replace(/</g, '\\u003c') %>;
       <% } %>
