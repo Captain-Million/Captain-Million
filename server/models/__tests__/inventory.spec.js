@@ -6,8 +6,8 @@ import config from '../../config';
 mongoose.Promise = Promise;
 
 test.before(() => mongoose.connect(config.mongoURL));
-
-test.beforeEach(() => Inventory.remove({}));
+test.before(() => Inventory.remove({}));
+test.after.always(() => mongoose.disconnect());
 
 const owners = ['58c6b51d7ecdf50770494ba7'];
 const products = [{ name: 'foo', quantity: 42 }];

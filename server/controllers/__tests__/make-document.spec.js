@@ -8,6 +8,7 @@ import config from '../../config';
 
 test.before(() => populateDemoData(config.mongoURL));
 test.before(() => mongoose.connect(config.mongoURL));
+test.after.always(() => mongoose.disconnect());
 
 test('creates an arrival document', t => {
   const productIndex = 0;
@@ -115,6 +116,18 @@ test('creates an inventory document', t => {
       doc.lastEdit.date >= now
     )
   )));
+});
+
+test('fails invalid inventoryID', t => {
+  const newDoc = {
+    act: 'arrival',
+    content: [{ name: demoInventory.products[0].name, quantity: 0 }],
+  };
+  t.throws(makeDocument({
+    doc: newDoc,
+    inventoryID: 'invalid',
+    userID: demoUser._id,
+  }));
 });
 
 test('fails invalid act', t => {

@@ -8,6 +8,7 @@ import identifyUser from '../identify-user';
 
 test.before(() => populateDemoData(config.mongoURL));
 test.before(() => mongoose.connect(config.mongoURL));
+test.after.always(() => mongoose.disconnect());
 
 test('identify demo user without creating a new user', t => {
   return identifyUser({ name: demoUser.name })

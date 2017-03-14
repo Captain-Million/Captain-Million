@@ -6,8 +6,8 @@ import serverConfig from '../../config';
 mongoose.Promise = Promise;
 
 test.before(() => mongoose.connect(serverConfig.mongoURL));
-
-test.beforeEach(() => User.remove({}));
+test.before(() => User.remove({}));
+test.after.always(() => mongoose.disconnect());
 
 test('User has a name', t => {
   const name = 'John Doe';
