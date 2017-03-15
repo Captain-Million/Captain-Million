@@ -37,6 +37,8 @@ const inventorySchema = new mongoose.Schema({
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         date: { type: Date, default: Date.now },
       },
+      createDate: { type: Date, default: Date.now },
+      title: { type: String, trim: true, default: 'Untitled' },
     }],
     default: [],
   },

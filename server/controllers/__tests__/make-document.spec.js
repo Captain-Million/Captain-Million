@@ -10,7 +10,7 @@ test.before(() => populateDemoData(config.mongoURL));
 test.before(() => mongoose.connect(config.mongoURL));
 test.after.always(() => mongoose.disconnect());
 
-test('creates an arrival document', t => {
+test('creates an arrival document with custom title', t => {
   const productIndex = 0;
   const increment = 1999;
 
@@ -20,6 +20,7 @@ test('creates an arrival document', t => {
       name: demoInventory.products[productIndex].name,
       quantity: increment,
     }],
+    title: 'My awesome arrival doc',
   };
 
   const now = Date.now();
@@ -41,12 +42,13 @@ test('creates an arrival document', t => {
       doc.content[0].quantity === newDoc.content[0].quantity &&
       doc.lastEdit.user.toString() === demoUser._id &&
       doc.lastEdit.date <= Date.now() &&
-      doc.lastEdit.date >= now
+      doc.lastEdit.date >= now &&
+      doc.title === newDoc.title
     )
   )));
 });
 
-test('creates a dispatch document', t => {
+test('creates a dispatch document with default title', t => {
   const productIndices = [1, 4];
   const decrement = 3;
 
@@ -59,6 +61,7 @@ test('creates a dispatch document', t => {
   };
 
   const now = Date.now();
+  const defaultTitle = 'Untitled';
 
   return makeDocument({
     doc: newDoc,
@@ -72,6 +75,7 @@ test('creates a dispatch document', t => {
     return inventory;
   }).then(inventory => t.true(inventory.documents.some(
     doc => (
+      doc.title === defaultTitle &&
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
       doc.content[0].quantity === newDoc.content[0].quantity &&
@@ -82,7 +86,7 @@ test('creates a dispatch document', t => {
   )));
 });
 
-test('creates an inventory document', t => {
+test('creates an inventory document with trimmed title', t => {
   const productIndices = [2, 3];
   const value = 42;
 
@@ -92,6 +96,7 @@ test('creates an inventory document', t => {
       name: demoInventory.products[idx].name,
       quantity: value,
     })),
+    title: '  a title with some leading and trailing spaces   ',
   };
 
   const now = Date.now();
@@ -108,6 +113,7 @@ test('creates an inventory document', t => {
     return inventory;
   }).then(inventory => t.true(inventory.documents.some(
     doc => (
+      doc.title === newDoc.title.trim() &&
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
       doc.content[0].quantity === newDoc.content[0].quantity &&
