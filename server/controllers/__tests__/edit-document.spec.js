@@ -71,4 +71,14 @@ test('edit inventory document', testEditDocument({
   prodIdx: 6,
 }));
 
-test('reject invalid documentID', t => t.pass());
+test('reject invalid documentID', t => {
+  const doc = {
+    _id: '58c906e4a8ef4699685e07a6',
+    act: 'arrival',
+    content: [{ name: 'xyz', quantity: 42 }],
+  };
+
+  const userID = '58c8f13cf8cdbcbeb3660d3c';
+
+  t.throws(editDocument({ doc, userID }));
+});
