@@ -2,7 +2,6 @@ import test from 'ava';
 import mongoose from 'mongoose';
 import editDocument from '../edit-document';
 import demoInventory from '../../../__demo-data/demo-inventory';
-import demoUser from '../../../__demo-data/demo-user';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import config from '../../config';
 
@@ -15,9 +14,9 @@ function testEditDocument({
   contentIdx,
   prodIdx,
   expectQuantity,
-  quantity
+  quantity,
 }) {
-  return function(t) {
+  return t => {
     const doc = { ...demoInventory.documents[docIdx] };
     doc.content[contentIdx] = {
       ...demoInventory.documents[docIdx].content[contentIdx],
