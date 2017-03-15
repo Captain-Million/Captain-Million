@@ -1,4 +1,5 @@
 import Inventory from '../models/inventory';
+import computeProductList from './compute-product-list';
 
 function makeDocument({ doc, inventoryID, userID }) {
   return Inventory.findById(inventoryID).exec()
@@ -11,26 +12,10 @@ function makeDocument({ doc, inventoryID, userID }) {
 
       if (!isValidContent) throw new Error('Unknown product!');
 
-      doc.content.forEach(prod => {
-        const prodToUpdate = inventory.products
-          .find(p => p.name === prod.name);
-        switch (doc.act) {
-          case 'arrival':
-            prodToUpdate.quantity += prod.quantity;
-            break;
-
-          case 'dispatch':
-            prodToUpdate.quantity -= prod.quantity;
-            break;
-
-          case 'inventory':
-            prodToUpdate.quantity = prod.quantity;
-            break;
-
-          default:
-            throw new Error(`Invalid ACT: ${doc.act}`);
-        }
-      });
+      return inventory;
+    })
+    .then(inventory => {
+      computeProductList(inventory, doc, true);
 
       inventory.documents.push({
         ...doc,
@@ -45,3 +30,4 @@ function makeDocument({ doc, inventoryID, userID }) {
 }
 
 export default makeDocument;
+

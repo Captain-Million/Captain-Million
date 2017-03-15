@@ -118,19 +118,19 @@ test('creates an inventory document', t => {
   )));
 });
 
-test('fails invalid inventoryID', t => {
+test('reject invalid inventoryID', t => {
   const newDoc = {
     act: 'arrival',
     content: [{ name: demoInventory.products[0].name, quantity: 0 }],
   };
   t.throws(makeDocument({
     doc: newDoc,
-    inventoryID: 'invalid',
+    inventoryID: '58c8e2ad945588d256721488',
     userID: demoUser._id,
   }));
 });
 
-test('fails invalid act', t => {
+test('reject invalid act', t => {
   const newDoc = {
     act: 'invalid',
     content: [{ name: demoInventory.products[0].name, quantity: 0 }],
@@ -142,7 +142,7 @@ test('fails invalid act', t => {
   }));
 });
 
-test('fails invalid product', t => {
+test('reject invalid product', t => {
   const newDoc = {
     act: 'arrival',
     content: [{ name: 'invalid', quantity: 0 }],
@@ -154,7 +154,7 @@ test('fails invalid product', t => {
   }));
 });
 
-test('fails dispatch act that exceeds quantity in-stock', t => {
+test('reject dispatch act that exceeds quantity in-stock', t => {
   const newDoc = {
     act: 'dispatch',
     content: [{ name: demoInventory.products[6].name, quantity: 999999 }],
