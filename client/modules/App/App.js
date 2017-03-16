@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 import DevTools from './components/DevTools';
 
-import styles from './App.css';
+const styles = {}; // keep this until we switch to webpack 2.2 (it's a dirty bug fix)
 
 export class App extends Component {
   constructor(props) {
