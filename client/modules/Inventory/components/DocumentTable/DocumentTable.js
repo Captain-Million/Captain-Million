@@ -7,10 +7,10 @@ import styles from './DocumentTable.css';
 
 const DocumentTable = ({ products = [] } = {}) => {
   const productsList = products.map((item, index) => {
-    const getExpectedQuentity = Math.floor(Math.random() * 2);
+    const getExpectedQuantity = Math.floor(Math.random() * 2);
     const lineNumber = index + 1;
     return (
-      <Product lineNumber={lineNumber} expected={getExpectedQuentity} name={item.name} actual={item.quantity} />
+      <Product lineNumber={lineNumber} expected={getExpectedQuantity} name={item.name} actual={item.quantity} key={item._id} />
     );
   });
   return (
@@ -18,9 +18,6 @@ const DocumentTable = ({ products = [] } = {}) => {
       <table>
         <DocumentTableHeading />
         <tbody>
-          {productsList}
-          {productsList}
-          {productsList}
           {productsList}
         </tbody>
       </table>
