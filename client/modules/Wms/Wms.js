@@ -3,9 +3,9 @@ import Helmet from 'react-helmet';
 
 import DevTools from './components/DevTools';
 
-import styles from './App.css';
+import styles from './Wms.css';
 
-export class App extends Component {
+export class Wms extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
@@ -35,7 +35,7 @@ export class App extends Component {
               },
             ]}
           />
-          <div className={styles.container}>
+          <div className={styles.wms}>
             {this.props.children}
           </div>
         </div>
@@ -44,8 +44,8 @@ export class App extends Component {
   }
 }
 
-App.propTypes = {
+Wms.propTypes = {
   children: PropTypes.object.isRequired,
 };
 
-export default App;
+export default Wms;
