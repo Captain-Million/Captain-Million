@@ -1,13 +1,20 @@
 import test from 'ava';
 import mongoose from 'mongoose';
+import { Mockgoose } from 'mockgoose';
 import makeDocument from '../make-document';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import demoUser from '../../../__demo-data/demo-user';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import config from '../../config';
 
-test.before(() => populateDemoData(config.mongoURL));
-test.before(() => mongoose.connect(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 test('creates an arrival document with custom title', t => {

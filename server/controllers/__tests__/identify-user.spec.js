@@ -1,13 +1,20 @@
 import test from 'ava';
 import mongoose from 'mongoose';
-import config from '../../config';
+import { Mockgoose } from 'mockgoose';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import demoUser from '../../../__demo-data/demo-user';
 import User from '../../models/user';
 import identifyUser from '../identify-user';
+import config from '../../config';
 
-test.before(() => populateDemoData(config.mongoURL));
-test.before(() => mongoose.connect(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 test('identify demo user without creating a new user', t => {

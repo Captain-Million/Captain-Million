@@ -1,12 +1,19 @@
 import test from 'ava';
 import mongoose from 'mongoose';
+import { Mockgoose } from 'mockgoose';
 import editDocument from '../edit-document';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import config from '../../config';
 
-test.before(() => mongoose.connect(config.mongoURL));
-test.before(() => populateDemoData(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 function testEditDocument({
@@ -81,3 +88,4 @@ test('reject invalid documentID', t => {
 
   t.throws(editDocument({ doc, userID }));
 });
+

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Warehouse management, Data exchange, Advertising",
   "scripts": {
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/wms-proj nyc ava",
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/wms-proj nyc ava --serial",
     "watch:test": "npm run test --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",

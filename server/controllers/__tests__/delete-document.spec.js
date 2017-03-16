@@ -8,12 +8,13 @@ import deleteDocument from '../delete-document';
 import config from '../../config';
 
 test.before(() => {
+  mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
 
   return mockgoose.prepareStorage()
     .then(() => mongoose.connect(config.mongoURL));
 });
-test.before(() => populateDemoData(config.mongoURL));
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 test('delete and revert an inventory document', t => {
