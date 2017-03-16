@@ -1,9 +1,16 @@
 import test from 'ava';
 import mongoose from 'mongoose';
+import { Mockgoose } from 'mockgoose';
 import createInventory from '../create-inventory';
 import config from '../../config';
 
-test.before(() => mongoose.connect(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
 test.after.always(() => mongoose.disconnect());
 
 test('create a new empty inventory and add user as owner', t => {

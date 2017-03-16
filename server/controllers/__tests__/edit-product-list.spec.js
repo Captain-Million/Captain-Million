@@ -1,12 +1,19 @@
 import test from 'ava';
 import mongoose from 'mongoose';
+import { Mockgoose } from 'mockgoose';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import editProductList from '../edit-product-list';
 import config from '../../config';
 
-test.before(() => mongoose.connect(config.mongoURL));
-test.before(() => populateDemoData(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 test('add a new product', t => {

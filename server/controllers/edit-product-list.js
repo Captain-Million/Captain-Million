@@ -28,7 +28,16 @@ function editProductList({ editedProductNames, inventoryID }) {
 
       inventory.products = newProductList;
 
-      return inventory.save();
+      return Inventory.findByIdAndUpdate(inventory._id, inventory, {
+        new: true,
+        upsert: false,
+        runValidators: true,
+      }).exec()
+        .then(updatedInventory => {
+          if (!updatedInventory) throw new Error('Fail to edit!');
+
+          return updatedInventory;
+        });
     });
 }
 

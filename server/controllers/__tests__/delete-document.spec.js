@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Mockgoose } from 'mockgoose';
 import test from 'ava';
 import Inventory from '../../models/inventory';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
@@ -6,16 +7,22 @@ import demoInventory from '../../../__demo-data/demo-inventory';
 import deleteDocument from '../delete-document';
 import config from '../../config';
 
-test.before(() => populateDemoData(config.mongoURL));
-test.before(() => mongoose.connect(config.mongoURL));
+test.before(() => {
+  mongoose.Promise = Promise;
+  const mockgoose = new Mockgoose(mongoose);
+
+  return mockgoose.prepareStorage()
+    .then(() => mongoose.connect(config.mongoURL));
+});
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('delete and revert a dispatch document', t => {
-  const documentID = demoInventory.documents[2]._id;
+test('delete and revert an inventory document', t => {
+  const documentID = demoInventory.documents[9]._id;
 
   return deleteDocument({ documentID })
     .then(inventory => {
-      t.is(inventory.products[0].quantity, 4);
+      t.is(inventory.products[1].quantity, 3);
       t.falsy(inventory.documents.find(
         doc => doc._id.toString() === documentID
       ));
@@ -34,12 +41,12 @@ test('delete and revert an arrival document', t => {
     });
 });
 
-test('delete and revert an inventory document', t => {
-  const documentID = demoInventory.documents[9]._id;
+test('delete and revert a dispatch document', t => {
+  const documentID = demoInventory.documents[2]._id;
 
   return deleteDocument({ documentID })
     .then(inventory => {
-      t.is(inventory.products[1].quantity, 3);
+      t.is(inventory.products[0].quantity, 4);
       t.falsy(inventory.documents.find(
         doc => doc._id.toString() === documentID
       ));

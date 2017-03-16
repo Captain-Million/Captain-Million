@@ -9,16 +9,25 @@ function deleteDocument({ documentID }) {
       if (!inventory) throw new Error(`Invalid document ID: ${documentID}`);
 
       // remove the document
-      const indexToDelete = inventory.documents.findIndex(
+      const docToDelete = inventory.documents.find(
         doc => doc._id.toString() === documentID
       );
-      const docToDelete = inventory.documents.splice(indexToDelete, 1)[0];
+      inventory.documents.pull({ _id: documentID });
 
-      // revert the document
+      // revert the state
       computeProductList(inventory, docToDelete, false);
 
       // save and validate the inventory
-      return inventory.save();
+      return Inventory.findByIdAndUpdate(inventory._id, inventory, {
+        upsert: false,
+        new: true,
+        runValidators: true,
+      }).exec()
+        .then(updatedInventory => {
+          if (!updatedInventory) throw new Error('Fail to update!');
+
+          return updatedInventory;
+        });
     });
 }
 

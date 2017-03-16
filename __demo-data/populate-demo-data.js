@@ -19,7 +19,7 @@ function populateDemoData(mongoURL = config.mongoURL) {
       User.create(demoUser),
       Inventory.create(demoInventory),
     ]))
-    .then(() => console.log(`Successfully populated database with demo data at ${mongoURL}`))
+    .then(() => console.log(`Successfully populated database with demo data at mongodb://${mongoose.connection.host}:${mongoose.connection.port}/${mongoose.connection.name}`))
     .catch(err => console.error(`Fail to populate database: ${err}`))
     .then(() => shouldHandleConnect && mongoose.disconnect());
 }

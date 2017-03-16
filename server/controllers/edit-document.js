@@ -26,7 +26,16 @@ function editDocument({ doc, userID, documentID = doc._id }) {
         computeProductList(inventory, doc, true);
       }
 
-      return inventory.save();
+      return Inventory.findByIdAndUpdate(inventory._id, inventory, {
+        new: true,
+        upsert: false,
+        runValidators: true,
+      }).exec()
+        .then(updatedInventory => {
+          if (!updatedInventory) throw new Error('Fail to edit!');
+
+          return updatedInventory;
+        });
     });
 }
 
