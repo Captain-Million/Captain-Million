@@ -1,17 +1,12 @@
-.inventory {
+.wms > div {
   min-height: 100vh;
   flex-direction: column;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
 
-.inventory > div {
+.wms > div > div {
   padding: 1em;
 }
