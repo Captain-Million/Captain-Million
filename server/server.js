@@ -33,7 +33,7 @@ import Helmet from 'react-helmet';
 
 // Import required modules
 import routes from '../client/routes';
-import { fetchComponentData } from './util/fetchData';
+import { fetchComponentData } from './util/fetchData'; // falls with error, never used before
 import serverConfig from './config';
 
 // Set native promises as mongoose promise
