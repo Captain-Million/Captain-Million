@@ -102,6 +102,11 @@ const documents = [{
   lastEdit: { user: demoUser._id, date: new Date(2017, 0, 17, 13, 17) },
 }];
 
-const demoInventory = { owners, products, documents };
+const demoInventory = {
+  owners,
+  products,
+  documents,
+  _id: '564a4a24f63d409f526659c4',
+};
 
 module.exports = demoInventory;

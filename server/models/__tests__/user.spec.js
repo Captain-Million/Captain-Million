@@ -6,8 +6,8 @@ import serverConfig from '../../config';
 mongoose.Promise = Promise;
 
 test.before(() => mongoose.connect(serverConfig.mongoURL));
-
-test.beforeEach(() => User.remove({}));
+test.before(() => User.remove({}));
+test.after.always(() => mongoose.disconnect());
 
 test('User has a name', t => {
   const name = 'John Doe';
@@ -15,13 +15,15 @@ test('User has a name', t => {
     .then(user => t.is(user.name, name));
 });
 
-test('registerDate is set correctly for a new user', t => {
+test('registerDate and lastActivity set correctly for a new user', t => {
   const now = Date.now();
 
   return User.create({ name: 'Foo Bar' })
     .then(user => t.true(
       user.registerDate >= now &&
-      user.registerDate <= Date.now()
+      user.registerDate <= Date.now() &&
+      user.lastActivity >= now &&
+      user.lastActivity <= Date.now()
     ));
 });
 

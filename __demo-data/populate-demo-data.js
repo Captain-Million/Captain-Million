@@ -7,8 +7,10 @@ import config from '../server/config';
 
 mongoose.Promise = global.Promise;
 
-function populateDemoData(mongoURL) {
-  return mongoose.connect(mongoURL || config.mongoURL)
+function populateDemoData(mongoURL = config.mongoURL) {
+  const shouldHandleConnect = mongoose.connection.readyState !== 1;
+
+  return Promise.resolve(shouldHandleConnect && mongoose.connect(mongoURL))
     .then(() => global.Promise.all([
       User.remove({}),
       Inventory.remove({}),
@@ -17,8 +19,9 @@ function populateDemoData(mongoURL) {
       User.create(demoUser),
       Inventory.create(demoInventory),
     ]))
-    .then(() => console.log(`Successfully populated database with demo data at ${config.mongoURL}`))
-    .then(() => mongoose.disconnect());
+    .then(() => console.log(`Successfully populated database with demo data at ${mongoURL}`))
+    .catch(err => console.error(`Fail to populate database: ${err}`))
+    .then(() => shouldHandleConnect && mongoose.disconnect());
 }
 
 export default populateDemoData;

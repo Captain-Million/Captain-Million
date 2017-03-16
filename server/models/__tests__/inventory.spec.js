@@ -6,8 +6,8 @@ import config from '../../config';
 mongoose.Promise = Promise;
 
 test.before(() => mongoose.connect(config.mongoURL));
-
-test.beforeEach(() => Inventory.remove({}));
+test.before(() => Inventory.remove({}));
+test.after.always(() => mongoose.disconnect());
 
 const owners = ['58c6b51d7ecdf50770494ba7'];
 const products = [{ name: 'foo', quantity: 42 }];
@@ -53,19 +53,23 @@ test('Quantity of a product defaults to 0', t => {
 
 test('Inventory has a documents array', t => {
   const documents = [
-    { act: 'arrival', content: products },
-    { act: 'dispatch', content: products },
-    { act: 'inventory', content: products },
+    { act: 'arrival', content: products, title: 'my title' },
+    { act: 'dispatch', content: products, title: 'my title 2' },
+    { act: 'inventory', content: products, title: 'foo bar baz' },
   ];
+  const now = Date.now();
+
   return Inventory.create({ owners, documents }).
     then(inventory => {
       const invDocuments = inventory.documents.map(doc => {
-        const { act, content } = doc;
+        const { act, content, title, createDate } = doc;
+        t.true(createDate >= now);
+        t.true(createDate <= Date.now());
         const parsedContent = content.map(prod => {
           const { name, quantity } = prod;
           return { name, quantity };
         });
-        return { act, content: parsedContent };
+        return { act, title, content: parsedContent };
       });
 
       t.deepEqual(invDocuments, documents);

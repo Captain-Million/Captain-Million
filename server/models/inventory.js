@@ -16,7 +16,7 @@ const inventorySchema = new mongoose.Schema({
 
   products: {
     type: [{
-      name: { type: String, required: true },
+      name: { type: String, required: true, trim: true },
       quantity: { type: Number, default: 0, min: 0 },
     }],
     default: [],
@@ -27,7 +27,7 @@ const inventorySchema = new mongoose.Schema({
       act: { type: String, enum: ['arrival', 'dispatch', 'inventory'] },
       content: {
         type: [{
-          name: { type: String, required: true },
+          name: { type: String, required: true, trim: true },
           quantity: { type: Number, required: true },
         }],
         required: true,
@@ -37,6 +37,8 @@ const inventorySchema = new mongoose.Schema({
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         date: { type: Date, default: Date.now },
       },
+      createDate: { type: Date, default: Date.now },
+      title: { type: String, trim: true, default: 'Untitled' },
     }],
     default: [],
   },
