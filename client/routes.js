@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import Wms from './modules/Wms/Wms';
@@ -8,8 +8,17 @@ import Inventory from './modules/Wms/components/Inventory/Inventory';
 import Landing from './modules/Landing/Landing';
 import Home from './components/Home/Home';
 
+class Wrapper extends Component {
+  render() {
+    return this.props.children;
+  }
+}
+Wrapper.propTypes = {
+  children: PropTypes.object.isRequired,
+};
+
 export default (
-  <Route>
+  <Route component={Wrapper}>
     <Route path="/wms" component={Wms}>
       <IndexRoute component={Inventory} />
       <Route path="/wms/arrival" component={Inventory} />
