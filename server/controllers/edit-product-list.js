@@ -11,10 +11,11 @@ function editProductList({ editedProductNames, inventoryID }) {
         throw new Error(`Invalid inventoryID: ${inventoryID}`);
       }
 
+      const updatedInventory = inventory;
       const trimmedNames = editedProductNames.map(name => name.trim());
 
       // keep existing products that match the provided names
-      const newProductList = inventory.products.filter(
+      const newProductList = updatedInventory.products.filter(
         product => trimmedNames.includes(product.name)
       );
 
@@ -26,18 +27,19 @@ function editProductList({ editedProductNames, inventoryID }) {
         newProductList.push({ name });
       });
 
-      inventory.products = newProductList;
+      updatedInventory.products = newProductList;
 
-      return Inventory.findByIdAndUpdate(inventory._id, inventory, {
-        new: true,
-        upsert: false,
-        runValidators: true,
-      }).exec()
-        .then(updatedInventory => {
-          if (!updatedInventory) throw new Error('Fail to edit!');
+      return Inventory.findByIdAndUpdate(updatedInventory._id,
+        updatedInventory, {
+          new: true,
+          upsert: false,
+          runValidators: true,
+        })
+        .exec();
+    }).then(updatedInventory => {
+      if (!updatedInventory) throw new Error('Fail to edit!');
 
-          return updatedInventory;
-        });
+      return updatedInventory;
     });
 }
 

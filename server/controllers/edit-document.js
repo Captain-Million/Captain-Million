@@ -8,22 +8,24 @@ function editDocument({ doc, userID, documentID = doc._id }) {
     .then(inventory => {
       if (!inventory) throw new Error(`Invalid documentID: ${documentID}`);
 
-      doc.lastEdit.user = userID;
-      doc.lastEdit.date = new Date();
+      const editedDoc = doc;
+
+      editedDoc.lastEdit.user = userID;
+      editedDoc.lastEdit.date = new Date();
 
       const docIndex = inventory.documents.findIndex(
-        doc => doc._id.toString() === documentID
+        document => document._id.toString() === documentID
       );
 
-      const prevDoc = inventory.documents.splice(docIndex, 1, doc)[0];
+      const prevDoc = inventory.documents.splice(docIndex, 1, editedDoc)[0];
 
-      if (doc.act === 'inventory' || prevDoc.act === 'inventory') {
+      if (editedDoc.act === 'inventory' || prevDoc.act === 'inventory') {
         computeProductList(inventory);
       } else {
         // avoid reapplying all existing documents if
         // no inventory act involved
         computeProductList(inventory, prevDoc, false);
-        computeProductList(inventory, doc, true);
+        computeProductList(inventory, editedDoc, true);
       }
 
       return Inventory.findByIdAndUpdate(inventory._id, inventory, {
