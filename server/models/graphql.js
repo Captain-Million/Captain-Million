@@ -58,9 +58,16 @@ const schema = buildSchema(`
     act: Act!
     content: [ProductInput]!
     title: String
+    lastEdit: LastEditInfoInput
+    createDate: String
   }
 
   type LastEditInfo {
+    user: ID
+    date: String
+  }
+
+  input LastEditInfoInput {
     user: ID
     date: String
   }
