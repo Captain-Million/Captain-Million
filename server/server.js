@@ -10,10 +10,9 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 // React And Redux Requirements
-import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import { match } from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
@@ -25,7 +24,7 @@ import serverConfig from './config';
 import config from '../webpack.config.dev';
 
 // React And Redux Setup
-import { configureStore } from '../client/store';
+import configureStore from '../client/store';
 
 // Initialize the Express App
 const app = new Express();
