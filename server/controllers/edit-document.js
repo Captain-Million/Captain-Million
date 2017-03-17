@@ -8,7 +8,7 @@ function editDocument({ doc, userID, documentID = doc._id }) {
     .then(inventory => {
       if (!inventory) throw new Error(`Invalid documentID: ${documentID}`);
 
-      const editedDoc = doc;
+      const editedDoc = { ...doc };
 
       editedDoc.lastEdit.user = userID;
       editedDoc.lastEdit.date = new Date();
