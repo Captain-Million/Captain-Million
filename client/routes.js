@@ -14,7 +14,7 @@ class Wrapper extends Component {
   }
 }
 Wrapper.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default (

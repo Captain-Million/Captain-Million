@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import DevTools from './modules/Wms/components/DevTools';
 import rootReducer from './reducers';
 
-export function configureStore(initialState = {}) {
+export default function configureStore(initialState = {}) {
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),

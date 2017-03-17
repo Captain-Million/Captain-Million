@@ -1,7 +1,7 @@
 /*
 Utility function to fetch required data for component to render in server side.
 */
-import { sequence } from './promiseUtils';
+import sequence from './promiseUtils';
 
 export default function fetchComponentData(store, components, params) {
   const needs = components.reduce((prev, current) => {

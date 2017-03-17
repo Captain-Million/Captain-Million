@@ -6,9 +6,25 @@ import path from 'path';
 
 // Webpack Requirements
 import webpack from 'webpack';
-import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+
+// React And Redux Requirements
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match } from 'react-router';
+import Helmet from 'react-helmet';
+
+// Import required modules
+import routes from '../client/routes';
+import fetchComponentData from './util/fetchData';
+import serverConfig from './config';
+
+// Webpack Setup
+import config from '../webpack.config.dev';
+
+// React And Redux Setup
+import configureStore from '../client/store';
 
 // Initialize the Express App
 const app = new Express();
@@ -22,19 +38,6 @@ if (process.env.NODE_ENV === 'development') {
   }));
   app.use(webpackHotMiddleware(compiler));
 }
-
-// React And Redux Setup
-import { configureStore } from '../client/store';
-import { Provider } from 'react-redux';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
-
-// Import required modules
-import routes from '../client/routes';
-import { fetchComponentData } from './util/fetchData';
-import serverConfig from './config';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -79,7 +82,7 @@ const renderFullPage = (initialView, initialState) => {
   };
 };
 
-const renderError = err => {
+const renderError = (err) => {
   const softTab = '&#32;&#32;&#32;&#32;';
   const errTrace = process.env.NODE_ENV !== 'production' ?
     `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
@@ -109,15 +112,12 @@ app.use((req, res, next) => {
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
         const initialView = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
+          <div />
         );
         const finalState = store.getState();
-
         res.render('index', renderFullPage(initialView, finalState));
       })
-      .catch((error) => next(error));
+      .catch(error => next(error));
   });
 });
 

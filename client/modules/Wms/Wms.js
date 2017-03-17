@@ -5,7 +5,7 @@ import DevTools from './components/DevTools';
 
 import styles from './Wms.css';
 
-export class Wms extends Component {
+export default class Wms extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
@@ -45,7 +45,5 @@ export class Wms extends Component {
 }
 
 Wms.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
 };
-
-export default Wms;
