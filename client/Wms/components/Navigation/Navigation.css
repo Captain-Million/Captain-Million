@@ -20,7 +20,7 @@
   display: block;
 }
 
-.nav a:hover, .nav a.current {
+.nav a:hover, .active {
   opacity: 1;
 }
 

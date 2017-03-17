@@ -5,10 +5,12 @@ import ListView from './../../components/ListView/ListView';
 import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
 import Navigation from './../../components/Navigation/Navigation';
 
-const Inventory = () => {
+import styles from './Report.css';
+
+const Report = () => {
   return (
-    <div>
-      <Helmet title="Inventory" />
+    <div className={styles.report}>
+      <Helmet title="Report" />
       <ListView />
       <DocumentContainer />
       <Navigation />
@@ -16,4 +18,4 @@ const Inventory = () => {
   );
 };
 
-export default Inventory;
+export default Report;
