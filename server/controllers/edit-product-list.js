@@ -4,6 +4,9 @@ import Inventory from '../models/inventory';
 // mutate inventory.products to match products while
 // keeping existing quantities (if any)
 // output: updated inventory
+
+/* eslint-disable no-param-reassign */
+// reassigning to mongoose model
 function editProductList({ editedProductNames, inventoryID }) {
   return Inventory.findById(inventoryID)
     .then(inventory => {
@@ -32,12 +35,12 @@ function editProductList({ editedProductNames, inventoryID }) {
         new: true,
         upsert: false,
         runValidators: true,
-      }).exec()
-        .then(updatedInventory => {
-          if (!updatedInventory) throw new Error('Fail to edit!');
+      }).exec();
+    })
+    .then(updatedInventory => {
+      if (!updatedInventory) throw new Error('Fail to edit!');
 
-          return updatedInventory;
-        });
+      return updatedInventory;
     });
 }
 
