@@ -23,6 +23,8 @@
      "max-len": [1, 180, 4],
      "arrow-body-style": [0],
      "react/jsx-no-bind": [0],
+     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
      "import/no-unresolved": [0] // Until import plugin supports webpack 2 resolveModules
   }
+
 }

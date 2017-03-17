@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 import styles from './Landing.css';
 
-export class Landing extends Component {
+export default class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
@@ -42,7 +42,5 @@ export class Landing extends Component {
 }
 
 Landing.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
 };
-
-export default Landing;
