@@ -3,16 +3,15 @@ import { Link } from 'react-router';
 
 import styles from './ListView.css';
 
-const ListView = () => {
+const ListView = ({ list = [], urlPrefix = '', documentType = '', header = '' } = {}) => {
+  const documentsList = list.map((item) => {
+    return (<li><Link to={`/wms/${urlPrefix}/${item._id}`} activeClassName={styles.active} key={item._id}>{documentType} {item.name}</Link></li>);
+  });
   return (
     <div className={styles.listView}>
-      <span className={styles.listHeader}>Inventory acts</span>
+      <span className={styles.listHeader}>{header}</span>
       <ul>
-        <li><Link to="/wms/inventory/h3j45hb3k4">Inventory act 17.01.17 09:12</Link></li>
-        <li><Link to="/wms/inventory/h567h6" className={styles.selected}>Inventory act 17.01.17 10:12</Link></li>
-        <li><Link to="/wms/inventory/yukg757">Inventory act 17.01.17 11:12</Link></li>
-        <li><Link to="/wms/inventory/456g45645">Inventory act 17.01.17 12:12</Link></li>
-        <li><Link to="/wms/inventory/78678h567">Inventory act 17.01.17 13:12</Link></li>
+        {documentsList}
       </ul>
     </div>
   );

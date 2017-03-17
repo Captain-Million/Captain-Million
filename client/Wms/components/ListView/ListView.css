@@ -6,7 +6,6 @@
 .list_view > * + * {
   margin-top: 1em;
   display: block;
-  clear: both;
 }
 
 .list_view .list__header {
@@ -23,6 +22,11 @@
   margin-top: .5em;
 }
 
-.selected {
+.list_view a {
+  text-decoration: none;
+  color: #212121;
+}
+
+.active {
   font-weight: 500;
 }
