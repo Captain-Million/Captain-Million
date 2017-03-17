@@ -26,6 +26,9 @@ import config from '../webpack.config.dev';
 // React And Redux Setup
 import configureStore from '../client/store';
 
+// GraphQL
+import graphqlRouter from './routes/graphql.route';
+
 // Initialize the Express App
 const app = new Express();
 
@@ -60,6 +63,9 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
+
+// GraphQL route
+app.use(graphqlRouter);
 
 // Render Initial HTML
 app.set('view engine', 'ejs');
@@ -129,3 +135,4 @@ app.listen(serverConfig.port, (error) => {
 });
 
 export default app;
+

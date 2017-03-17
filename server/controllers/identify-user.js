@@ -16,3 +16,4 @@ function identifyUser({ name }) {
 }
 
 export default identifyUser;
+
