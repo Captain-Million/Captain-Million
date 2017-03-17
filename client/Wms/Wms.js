@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
-import DevTools from './components/DevTools';
+import DevTools from './components/ReactDevTools/ReactDevTools';
 
 import styles from './Wms.css';
 

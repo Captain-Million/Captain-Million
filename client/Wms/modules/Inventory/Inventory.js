@@ -1,9 +1,9 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import ListView from './../CommonComponents/ListView/ListView';
-import DocumentContainer from './components/DocumentContainer/DocumentContainer';
-import Navigation from './../CommonComponents/Navigation/Navigation';
+import ListView from './../../components/ListView/ListView';
+import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
+import Navigation from './../../components/Navigation/Navigation';
 
 import styles from './Inventory.css';
 

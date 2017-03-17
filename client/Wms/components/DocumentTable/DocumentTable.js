@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Product from './../Product/Product';
-import DocumentTableHeading from './../DocumentTableHeading/DocumentTableHeading';
+import Product from './../../modules/Inventory/components/Product/Product';
+import DocumentTableHeading from './../../modules/Inventory/components/DocumentTableHeading/DocumentTableHeading';
 
 import styles from './DocumentTable.css';
 

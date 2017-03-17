@@ -2,11 +2,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import Wms from './modules/Wms/Wms';
-import Inventory from './modules/Wms/components/Inventory/Inventory';
+import Wms from './Wms/Wms';
+import Inventory from './Wms/modules/Inventory/Inventory';
 
-import Landing from './modules/Landing/Landing';
-import Home from './components/Home/Home';
+import Landing from './Landing/Landing';
+import Home from './Landing/modules/Home/Home';
 
 class Wrapper extends Component {
   render() {
