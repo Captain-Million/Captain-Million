@@ -15,10 +15,13 @@ function makeDocument({ doc, inventoryID, userID }) {
       return inventory;
     })
     .then(inventory => {
-      computeProductList(inventory, doc, true);
+      const newDoc = { ...doc };
+      delete newDoc._id;
+
+      computeProductList(inventory, newDoc, true);
 
       inventory.documents.push({
-        ...doc,
+        ...newDoc,
         lastEdit: {
           user: userID,
           date: new Date(),
