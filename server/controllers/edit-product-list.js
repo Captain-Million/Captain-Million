@@ -1,14 +1,17 @@
 import Inventory from '../models/inventory';
+import populateInventory from './populate-inventory';
 
 // input: editedProductNames as array of string
 // mutate inventory.products to match products while
 // keeping existing quantities (if any)
 // output: updated inventory
+function editProductList({ editedProductNames, inventoryID, userID }) {
+  const query = {
+    _id: inventoryID,
+    owners: userID,
+  };
 
-/* eslint-disable no-param-reassign */
-// reassigning to mongoose model
-function editProductList({ editedProductNames, inventoryID }) {
-  return Inventory.findById(inventoryID)
+  return Inventory.findOne(query)
     .then(inventory => {
       if (!inventory) {
         throw new Error(`Invalid inventoryID: ${inventoryID}`);
@@ -29,7 +32,9 @@ function editProductList({ editedProductNames, inventoryID }) {
         newProductList.push({ name });
       });
 
-      inventory.products = newProductList;
+      inventory.set({
+        products: newProductList,
+      });
 
       return Inventory.findByIdAndUpdate(inventory._id, inventory, {
         new: true,
@@ -37,11 +42,7 @@ function editProductList({ editedProductNames, inventoryID }) {
         runValidators: true,
       }).exec();
     })
-    .then(updatedInventory => {
-      if (!updatedInventory) throw new Error('Fail to edit!');
-
-      return updatedInventory;
-    });
+    .then(populateInventory);
 }
 
 export default editProductList;

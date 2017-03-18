@@ -18,13 +18,14 @@ test.after.always(() => mongoose.disconnect());
 
 test('add a new product', t => {
   const inventoryID = demoInventory._id;
+  const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
     .map(product => product.name);
 
   const newProduct = 'My New Product';
   editedProductNames.push(newProduct);
 
-  return editProductList({ editedProductNames, inventoryID })
+  return editProductList({ editedProductNames, inventoryID, userID })
     .then(inventory => {
       t.truthy(inventory.products.find(
         prod => prod.name === newProduct && prod.quantity === 0
@@ -43,11 +44,12 @@ test('add a new product', t => {
 
 test('remove a product', t => {
   const inventoryID = demoInventory._id;
+  const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
     .map(prod => prod.name)
     .slice(1);
 
-  return editProductList({ inventoryID, editedProductNames })
+  return editProductList({ inventoryID, editedProductNames, userID })
     .then(inventory => {
       t.falsy(inventory.products.find(
         prod => prod.name === demoInventory.products[0].name)
@@ -57,6 +59,7 @@ test('remove a product', t => {
 
 test('add and remove some products with trimmed names', t => {
   const inventoryID = demoInventory._id;
+  const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
     .map(prod => prod.name)
     .slice(2);
@@ -64,7 +67,7 @@ test('add and remove some products with trimmed names', t => {
   const newProducts = [' Some new product  ', '  Some new product II  '];
   editedProductNames.push(...newProducts);
 
-  return editProductList({ inventoryID, editedProductNames })
+  return editProductList({ inventoryID, editedProductNames, userID })
     .then(inventory => {
       t.falsy(inventory.products.find(
         prod => prod.name === demoInventory.products[0].name
@@ -77,7 +80,15 @@ test('add and remove some products with trimmed names', t => {
 
 test('reject if inventory not found', t => {
   const inventoryID = '58c92bb2483976dd98c00b1f';
+  const userID = demoInventory.owners[0];
   const editedProductNames = [];
-  t.throws(editProductList({ inventoryID, editedProductNames }));
+  t.throws(editProductList({ inventoryID, editedProductNames, userID }));
+});
+
+test('reject if user does not own the inventory', t => {
+  const inventoryID = demoInventory._id;
+  const userID = '58ccd25947e908d80108804f';
+  const editedProductNames = [];
+  t.throws(editProductList({ inventoryID, editedProductNames, userID }));
 });
 

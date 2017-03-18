@@ -47,7 +47,7 @@ test('creates an arrival document with custom title', t => {
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
       doc.content[0].quantity === newDoc.content[0].quantity &&
-      doc.lastEdit.user.toString() === demoUser._id &&
+      doc.lastEdit.user._id.toString() === demoUser._id &&
       doc.lastEdit.date <= Date.now() &&
       doc.lastEdit.date >= now &&
       doc.title === newDoc.title
@@ -86,7 +86,7 @@ test('creates a dispatch document with default title', t => {
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
       doc.content[0].quantity === newDoc.content[0].quantity &&
-      doc.lastEdit.user.toString() === demoUser._id &&
+      doc.lastEdit.user._id.toString() === demoUser._id &&
       doc.lastEdit.date <= Date.now() &&
       doc.lastEdit.date >= now
     )
@@ -124,7 +124,7 @@ test('creates an inventory document with trimmed title', t => {
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
       doc.content[0].quantity === newDoc.content[0].quantity &&
-      doc.lastEdit.user.toString() === demoUser._id &&
+      doc.lastEdit.user._id.toString() === demoUser._id &&
       doc.lastEdit.date <= Date.now() &&
       doc.lastEdit.date >= now
     )
@@ -179,3 +179,12 @@ test('reject dispatch act that exceeds quantity in-stock', t => {
   }));
 });
 
+test('reject if user does not own the inventory', t => {
+  const userID = '58ccdb4001321a44bcb19bb1';
+  const inventoryID = demoInventory._id;
+  const doc = {
+    act: 'arrival',
+    content: [{ name: demoInventory.products[0].name, quantity: 1 }],
+  };
+  t.throws(makeDocument({ doc, inventoryID, userID }));
+});

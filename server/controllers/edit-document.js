@@ -1,12 +1,17 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
+import populateInventory from './populate-inventory';
 
-function editDocument({ doc, userID, documentID = doc._id }) {
-  const query = { 'documents._id': documentID };
+function editDocument({ doc, userID }) {
+  const documentID = doc._id;
+  const query = {
+    'documents._id': documentID,
+    owners: userID,
+  };
 
   return Inventory.findOne(query)
     .then(inventory => {
-      if (!inventory) throw new Error(`Invalid documentID: ${documentID}`);
+      if (!inventory) throw new Error(`Document not found: ${documentID}`);
 
       const editedDoc = {
         ...doc,
@@ -35,12 +40,7 @@ function editDocument({ doc, userID, documentID = doc._id }) {
         new: true,
         upsert: false,
         runValidators: true,
-      }).exec()
-        .then(updatedInventory => {
-          if (!updatedInventory) throw new Error('Fail to edit!');
-
-          return updatedInventory;
-        });
+      }).exec().then(populateInventory);
     });
 }
 

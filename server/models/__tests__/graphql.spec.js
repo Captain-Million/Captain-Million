@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import supertest from 'supertest';
 import demoInventory from '../../../__demo-data/demo-inventory';
+import populateDemoData from '../../../__demo-data/populate-demo-data';
 import graphQLRouter from '../../routes/graphql.route';
 import config from '../../config';
 
@@ -17,6 +18,7 @@ test.before(() => {
   return mockgoose.prepareStorage()
     .then(() => mongoose.connect(config.mongoURL));
 });
+test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 function testGraphQLWith(query, variables = {}) {
@@ -25,7 +27,10 @@ function testGraphQLWith(query, variables = {}) {
     .set('Accept', 'application/json')
     .expect(200)
     .expect('Content-type', /json/)
-    .then(res => t.truthy(res.body.data) && t.falsy(res.body.errors));
+    .then(res => {
+      t.truthy(res.body.data);
+      t.falsy(res.body.errors);
+    });
 }
 
 const userFields = `
@@ -35,7 +40,14 @@ const userFields = `
 
 const inventoryFields = `
   _id
-  owners
+  creator {
+    _id
+    name
+  }
+  owners {
+    _id
+    name
+  }
   products {
     name
     quantity
@@ -49,7 +61,10 @@ const inventoryFields = `
       quantity
     }
     lastEdit {
-      user
+      user {
+        name
+        _id
+      }
       date
     }
     createDate
@@ -94,7 +109,7 @@ test('deleteDocument', testGraphQLWith(`
       ${inventoryFields}
     }
   }
-`, { id: demoInventory.documents[0]._id }));
+`, { id: demoInventory.documents[2]._id }));
 
 const docToEdit = Object.assign(
   {},
@@ -136,4 +151,12 @@ test('makeDocument', testGraphQLWith(`
     }
   }
 `, { doc: newDoc, id: demoInventory._id }));
+
+test('updateOwners', testGraphQLWith(`
+  mutation updateOwners($id: ID!, $owners: [ID]!) {
+    updateOwners(inventoryID: $id, owners: $owners) {
+      ${inventoryFields}
+    }
+  }
+`, { id: demoInventory._id, owners: [demoInventory.creator] }));
 

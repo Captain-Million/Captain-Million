@@ -31,7 +31,7 @@ function testEditDocument({
     };
 
     const now = Date.now();
-    const userID = '58c8f13cf8cdbcbeb3660d3c';
+    const userID = demoInventory.owners[0];
 
     return editDocument({ doc, userID })
       .then(inventory => {
@@ -47,7 +47,7 @@ function testEditDocument({
         t.is(act, doc.act);
         t.is(content[contentIdx].name, doc.content[contentIdx].name);
         t.is(content[contentIdx].quantity, doc.content[contentIdx].quantity);
-        t.is(lastEdit.user.toString(), userID);
+        t.is(lastEdit.user._id.toString(), userID);
         t.true(lastEdit.date >= now && lastEdit.date <= Date.now());
       });
   };
@@ -84,8 +84,14 @@ test('reject invalid documentID', t => {
     content: [{ name: 'xyz', quantity: 42 }],
   };
 
-  const userID = '58c8f13cf8cdbcbeb3660d3c';
+  const userID = demoInventory.owners[0];
 
+  t.throws(editDocument({ doc, userID }));
+});
+
+test('reject if user does not own the inventory', t => {
+  const userID = '58ccd18006b1b5a97d2518be';
+  const doc = { ...demoInventory.documents[1] };
   t.throws(editDocument({ doc, userID }));
 });
 

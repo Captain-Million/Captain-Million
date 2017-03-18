@@ -1,8 +1,14 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
+import populateInventory from './populate-inventory';
 
 function makeDocument({ doc, inventoryID, userID }) {
-  return Inventory.findById(inventoryID).exec()
+  const query = {
+    _id: inventoryID,
+    owners: userID,
+  };
+
+  return Inventory.findOne(query).exec()
     .then(inventory => {
       if (!inventory) throw new Error(`Inventory not found: ${inventoryID}`);
 
@@ -29,7 +35,8 @@ function makeDocument({ doc, inventoryID, userID }) {
       });
 
       return inventory.save();
-    });
+    })
+    .then(populateInventory);
 }
 
 export default makeDocument;
