@@ -5,12 +5,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
-import configureStore from './store';
+import { configureStore } from './store';
 
 import reset from './reset.css';
 
 // Initialize store
-const store = configureStore(window.__INITIAL_STATE__);
+const store = configureStore();
 const mountApp = document.getElementById('root');
 
 render(

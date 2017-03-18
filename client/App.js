@@ -17,7 +17,3 @@ export default function App(props) {
     </Provider>
   );
 }
-
-App.propTypes = {
-  store: PropTypes.element.isRequired,
-};

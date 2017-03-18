@@ -1,7 +1,5 @@
 var webpack = require('webpack');
-var cssnext = require('postcss-cssnext');
-var postcssFocus = require('postcss-focus');
-var postcssReporter = require('postcss-reporter');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -14,11 +12,7 @@ module.exports = {
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
       './client/index.js',
-    ],
-    vendor: [
-      'react',
-      'react-dom'
-    ],
+    ]
   },
 
   output: {
@@ -28,7 +22,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
       'client',
       'node_modules',
@@ -36,11 +30,11 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loaders: [
+        use: [
           'style-loader',
           {
             loader: 'css-loader',
@@ -57,11 +51,11 @@ module.exports = {
       }, {
         test: /\.css$/,
         include: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       }, {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
-        loader: 'babel',
+        loader: 'babel-loader',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
         loader: 'url-loader?limit=10000',
@@ -74,26 +68,14 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.js',
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         CLIENT: JSON.stringify(true),
         'NODE_ENV': JSON.stringify('development'),
       }
     }),
-  ],
-
-  postcss: () => [
-    postcssFocus(),
-    cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
-    }),
-    postcssReporter({
-      clearMessages: true,
-    }),
-  ],
+    new HtmlWebpackPlugin({
+      template: './client/index.html'
+    })
+  ]
 };
