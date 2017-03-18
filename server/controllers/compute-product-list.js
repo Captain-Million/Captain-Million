@@ -10,10 +10,6 @@
 // output: same instance of Inventory model with mutated products array
 //         documents array is unchanged
 function apply(inventory, doc, isNew) {
-  if (doc.act === 'inventory' && !isNew) {
-    throw new Error('Cannot revert an inventory act without the whole document list!');
-  }
-
   doc.content.forEach(entry => {
     const productIndex = inventory.products.findIndex(
       product => product.name.trim() === entry.name.trim()
