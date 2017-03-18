@@ -3,6 +3,7 @@ import getInventories from '../controllers/get-inventories';
 import createInventory from '../controllers/create-inventory';
 import deleteDocument from '../controllers/delete-document';
 import editDocument from '../controllers/edit-document';
+import editProduct from '../controllers/edit-product';
 import editProductList from '../controllers/edit-product-list';
 import makeDocument from '../controllers/make-document';
 import updateOwners from '../controllers/update-owners';
@@ -18,6 +19,7 @@ const schema = buildSchema(`
     createInventory: Inventory
     deleteDocument(documentID: ID!): Inventory
     editDocument(doc: DocumentInput!): Inventory
+    editProduct(inventoryID: ID!, productName: String!, updates: ProductInput!): Inventory
     editProductList(editedProductNames: [String]!, inventoryID: ID!): Inventory
     makeDocument(doc: DocumentInput!, inventoryID: ID!): Inventory
     updateOwners(owners: [ID]!, inventoryID: ID!): Inventory
@@ -105,6 +107,15 @@ const rootValue = {
 
   editDocument({ doc }, req) {
     return editDocument({ doc, userID: req.user._id });
+  },
+
+  editProduct({ productName, inventoryID, updates }, req) {
+    return editProduct({
+      productName,
+      inventoryID,
+      updates,
+      userID: req.user._id,
+    });
   },
 
   editProductList({ editedProductNames, inventoryID }, req) {

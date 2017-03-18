@@ -124,6 +124,18 @@ test('editDocument', testGraphQLWith(`
   }
 `, { doc: docToEdit }));
 
+test('editProduct', testGraphQLWith(`
+  mutation editProduct($id: ID!, $name: String!, $updates: ProductInput!) {
+    editProduct(inventoryID: $id, productName: $name, updates: $updates) {
+      ${inventoryFields}
+    }
+  }
+`, {
+  name: demoInventory.products[0].name,
+  id: demoInventory._id,
+  updates: { name: demoInventory.products[0].name },
+}));
+
 const editedProductNames = [
   demoInventory.products[0].name,
   'OOPS, DELETED EVERYTHING ELSE',
