@@ -40,6 +40,7 @@ const userFields = `
 
 const inventoryFields = `
   _id
+  creator
   owners
   products {
     name
@@ -141,4 +142,12 @@ test('makeDocument', testGraphQLWith(`
     }
   }
 `, { doc: newDoc, id: demoInventory._id }));
+
+test('updateOwners', testGraphQLWith(`
+  mutation updateOwners($id: ID!, $owners: [ID]!) {
+    updateOwners(inventoryID: $id, owners: $owners) {
+      ${inventoryFields}
+    }
+  }
+`, { id: demoInventory._id, owners: [demoInventory.creator] }));
 

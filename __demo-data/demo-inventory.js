@@ -1,6 +1,7 @@
 import demoUser from './demo-user';
 
 const owners = [demoUser._id];
+const creator = demoUser._id;
 
 const products = [
   { _id: '58c7998258fdc1b748b8d3f8', quantity: 0, name: 'HP ProBook' },
@@ -103,6 +104,7 @@ const documents = [{
 }];
 
 const demoInventory = {
+  creator,
   owners,
   products,
   documents,

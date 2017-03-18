@@ -15,23 +15,29 @@ test.before(() => Inventory.remove({}));
 test.after.always(() => mongoose.disconnect());
 
 const owners = ['58c6b51d7ecdf50770494ba7'];
+const creator = owners[0];
 const products = [{ name: 'foo', quantity: 42 }];
 
 test('Inventory has an owners array', t => {
-  return Inventory.create({ owners })
+  return Inventory.create({ owners, creator })
     .then(inventory => {
       const invOwners = inventory.owners.map(owner => owner.toString());
       t.deepEqual(invOwners, owners);
     });
 });
 
+test('Inventory has a creator', t => {
+  return Inventory.create({ owners, creator })
+    .then(inventory => t.is(inventory.creator.toString(), creator));
+});
+
 test('Inventory cannot be created without owners', t => {
-  t.throws(Inventory.create({ owners: [] }));
+  t.throws(Inventory.create({ creator, owners: [] }));
   t.throws(Inventory.create({}));
 });
 
 test('Inventory has a products array', t => {
-  return Inventory.create({ owners, products })
+  return Inventory.create({ owners, products, creator })
     .then(inventory => {
       const invProducts = inventory.products.map(product => {
         const { name, quantity } = product;
@@ -42,18 +48,24 @@ test('Inventory has a products array', t => {
 });
 
 test('Name is required for a product', t => {
-  t.throws(Inventory.create({ owners, products: [{ quantity: 42 }] }));
+  t.throws(Inventory.create({
+    owners,
+    creator,
+    products: [{ quantity: 42 }],
+  }));
 });
 
 test('Quantity of a product cannot be negative', t => {
-  const invalidProduct = { name: 'bar', quantity: -1 };
-  t.throws(Inventory.create({ owners, products: [invalidProduct] }));
+  t.throws(Inventory.create({
+    owners,
+    creator,
+    products: [{ name: 'bar', quantity: -1 }],
+  }));
 });
 
 test('Quantity of a product defaults to 0', t => {
-  const newProduct = { name: 'new product' };
-  return Inventory.create({ owners, products: [newProduct] }).
-    then(inventory => t.is(inventory.products[0].quantity, 0));
+  return Inventory.create({ owners, creator, products: [{ name: 'new' }] })
+    .then(inventory => t.is(inventory.products[0].quantity, 0));
 });
 
 test('Inventory has a documents array', t => {
@@ -64,7 +76,7 @@ test('Inventory has a documents array', t => {
   ];
   const now = Date.now();
 
-  return Inventory.create({ owners, documents }).
+  return Inventory.create({ owners, documents, creator }).
     then(inventory => {
       const invDocuments = inventory.documents.map(doc => {
         const { act, content, title, createDate } = doc;
@@ -83,11 +95,13 @@ test('Inventory has a documents array', t => {
 
 test('act of document must be arrival/dispatch/inventory', t => {
   const invalidDoc = { act: 'Invalid Act', content: products };
-  t.throws(Inventory.create({ owners, documents: [invalidDoc] }));
+  const documents = [invalidDoc];
+  t.throws(Inventory.create({ owners, documents, creator }));
 });
 
 test('document cannot have empty content', t => {
   const emptyDoc = { act: 'arrival', content: [] };
-  t.throws(Inventory.create({ owners, documents: [emptyDoc] }));
+  const documents = [emptyDoc];
+  t.throws(Inventory.create({ owners, documents, creator }));
 });
 

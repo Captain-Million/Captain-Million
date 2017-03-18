@@ -13,12 +13,13 @@ test.before(() => {
 });
 test.after.always(() => mongoose.disconnect());
 
-test('create a new empty inventory and add user as owner', t => {
+test('create a new empty inventory and add user as owner/creator', t => {
   const userID = '58c93e050360c3a80666524f';
 
   return createInventory({ userID })
     .then(inventory => {
       t.is(inventory.owners[0].toString(), userID);
+      t.is(inventory.creator.toString(), userID);
       t.is(inventory.products.length, 0);
       t.is(inventory.documents.length, 0);
     });

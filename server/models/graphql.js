@@ -5,6 +5,7 @@ import deleteDocument from '../controllers/delete-document';
 import editDocument from '../controllers/edit-document';
 import editProductList from '../controllers/edit-product-list';
 import makeDocument from '../controllers/make-document';
+import updateOwners from '../controllers/update-owners';
 
 const schema = buildSchema(`
   type Query {
@@ -19,7 +20,7 @@ const schema = buildSchema(`
     editDocument(doc: DocumentInput!): Inventory
     editProductList(editedProductNames: [String]!, inventoryID: ID!): Inventory
     makeDocument(doc: DocumentInput!, inventoryID: ID!): Inventory
-
+    updateOwners(owners: [ID]!, inventoryID: ID!): Inventory
   }
 
   type User {
@@ -29,6 +30,7 @@ const schema = buildSchema(`
 
   type Inventory {
     _id: ID
+    creator: ID
     owners: [ID]
     products: [Product]
     documents: [Document]
@@ -40,7 +42,7 @@ const schema = buildSchema(`
   }
 
   input ProductInput {
-    name: String
+    name: String!
     quantity: Float
   }
 
@@ -115,6 +117,10 @@ const rootValue = {
 
   makeDocument({ doc, inventoryID }, req) {
     return makeDocument({ doc, inventoryID, userID: req.user._id });
+  },
+
+  updateOwners({ inventoryID, owners }, req) {
+    return updateOwners({ inventoryID, owners, userID: req.user._id });
   },
 };
 

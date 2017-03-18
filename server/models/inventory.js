@@ -4,6 +4,12 @@ mongoose.Promise = Promise;
 const isNotEmpty = arr => (arr.length > 0);
 
 const inventorySchema = new mongoose.Schema({
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
+
   owners: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
