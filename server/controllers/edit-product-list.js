@@ -24,6 +24,19 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
         product => trimmedNames.includes(product.name)
       );
 
+      // keep document entries that match the provided names
+      for (let i = inventory.documents.length - 1; i >= 0; i--) {
+        const doc = inventory.documents[i];
+        const usefulEntries = doc.content.filter(
+          entry => trimmedNames.includes(entry.name)
+        );
+        if (usefulEntries.length > 0) {
+          doc.set({ content: usefulEntries });
+        } else {
+          inventory.documents.splice(i, 1);
+        }
+      }
+
       // add new products
       trimmedNames.forEach(name => {
         const prodExist = !!newProductList.find(prod => prod.name === name);
