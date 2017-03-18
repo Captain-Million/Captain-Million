@@ -5,9 +5,6 @@ import populateInventory from './populate-inventory';
 // mutate inventory.products to match products while
 // keeping existing quantities (if any)
 // output: updated inventory
-
-/* eslint-disable no-param-reassign */
-// reassigning to mongoose model
 function editProductList({ editedProductNames, inventoryID, userID }) {
   const query = {
     _id: inventoryID,
@@ -35,7 +32,9 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
         newProductList.push({ name });
       });
 
-      inventory.products = newProductList;
+      inventory.set({
+        products: newProductList,
+      });
 
       return Inventory.findByIdAndUpdate(inventory._id, inventory, {
         new: true,

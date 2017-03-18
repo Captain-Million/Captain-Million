@@ -9,9 +9,6 @@
 //   loop through and apply the documents to the products
 // output: same instance of Inventory model with mutated products array
 //         documents array is unchanged
-
-/* eslint-disable no-param-reassign */
-// inventory is a mongoose model that is supposed to be mutated?
 function apply(inventory, doc, isNew) {
   if (doc.act === 'inventory' && !isNew) {
     throw new Error('Cannot revert an inventory act without the whole document list!');
@@ -24,23 +21,24 @@ function apply(inventory, doc, isNew) {
 
     if (productIndex === -1) return;
 
+    const targetProduct = inventory.products[productIndex];
     switch (doc.act) {
       case 'arrival':
         if (isNew) {
-          inventory.products[productIndex].quantity += entry.quantity;
+          targetProduct.quantity += entry.quantity;
         } else {
-          inventory.products[productIndex].quantity -= entry.quantity;
+          targetProduct.quantity -= entry.quantity;
         }
         break;
       case 'dispatch':
         if (isNew) {
-          inventory.products[productIndex].quantity -= entry.quantity;
+          targetProduct.quantity -= entry.quantity;
         } else {
-          inventory.products[productIndex].quantity += entry.quantity;
+          targetProduct.quantity += entry.quantity;
         }
         break;
       case 'inventory':
-        inventory.products[productIndex].quantity = entry.quantity;
+        targetProduct.quantity = entry.quantity;
         break;
       default:
         throw new Error(`Unknown document act: ${doc.act}`);
