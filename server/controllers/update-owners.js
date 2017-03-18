@@ -1,4 +1,5 @@
 import Inventory from '../models/inventory';
+import populateInventory from './populate-inventory';
 
 function updateOwners({ inventoryID, userID, owners }) {
   if (!owners.includes(userID)) {
@@ -15,11 +16,7 @@ function updateOwners({ inventoryID, userID, owners }) {
   };
 
   return Inventory.findOneAndUpdate(query, updates, options).exec()
-    .then(inventory => {
-      if (!inventory) throw new Error(`Inventory not found: ${inventoryID}`);
-
-      return inventory;
-    });
+    .then(populateInventory);
 }
 
 export default updateOwners;

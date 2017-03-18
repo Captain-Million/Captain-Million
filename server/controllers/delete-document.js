@@ -1,5 +1,6 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
+import populateInventory from './populate-inventory';
 
 function deleteDocument({ documentID, userID }) {
   const query = {
@@ -25,12 +26,7 @@ function deleteDocument({ documentID, userID }) {
         upsert: false,
         new: true,
         runValidators: true,
-      }).exec()
-        .then(updatedInventory => {
-          if (!updatedInventory) throw new Error('Fail to update!');
-
-          return updatedInventory;
-        });
+      }).exec().then(populateInventory);
     });
 }
 

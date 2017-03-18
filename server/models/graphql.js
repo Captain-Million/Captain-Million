@@ -30,8 +30,8 @@ const schema = buildSchema(`
 
   type Inventory {
     _id: ID
-    creator: ID
-    owners: [ID]
+    creator: User
+    owners: [User]
     products: [Product]
     documents: [Document]
   }
@@ -65,7 +65,7 @@ const schema = buildSchema(`
   }
 
   type LastEditInfo {
-    user: ID
+    user: User
     date: String
   }
 

@@ -1,4 +1,5 @@
 import Inventory from '../models/inventory';
+import populateInventory from './populate-inventory';
 
 function getInventories({ inventoryID, userID }) {
   const query = { owners: userID };
@@ -13,6 +14,13 @@ function getInventories({ inventoryID, userID }) {
       if (inventoryID) return inventories[0];
 
       return inventories;
+    })
+    .then(result => {
+      if (Array.isArray(result)) {
+        return Promise.all(result.map(inv => populateInventory(inv)));
+      }
+
+      return populateInventory(result);
     });
 }
 

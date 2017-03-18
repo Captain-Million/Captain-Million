@@ -40,8 +40,14 @@ const userFields = `
 
 const inventoryFields = `
   _id
-  creator
-  owners
+  creator {
+    _id
+    name
+  }
+  owners {
+    _id
+    name
+  }
   products {
     name
     quantity
@@ -55,7 +61,10 @@ const inventoryFields = `
       quantity
     }
     lastEdit {
-      user
+      user {
+        name
+        _id
+      }
       date
     }
     createDate

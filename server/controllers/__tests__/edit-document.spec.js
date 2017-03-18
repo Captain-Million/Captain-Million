@@ -47,7 +47,7 @@ function testEditDocument({
         t.is(act, doc.act);
         t.is(content[contentIdx].name, doc.content[contentIdx].name);
         t.is(content[contentIdx].quantity, doc.content[contentIdx].quantity);
-        t.is(lastEdit.user.toString(), userID);
+        t.is(lastEdit.user._id.toString(), userID);
         t.true(lastEdit.date >= now && lastEdit.date <= Date.now());
       });
   };

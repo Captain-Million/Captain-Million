@@ -1,4 +1,5 @@
 import Inventory from '../models/inventory';
+import populateInventory from './populate-inventory';
 
 // input: editedProductNames as array of string
 // mutate inventory.products to match products while
@@ -42,11 +43,7 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
         runValidators: true,
       }).exec();
     })
-    .then(updatedInventory => {
-      if (!updatedInventory) throw new Error('Fail to edit!');
-
-      return updatedInventory;
-    });
+    .then(populateInventory);
 }
 
 export default editProductList;

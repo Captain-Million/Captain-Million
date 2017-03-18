@@ -1,5 +1,6 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
+import populateInventory from './populate-inventory';
 
 function editDocument({ doc, userID }) {
   const documentID = doc._id;
@@ -39,12 +40,7 @@ function editDocument({ doc, userID }) {
         new: true,
         upsert: false,
         runValidators: true,
-      }).exec()
-        .then(updatedInventory => {
-          if (!updatedInventory) throw new Error('Fail to edit!');
-
-          return updatedInventory;
-        });
+      }).exec().then(populateInventory);
     });
 }
 

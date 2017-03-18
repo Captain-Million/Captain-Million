@@ -4,6 +4,7 @@ import test from 'ava';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import updateOwners from '../update-owners';
+import User from '../../models/user';
 import config from '../../config';
 
 test.before(() => {
@@ -19,12 +20,17 @@ test.after.always(() => mongoose.disconnect());
 test('update owners array in an inventory created by user', t => {
   const userID = demoInventory.creator;
   const inventoryID = demoInventory._id;
-  const owners = [userID, '58ccef5cadb5e93d91c78952'];
+  const owners = [userID];
 
-  return updateOwners({ userID, inventoryID, owners })
+  return User.create({ name: 'foo' })
+    .then(user => {
+      owners.push(user._id.toString());
+
+      return updateOwners({ userID, inventoryID, owners });
+    })
     .then(inventory => {
       const updatedOwners = inventory.owners
-        .map(owner => owner.toString());
+        .map(owner => owner._id.toString());
       t.deepEqual(updatedOwners, owners);
     });
 });

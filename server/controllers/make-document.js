@@ -1,5 +1,6 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
+import populateInventory from './populate-inventory';
 
 function makeDocument({ doc, inventoryID, userID }) {
   const query = {
@@ -34,7 +35,8 @@ function makeDocument({ doc, inventoryID, userID }) {
       });
 
       return inventory.save();
-    });
+    })
+    .then(populateInventory);
 }
 
 export default makeDocument;
