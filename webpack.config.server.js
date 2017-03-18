@@ -1,6 +1,15 @@
 var fs = require('fs');
 var path = require('path');
-var ExternalsPlugin = require('webpack-externals-plugin');
+var webpack = require('webpack');
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+});
 
 module.exports = {
 
@@ -9,17 +18,19 @@ module.exports = {
   output: {
     path: __dirname + '/dist/',
     filename: 'server.bundle.js',
+    publicPath: '/',
+    libraryTarget: 'commonjs2'
   },
 
   target: 'node',
 
   node: {
-    __filename: true,
-    __dirname: true,
+    __filename: false,
+    __dirname: false,
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
       'client',
       'node_modules',
@@ -53,10 +64,10 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
-    new ExternalsPlugin({
-      type: 'commonjs',
-      include: path.join(__dirname, './node_modules/'),
-    }),
+    new webpack.IgnorePlugin(/vertx/)
   ],
+
+  externals: nodeModules
 };

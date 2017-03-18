@@ -10,7 +10,7 @@ import { configureStore } from './store';
 import reset from './reset.css';
 
 // Initialize store
-const store = configureStore(window.__INITIAL_STATE__);
+const store = configureStore();
 const mountApp = document.getElementById('root');
 
 render(

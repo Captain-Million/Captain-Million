@@ -13,27 +13,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 // Initialize the Express App
 const app = new Express();
 
-// Run Webpack dev server in development mode
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath,
-  }));
-  app.use(webpackHotMiddleware(compiler));
-}
-
-// React And Redux Setup
-import { configureStore } from '../client/store';
-import { Provider } from 'react-redux';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
-
 // Import required modules
-import routes from '../client/routes';
-import { fetchComponentData } from './util/fetchData';
 import serverConfig from './config';
 
 // Set native promises as mongoose promise
@@ -58,68 +38,27 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 
-// Render Initial HTML
-app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'views'));
+// Run Webpack dev server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+  }));
+  app.use(webpackHotMiddleware(compiler));
 
-const renderFullPage = (initialView, initialState) => {
-  const head = Helmet.rewind();
-
-  // Import Manifests
-  const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
-  const chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
-
-  return {
-    isProduction: process.env.NODE_ENV === 'production',
-    head,
-    assetsManifest,
-    chunkManifest,
-    initialView,
-    initialState,
-  };
-};
-
-const renderError = err => {
-  const softTab = '&#32;&#32;&#32;&#32;';
-  const errTrace = process.env.NODE_ENV !== 'production' ?
-    `:<br><br><pre style="color:red">${softTab}${err.stack.replace(/\n/g, `<br>${softTab}`)}</pre>` : '';
-  return renderFullPage(`Server Error${errTrace}`, {});
-};
-
-// Server Side Rendering based on routes matched by React-router.
-app.use((req, res, next) => {
-  match({
-    routes,
-    location: req.url,
-  }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      return res.status(500).end(renderError(err));
-    }
-
-    if (redirectLocation) {
-      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    }
-
-    if (!renderProps) {
-      return next();
-    }
-
-    const store = configureStore();
-
-    return fetchComponentData(store, renderProps.components, renderProps.params)
-      .then(() => {
-        const initialView = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
-        );
-        const finalState = store.getState();
-
-        res.render('index', renderFullPage(initialView, finalState));
-      })
-      .catch((error) => next(error));
+  app.get('*', function (req, res) {
+    const memoryFs = compiler.outputFileSystem;
+    const index = path.join(config.output.path, 'index.html');
+    const html = memoryFs.readFileSync(index);
+    res.status(200).end(html);
   });
-});
+} else {
+  // react router
+  app.get('*', (req, res) => {
+      res.status(200).sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+  });
+}
 
 // start app
 app.listen(serverConfig.port, (error) => {

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import DevTools from './modules/Wms/components/DevTools';
 import rootReducer from './reducers';
 
-export function configureStore(initialState = {}) {
+export function configureStore() {
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),
@@ -17,7 +17,7 @@ export function configureStore(initialState = {}) {
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
-  const store = createStore(rootReducer, initialState, compose(...enhancers));
+  const store = createStore(rootReducer, compose(...enhancers));
 
   // For hot reloading reducers
   if (module.hot) {

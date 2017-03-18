@@ -20,17 +20,6 @@ export class Landing extends Component {
           <Helmet
             title="Default"
             titleTemplate="%s - WMS proj. Landing"
-            meta={[
-              { charset: 'utf-8' },
-              {
-                'http-equiv': 'X-UA-Compatible',
-                content: 'IE=edge',
-              },
-              {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
-              },
-            ]}
           />
           <div className={styles.container}>
             {this.props.children}
