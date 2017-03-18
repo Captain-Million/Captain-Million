@@ -42,7 +42,7 @@ test('add a new product', t => {
     });
 });
 
-test('remove a product', t => {
+test('remove a product also remove related document entries', t => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
@@ -54,6 +54,11 @@ test('remove a product', t => {
       t.falsy(inventory.products.find(
         prod => prod.name === demoInventory.products[0].name)
       );
+      inventory.documents.forEach(doc => {
+        t.falsy(doc.content.find(
+          entry => entry.name === demoInventory.products[0].name
+        ));
+      });
     });
 });
 
@@ -70,11 +75,16 @@ test('add and remove some products with trimmed names', t => {
   return editProductList({ inventoryID, editedProductNames, userID })
     .then(inventory => {
       t.falsy(inventory.products.find(
-        prod => prod.name === demoInventory.products[0].name
+        prod => prod.name === demoInventory.products[1].name
       ));
       t.truthy(inventory.products.find(
         prod => prod.name === newProducts[1].trim()
       ));
+      inventory.documents.forEach(doc => {
+        t.falsy(doc.content.find(
+          entry => entry.name === demoInventory.products[1].name
+        ));
+      });
     });
 });
 
