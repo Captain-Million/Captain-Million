@@ -1,12 +1,15 @@
 import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
 
-function deleteDocument({ documentID }) {
-  const query = { 'documents._id': documentID };
+function deleteDocument({ documentID, userID }) {
+  const query = {
+    'documents._id': documentID,
+    owners: userID,
+  };
 
   return Inventory.findOne(query).exec()
     .then(inventory => {
-      if (!inventory) throw new Error(`Invalid document ID: ${documentID}`);
+      if (!inventory) throw new Error(`Document not found: ${documentID}`);
 
       // remove the document
       const docToDelete = inventory.documents.find(

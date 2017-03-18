@@ -2,7 +2,12 @@ import Inventory from '../models/inventory';
 import computeProductList from './compute-product-list';
 
 function makeDocument({ doc, inventoryID, userID }) {
-  return Inventory.findById(inventoryID).exec()
+  const query = {
+    _id: inventoryID,
+    owners: userID,
+  };
+
+  return Inventory.findOne(query).exec()
     .then(inventory => {
       if (!inventory) throw new Error(`Inventory not found: ${inventoryID}`);
 

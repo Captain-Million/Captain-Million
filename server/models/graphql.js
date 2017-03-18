@@ -85,28 +85,32 @@ const rootValue = {
     return req.user;
   },
 
-  getInventory({ inventoryID }) {
-    return getInventories({ inventoryID });
+  getInventory({ inventoryID }, req) {
+    return getInventories({ inventoryID, userID: req.user._id });
   },
 
   getMyInventories(args, req) {
-    return getInventories({ ownerID: req.user._id });
+    return getInventories({ userID: req.user._id });
   },
 
   createInventory(args, req) {
     return createInventory({ userID: req.user._id });
   },
 
-  deleteDocument({ documentID }) {
-    return deleteDocument({ documentID });
+  deleteDocument({ documentID }, req) {
+    return deleteDocument({ documentID, userID: req.user._id });
   },
 
   editDocument({ doc }, req) {
     return editDocument({ doc, userID: req.user._id });
   },
 
-  editProductList({ editedProductNames, inventoryID }) {
-    return editProductList({ editedProductNames, inventoryID });
+  editProductList({ editedProductNames, inventoryID }, req) {
+    return editProductList({
+      editedProductNames,
+      inventoryID,
+      userID: req.user._id,
+    });
   },
 
   makeDocument({ doc, inventoryID }, req) {

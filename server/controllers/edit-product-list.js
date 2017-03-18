@@ -7,8 +7,13 @@ import Inventory from '../models/inventory';
 
 /* eslint-disable no-param-reassign */
 // reassigning to mongoose model
-function editProductList({ editedProductNames, inventoryID }) {
-  return Inventory.findById(inventoryID)
+function editProductList({ editedProductNames, inventoryID, userID }) {
+  const query = {
+    _id: inventoryID,
+    owners: userID,
+  };
+
+  return Inventory.findOne(query)
     .then(inventory => {
       if (!inventory) {
         throw new Error(`Invalid inventoryID: ${inventoryID}`);

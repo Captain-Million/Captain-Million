@@ -18,21 +18,34 @@ test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
 test('get the inventory with inventoryID', t => {
-  return getInventories({ inventoryID: demoInventory._id })
+  const inventoryID = demoInventory._id;
+  const userID = demoInventory.owners[0];
+
+  return getInventories({ inventoryID, userID })
     .then(inventory => t.is(inventory._id.toString(), demoInventory._id));
 });
 
-test('get inventories array with ownerID', t => {
-  return getInventories({ ownerID: demoUser._id })
+test('get inventories array with userID', t => {
+  return getInventories({ userID: demoUser._id })
     .then(inventories => t.is(
       inventories[0]._id.toString(),
       demoInventory._id,
     ));
 });
 
-test('reject if not found', t => {
-  const id = '58c9355432bf6fee550eca40';
-  t.throws(getInventories({ ownerID: id }));
-  t.throws(getInventories({ inventoryID: id }));
+test('get empty array if user does not own any inventory', t => {
+  const userID = '58c9355432bf6fee550eca40';
+
+  return getInventories({ userID })
+    .then(inventories => {
+      t.true(Array.isArray(inventories));
+      t.is(inventories.length, 0);
+    });
+});
+
+test('reject if user does not own the inventory', t => {
+  const userID = '58ccd372c5e193c038b2e940';
+  const inventoryID = demoInventory._id;
+  t.throws(getInventories({ inventoryID, userID }));
 });
 

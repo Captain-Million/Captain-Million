@@ -179,3 +179,12 @@ test('reject dispatch act that exceeds quantity in-stock', t => {
   }));
 });
 
+test('reject if user does not own the inventory', t => {
+  const userID = '58ccdb4001321a44bcb19bb1';
+  const inventoryID = demoInventory._id;
+  const doc = {
+    act: 'arrival',
+    content: [{ name: demoInventory.products[0].name, quantity: 1 }],
+  };
+  t.throws(makeDocument({ doc, inventoryID, userID }));
+});
