@@ -3,24 +3,32 @@ import Helmet from 'react-helmet';
 
 import ListView from './../../components/ListView/ListView';
 import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
-import Navigation from './../../components/Navigation/Navigation';
+import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
+import DocumentControls from './../../components/DocumentControls/DocumentControls';
+import Table from './components/Table/Table';
 
-const documentsList = [
-  { name: '17.01.17 09:12', _id: 'aaaaa' },
-  { name: '17.01.17 10:12', _id: 'ssss' },
-  { name: '17.01.17 11:12', _id: 'ddd' },
-  { name: '17.01.17 12:12', _id: 'ffffff' },
-  { name: '17.01.17 13:12', _id: 'gggg' },
-  { name: '17.01.17 14:12', _id: 'hhhh' },
-];
+const demoData = require('./../../../../__demo-data/demo-data');
+
+const documentsList = demoData.documents.filter(item => item.act === 'inventory');
+
+const documentsListView = documentsList.map((item) => {
+  const { _id, lastEdit: { date } } = item;
+  return ({ _id, date });
+});
+
+const currentDocumentName = '17.11.17 10:12';
 
 const Inventory = () => {
+  const documentType = 'Inventory act';
   return (
     <div>
-      <Helmet title="Inventory" />
-      <ListView list={documentsList} urlPrefix="inventory" documentType="Inventory act" header="Inventory acts" />
-      <DocumentContainer />
-      <Navigation />
+      <Helmet title="Arrival acts" />
+      <ListView list={documentsListView} urlPrefix="inventory" documentType={documentType} header="Inventory acts" />
+      <DocumentContainer>
+        <DocumentHeader documentType={documentType} name={currentDocumentName} />
+        <Table products={documentsList[0].content} />
+        <DocumentControls eventhandlers="some_event_handlers" />
+      </DocumentContainer>
     </div>
   );
 };

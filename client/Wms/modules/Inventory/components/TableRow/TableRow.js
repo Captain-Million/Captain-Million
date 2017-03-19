@@ -1,9 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 
-import styles from './Product.css';
+import styles from './TableRow.css';
 
-const Product = ({ lineNumber = '', name = '', expected = 0, actual = 0, divergence } = {}) => {
+const TableRow = ({ lineNumber = '', name = '', expected = 0, actual = 0, divergence } = {}) => {
   const divergenceDisplay = divergence || (actual - expected) || '';
   return (
     <tr className={styles.product}>
@@ -16,4 +16,4 @@ const Product = ({ lineNumber = '', name = '', expected = 0, actual = 0, diverge
   );
 };
 
-export default Product;
+export default TableRow;

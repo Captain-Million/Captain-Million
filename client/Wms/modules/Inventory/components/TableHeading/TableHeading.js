@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './DocumentTableHeading.css';
+import styles from './TableHeading.css';
 
-const DocumentTableHeading = () => {
+const TableHeading = () => {
   return (
     <thead>
       <tr>
@@ -16,4 +16,4 @@ const DocumentTableHeading = () => {
   );
 };
 
-export default DocumentTableHeading;
+export default TableHeading;

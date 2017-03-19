@@ -2,11 +2,11 @@ import React from 'react';
 
 import styles from './DocumentHeader.css';
 
-const DocumentHeader = ({ title = '(new?)' } = {}) => {
+const DocumentHeader = ({ documentType = 'Document', name = '(new?)' } = {}) => {
   return (
     <div className={styles.documentHeader}>
-      <span className={styles.header__type}>Inventory act </span>
-      <span className={styles.header__id}>{title}</span>
+      <span className={styles.type}>{documentType} </span>
+      <span className={styles.name}>{name}</span>
     </div>
   );
 };
