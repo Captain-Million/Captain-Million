@@ -12,11 +12,10 @@ const app = express();
 app.use(graphQLRouter);
 const request = supertest(app);
 
-test.before(() => {
+test.before(async () => {
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());

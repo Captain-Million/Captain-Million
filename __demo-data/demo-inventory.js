@@ -111,4 +111,5 @@ const demoInventory = {
   _id: '564a4a24f63d409f526659c4',
 };
 
-module.exports = demoInventory;
+export default demoInventory;
+
