@@ -3,22 +3,32 @@ import Helmet from 'react-helmet';
 
 import ListView from './../../components/ListView/ListView';
 import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
+import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
+import DocumentControls from './../../components/DocumentControls/DocumentControls';
+import Table from './components/Table/Table';
 
-const documentsList = [
-  { name: '17.01.17 09:12', _id: '3567357' },
-  { name: '17.01.17 10:12', _id: '35675367' },
-  { name: '17.01.17 11:12', _id: '356735672' },
-  { name: '17.01.17 12:12', _id: '54674567' },
-  { name: '17.01.17 13:12', _id: '456457' },
-  { name: '17.01.17 14:12', _id: '45745' },
-];
+const demoData = require('./../../../../__demo-data/demo-data');
+
+const documentsList = demoData.documents.filter(item => item.act === 'arrival');
+
+const documentsListView = documentsList.map((item) => {
+  const { _id, lastEdit: { date } } = item;
+  return ({ _id, date });
+});
+
+const currentDocumentName = '17.11.17 10:12';
 
 const Arrival = () => {
+  const documentType = 'Arrival act';
   return (
     <div>
-      <Helmet title="Arrival" />
-      <ListView list={documentsList} urlPrefix="arrival" documentType="Arrival act" header="Arrival acts" />
-      <DocumentContainer />
+      <Helmet title="Arrival acts" />
+      <ListView list={documentsListView} urlPrefix="arrival" documentType={documentType} header="Arrival acts" />
+      <DocumentContainer>
+        <DocumentHeader documentType={documentType} name={currentDocumentName} />
+        <Table products={documentsList[0].content} />
+        <DocumentControls eventhandlers="some_event_handlers" />
+      </DocumentContainer>
     </div>
   );
 };

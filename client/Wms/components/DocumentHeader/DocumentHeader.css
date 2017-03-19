@@ -1,11 +1,11 @@
-.document__header {
+.document_header {
   font-size: 1.5em;
   color: #000;
   font-weight: 300;
 }
-.header__type {
+.type {
   color: #777;
 }
-.header__id {
+.name {
   color: #444;
 }

@@ -40,7 +40,6 @@ export default class Wms extends Component {
             {this.props.children} {/* Modules: arrival, inventory, etc*/}
             <Navigation />
           </div>
-          
         </div>
       </div>
     );
