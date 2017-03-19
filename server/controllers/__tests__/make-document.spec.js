@@ -17,7 +17,7 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('creates an arrival document with custom title', t => {
+test('creates an arrival document with custom title', (t) => {
   const productIndex = 0;
   const increment = 1999;
 
@@ -36,7 +36,7 @@ test('creates an arrival document with custom title', t => {
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then(inventory => {
+  }).then((inventory) => {
     t.is(
       inventory.products[productIndex].quantity,
       demoInventory.products[productIndex].quantity + increment,
@@ -55,7 +55,7 @@ test('creates an arrival document with custom title', t => {
   )));
 });
 
-test('creates a dispatch document with default title', t => {
+test('creates a dispatch document with default title', (t) => {
   const productIndices = [1, 4];
   const decrement = 3;
 
@@ -74,7 +74,7 @@ test('creates a dispatch document with default title', t => {
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then(inventory => {
+  }).then((inventory) => {
     productIndices.forEach(idx => t.is(
       inventory.products[idx].quantity,
       demoInventory.products[idx].quantity - decrement
@@ -93,7 +93,7 @@ test('creates a dispatch document with default title', t => {
   )));
 });
 
-test('creates an inventory document with trimmed title', t => {
+test('creates an inventory document with trimmed title', (t) => {
   const productIndices = [2, 3];
   const value = 42;
 
@@ -112,7 +112,7 @@ test('creates an inventory document with trimmed title', t => {
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then(inventory => {
+  }).then((inventory) => {
     productIndices.forEach(idx => t.is(
       inventory.products[idx].quantity,
       value
@@ -131,7 +131,7 @@ test('creates an inventory document with trimmed title', t => {
   )));
 });
 
-test('reject invalid inventoryID', t => {
+test('reject invalid inventoryID', (t) => {
   const newDoc = {
     act: 'arrival',
     content: [{ name: demoInventory.products[0].name, quantity: 0 }],
@@ -143,7 +143,7 @@ test('reject invalid inventoryID', t => {
   }));
 });
 
-test('reject invalid act', t => {
+test('reject invalid act', (t) => {
   const newDoc = {
     act: 'invalid',
     content: [{ name: demoInventory.products[0].name, quantity: 0 }],
@@ -155,7 +155,7 @@ test('reject invalid act', t => {
   }));
 });
 
-test('reject invalid product', t => {
+test('reject invalid product', (t) => {
   const newDoc = {
     act: 'arrival',
     content: [{ name: 'invalid', quantity: 0 }],
@@ -167,7 +167,7 @@ test('reject invalid product', t => {
   }));
 });
 
-test('reject dispatch act that exceeds quantity in-stock', t => {
+test('reject dispatch act that exceeds quantity in-stock', (t) => {
   const newDoc = {
     act: 'dispatch',
     content: [{ name: demoInventory.products[6].name, quantity: 999999 }],
@@ -179,7 +179,7 @@ test('reject dispatch act that exceeds quantity in-stock', t => {
   }));
 });
 
-test('reject if user does not own the inventory', t => {
+test('reject if user does not own the inventory', (t) => {
   const userID = '58ccdb4001321a44bcb19bb1';
   const inventoryID = demoInventory._id;
   const doc = {

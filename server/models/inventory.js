@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 mongoose.Promise = Promise;
 
 const isNotEmpty = arr => (arr.length > 0);

@@ -14,13 +14,13 @@ test.before(() => {
 test.before(() => User.remove({}));
 test.after.always(() => mongoose.disconnect());
 
-test('User has a name', t => {
+test('User has a name', (t) => {
   const name = 'John Doe';
   return User.create({ name })
     .then(user => t.is(user.name, name));
 });
 
-test('registerDate and lastActivity set correctly for a new user', t => {
+test('registerDate and lastActivity set correctly for a new user', (t) => {
   const now = Date.now();
 
   return User.create({ name: 'Foo Bar' })
@@ -32,14 +32,14 @@ test('registerDate and lastActivity set correctly for a new user', t => {
     ));
 });
 
-test('User name is trimmed', t => {
+test('User name is trimmed', (t) => {
   const name = 'I am awesome';
 
   return User.create({ name: `  ${name}  ` })
     .then(user => t.is(user.name, name));
 });
 
-test('User cannot be created without a name', t => {
+test('User cannot be created without a name', (t) => {
   t.throws(User.create({ foo: 'bar' }));
 });
 

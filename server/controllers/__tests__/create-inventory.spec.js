@@ -16,11 +16,11 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('create a new empty inventory and add user as owner/creator', t => {
+test('create a new empty inventory and add user as owner/creator', (t) => {
   const userID = demoUser._id;
 
   return createInventory({ userID })
-    .then(inventory => {
+    .then((inventory) => {
       t.is(inventory.owners[0]._id.toString(), userID);
       t.is(inventory.creator._id.toString(), userID);
       t.is(inventory.owners[0].name, demoUser.name);

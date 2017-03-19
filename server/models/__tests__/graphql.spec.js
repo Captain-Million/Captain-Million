@@ -27,7 +27,7 @@ function testGraphQLWith(query, variables = {}) {
     .set('Accept', 'application/json')
     .expect(200)
     .expect('Content-type', /json/)
-    .then(res => {
+    .then((res) => {
       t.truthy(res.body.data);
       t.falsy(res.body.errors);
     });

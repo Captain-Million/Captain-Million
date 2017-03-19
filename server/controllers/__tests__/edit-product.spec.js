@@ -16,14 +16,14 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('changing name of product updates all associated documents', t => {
+test('changing name of product updates all associated documents', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.creator;
   const productName = demoInventory.products[0].name;
   const updates = { name: 'HP PROBOOK100' };
 
   return editProduct({ inventoryID, userID, productName, updates })
-    .then(inventory => {
+    .then((inventory) => {
       t.true(inventory.products.some(
         prod => prod.name === updates.name.trim()
       ));
@@ -33,14 +33,14 @@ test('changing name of product updates all associated documents', t => {
     });
 });
 
-test('editing the quantity/_id of a product has NO effect', t => {
+test('editing the quantity/_id of a product has NO effect', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.creator;
   const productName = demoInventory.products[1].name;
   const updates = { _id: '58cd382fdd7859eb18dfffb6', quantity: 1000 };
 
   return editProduct({ inventoryID, userID, productName, updates })
-    .then(inventory => {
+    .then((inventory) => {
       const targetProduct = inventory.products
         .find(prod => prod.name === productName);
       t.true(
@@ -54,7 +54,7 @@ test('editing the quantity/_id of a product has NO effect', t => {
     });
 });
 
-test('reject if product does not exist', t => {
+test('reject if product does not exist', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.creator;
   const productName = 'A NAME THAT DOES NOT EXIST :(';
@@ -62,7 +62,7 @@ test('reject if product does not exist', t => {
   t.throws(editProduct({ inventoryID, userID, productName, updates }));
 });
 
-test('reject if user does not own the inventory', t => {
+test('reject if user does not own the inventory', (t) => {
   const inventoryID = demoInventory._id;
   const userID = '58cd3758b0a5f17696daabd8';
   const productName = demoInventory.products[1].name;

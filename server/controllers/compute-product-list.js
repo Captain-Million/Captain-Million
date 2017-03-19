@@ -10,7 +10,7 @@
 // output: same instance of Inventory model with mutated products array
 //         documents array is unchanged
 function apply(inventory, doc, isNew) {
-  doc.content.forEach(entry => {
+  doc.content.forEach((entry) => {
     const productIndex = inventory.products.findIndex(
       product => product.name.trim() === entry.name.trim()
     );

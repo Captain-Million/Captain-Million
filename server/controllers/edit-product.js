@@ -8,7 +8,7 @@ function editProduct({ userID, inventoryID, productName, updates }) {
   };
 
   return Inventory.findOne(query).exec()
-    .then(inventory => {
+    .then((inventory) => {
       if (!inventory) {
         throw new Error(`Inventory not found: ${inventoryID}`);
       }
@@ -25,8 +25,8 @@ function editProduct({ userID, inventoryID, productName, updates }) {
         newProductFields.name = newProductFields.name.trim();
         if (targetProduct.name !== newProductFields.name) {
           // update all associated documents after rename
-          inventory.documents.forEach(doc => {
-            doc.content.forEach(entry => {
+          inventory.documents.forEach((doc) => {
+            doc.content.forEach((entry) => {
               if (entry.name === targetProduct.name) {
                 entry.set({ name: newProductFields.name });
               }

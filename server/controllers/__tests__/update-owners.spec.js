@@ -17,32 +17,32 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('update owners array in an inventory created by user', t => {
+test('update owners array in an inventory created by user', (t) => {
   const userID = demoInventory.creator;
   const inventoryID = demoInventory._id;
   const owners = [userID];
 
   return User.create({ name: 'foo' })
-    .then(user => {
+    .then((user) => {
       owners.push(user._id.toString());
 
       return updateOwners({ userID, inventoryID, owners });
     })
-    .then(inventory => {
+    .then((inventory) => {
       const updatedOwners = inventory.owners
         .map(owner => owner._id.toString());
       t.deepEqual(updatedOwners, owners);
     });
 });
 
-test('reject if removing creator from owners', t => {
+test('reject if removing creator from owners', (t) => {
   const userID = demoInventory.creator;
   const inventoryID = demoInventory._id;
   const owners = ['58ccef5cadb5e93d91c78952'];
   t.throws(updateOwners({ userID, inventoryID, owners }));
 });
 
-test('reject if user is not creator of the inventory', t => {
+test('reject if user is not creator of the inventory', (t) => {
   const userID = '58ccf026c29dfce7ce55a9fd';
   const inventoryID = demoInventory._id;
   const owners = [userID, demoInventory.creator];

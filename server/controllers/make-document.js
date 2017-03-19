@@ -9,7 +9,7 @@ function makeDocument({ doc, inventoryID, userID }) {
   };
 
   return Inventory.findOne(query).exec()
-    .then(inventory => {
+    .then((inventory) => {
       if (!inventory) throw new Error(`Inventory not found: ${inventoryID}`);
 
       const productList = inventory.products.map(prod => prod.name);
@@ -20,7 +20,7 @@ function makeDocument({ doc, inventoryID, userID }) {
 
       return inventory;
     })
-    .then(inventory => {
+    .then((inventory) => {
       const newDoc = { ...doc };
       delete newDoc._id;
 

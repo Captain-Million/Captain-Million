@@ -16,7 +16,7 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('add a new product', t => {
+test('add a new product', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
@@ -26,12 +26,12 @@ test('add a new product', t => {
   editedProductNames.push(newProduct);
 
   return editProductList({ editedProductNames, inventoryID, userID })
-    .then(inventory => {
+    .then((inventory) => {
       t.truthy(inventory.products.find(
         prod => prod.name === newProduct && prod.quantity === 0
       ));
 
-      inventory.products.forEach(prod => {
+      inventory.products.forEach((prod) => {
         if (prod.name === newProduct) return;
 
         const demoQuantity = demoInventory.products
@@ -42,7 +42,7 @@ test('add a new product', t => {
     });
 });
 
-test('remove a product also remove related document entries', t => {
+test('remove a product also remove related document entries', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
@@ -50,11 +50,11 @@ test('remove a product also remove related document entries', t => {
     .slice(1);
 
   return editProductList({ inventoryID, editedProductNames, userID })
-    .then(inventory => {
+    .then((inventory) => {
       t.falsy(inventory.products.find(
         prod => prod.name === demoInventory.products[0].name)
       );
-      inventory.documents.forEach(doc => {
+      inventory.documents.forEach((doc) => {
         t.falsy(doc.content.find(
           entry => entry.name === demoInventory.products[0].name
         ));
@@ -62,7 +62,7 @@ test('remove a product also remove related document entries', t => {
     });
 });
 
-test('add and remove some products with trimmed names', t => {
+test('add and remove some products with trimmed names', (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.owners[0];
   const editedProductNames = demoInventory.products
@@ -73,14 +73,14 @@ test('add and remove some products with trimmed names', t => {
   editedProductNames.push(...newProducts);
 
   return editProductList({ inventoryID, editedProductNames, userID })
-    .then(inventory => {
+    .then((inventory) => {
       t.falsy(inventory.products.find(
         prod => prod.name === demoInventory.products[1].name
       ));
       t.truthy(inventory.products.find(
         prod => prod.name === newProducts[1].trim()
       ));
-      inventory.documents.forEach(doc => {
+      inventory.documents.forEach((doc) => {
         t.falsy(doc.content.find(
           entry => entry.name === demoInventory.products[1].name
         ));
@@ -88,14 +88,14 @@ test('add and remove some products with trimmed names', t => {
     });
 });
 
-test('reject if inventory not found', t => {
+test('reject if inventory not found', (t) => {
   const inventoryID = '58c92bb2483976dd98c00b1f';
   const userID = demoInventory.owners[0];
   const editedProductNames = [];
   t.throws(editProductList({ inventoryID, editedProductNames, userID }));
 });
 
-test('reject if user does not own the inventory', t => {
+test('reject if user does not own the inventory', (t) => {
   const inventoryID = demoInventory._id;
   const userID = '58ccd25947e908d80108804f';
   const editedProductNames = [];

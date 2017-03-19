@@ -17,14 +17,14 @@ test.before(() => {
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('identify demo user without creating a new user', t => {
+test('identify demo user without creating a new user', (t) => {
   return identifyUser({ name: demoUser.name })
     .then(user => t.is(user.name, demoUser.name))
     .then(() => User.find({ name: demoUser.name }).exec())
     .then(users => t.is(users.length, 1));
 });
 
-test('create a new user if the lookup fail', t => {
+test('create a new user if the lookup fail', (t) => {
   const name = 'Create me';
 
   return identifyUser({ name })
@@ -33,7 +33,7 @@ test('create a new user if the lookup fail', t => {
     .then(users => t.is(users.length, 1));
 });
 
-test('update lastActivity field of user', t => {
+test('update lastActivity field of user', (t) => {
   const now = Date.now();
 
   return identifyUser({ name: demoUser.name })

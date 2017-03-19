@@ -12,7 +12,7 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
   };
 
   return Inventory.findOne(query)
-    .then(inventory => {
+    .then((inventory) => {
       if (!inventory) {
         throw new Error(`Invalid inventoryID: ${inventoryID}`);
       }
@@ -25,7 +25,7 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
       );
 
       // keep document entries that match the provided names
-      for (let i = inventory.documents.length - 1; i >= 0; i--) {
+      for (let i = inventory.documents.length - 1; i >= 0; i -= 1) {
         const doc = inventory.documents[i];
         const usefulEntries = doc.content.filter(
           entry => trimmedNames.includes(entry.name)
@@ -38,7 +38,7 @@ function editProductList({ editedProductNames, inventoryID, userID }) {
       }
 
       // add new products
-      trimmedNames.forEach(name => {
+      trimmedNames.forEach((name) => {
         const prodExist = !!newProductList.find(prod => prod.name === name);
         if (prodExist) return;
 

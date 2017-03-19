@@ -23,7 +23,7 @@ function testEditDocument({
   expectQuantity,
   quantity,
 }) {
-  return t => {
+  return (t) => {
     const doc = { ...demoInventory.documents[docIdx] };
     doc.content[contentIdx] = {
       ...demoInventory.documents[docIdx].content[contentIdx],
@@ -34,7 +34,7 @@ function testEditDocument({
     const userID = demoInventory.owners[0];
 
     return editDocument({ doc, userID })
-      .then(inventory => {
+      .then((inventory) => {
         t.is(inventory.products[prodIdx].quantity, expectQuantity);
         t.is(inventory.documents.length, demoInventory.documents.length);
         const {
@@ -77,7 +77,7 @@ test('edit inventory document', testEditDocument({
   prodIdx: 6,
 }));
 
-test('reject invalid documentID', t => {
+test('reject invalid documentID', (t) => {
   const doc = {
     _id: '58c906e4a8ef4699685e07a6',
     act: 'arrival',
@@ -89,7 +89,7 @@ test('reject invalid documentID', t => {
   t.throws(editDocument({ doc, userID }));
 });
 
-test('reject if user does not own the inventory', t => {
+test('reject if user does not own the inventory', (t) => {
   const userID = '58ccd18006b1b5a97d2518be';
   const doc = { ...demoInventory.documents[1] };
   t.throws(editDocument({ doc, userID }));

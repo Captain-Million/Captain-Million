@@ -9,7 +9,7 @@ function deleteDocument({ documentID, userID }) {
   };
 
   return Inventory.findOne(query).exec()
-    .then(inventory => {
+    .then((inventory) => {
       if (!inventory) throw new Error(`Document not found: ${documentID}`);
 
       // remove the document

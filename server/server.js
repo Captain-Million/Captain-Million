@@ -6,18 +6,18 @@ import path from 'path';
 
 // Webpack Requirements
 import webpack from 'webpack';
-import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config.dev';
 
 // GraphQL
 import graphqlRouter from './routes/graphql.route';
 
-// Initialize the Express App
-const app = new Express();
-
 // Import required modules
 import serverConfig from './config';
+
+// Initialize the Express App
+const app = new Express();
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'development') {
   }));
   app.use(webpackHotMiddleware(compiler));
 
-  app.get('*', function (req, res) {
+  app.get('*', (req, res) => {
     const memoryFs = compiler.outputFileSystem;
     const index = path.join(config.output.path, 'index.html');
     const html = memoryFs.readFileSync(index);
@@ -62,7 +62,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   // react router
   app.get('*', (req, res) => {
-      res.status(200).sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+    res.status(200).sendFile(path.join(process.cwd(), 'dist', 'index.html'));
   });
 }
 

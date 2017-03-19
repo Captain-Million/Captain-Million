@@ -6,7 +6,7 @@ function getInventories({ inventoryID, userID }) {
   if (inventoryID) Object.assign(query, { _id: inventoryID });
 
   return Inventory.find(query).exec()
-    .then(inventories => {
+    .then((inventories) => {
       if (inventoryID && inventories.length === 0) {
         throw new Error('Inventory not found!');
       }
@@ -15,7 +15,7 @@ function getInventories({ inventoryID, userID }) {
 
       return inventories;
     })
-    .then(result => {
+    .then((result) => {
       if (Array.isArray(result)) {
         return Promise.all(result.map(inv => populateInventory(inv)));
       }

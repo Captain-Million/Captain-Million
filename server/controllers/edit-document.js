@@ -10,7 +10,7 @@ function editDocument({ doc, userID }) {
   };
 
   return Inventory.findOne(query)
-    .then(inventory => {
+    .then((inventory) => {
       if (!inventory) throw new Error(`Document not found: ${documentID}`);
 
       const editedDoc = {
