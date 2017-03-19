@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
+import { Route } from 'react-router-dom';
+import Home from './modules/Home/Home';
 
 import styles from './Landing.css';
-
+console.log(Home);
 export default class Landing extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ export default class Landing extends Component {
             titleTemplate="%s - WMS proj. Landing"
           />
           <div className={styles.container}>
-            {this.props.children}
+            <Route component={Home} />
           </div>
         </div>
       </div>

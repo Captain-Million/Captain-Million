@@ -18,15 +18,19 @@ const documentsListView = documentsList.map((item) => {
 
 const currentDocumentName = '17.11.17 10:12';
 
-const Arrival = () => {
+const Arrival = ({ match }) => {
   const documentType = 'Arrival act';
+
+  const documentId = match.url.replace(/^\/wms\/arrival\//, '');
+  let currentDocument = documentsList.filter(x => x._id === documentId)[0];
+  currentDocument = currentDocument || documentsList[0];
   return (
     <div>
       <Helmet title="Arrival acts" />
       <ListView list={documentsListView} urlPrefix="arrival" documentType={documentType} header="Arrival acts" />
       <DocumentContainer>
-        <DocumentHeader documentType={documentType} name={currentDocumentName} />
-        <Table products={documentsList[0].content} />
+        <DocumentHeader documentType={documentType} name={currentDocument._id} />
+        <Table products={currentDocument.content} />
         <DocumentControls eventhandlers="some_event_handlers" />
       </DocumentContainer>
     </div>
