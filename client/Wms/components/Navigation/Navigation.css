@@ -1,7 +1,7 @@
 .nav {
+  padding: 1em;
   background-color: #424242;
-  order: 3;
-  flex: 0 0;
+  order: 2;
 }
 
 .nav li+li {

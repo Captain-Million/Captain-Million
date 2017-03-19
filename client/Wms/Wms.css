@@ -1,12 +1,22 @@
 .wms > div {
-  min-height: 100vh;
-  flex-direction: column;
-  display: flex;
-  flex-flow: row wrap;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
 
-.wms > div > div {
-  padding: 1em;
+.wms, .wms > div:first-child {
+  flex-direction: column;
+  display: flex;
+  flex-flow: row wrap;
 }
+
+.wms > div:first-child {
+  /* child module */
+  flex: 3 0px;
+  order: 1;
+}
+
+.wms > div {
+  min-height: 100vh;
+  /* all */
+}
+

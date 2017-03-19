@@ -3,7 +3,6 @@ import Helmet from 'react-helmet';
 
 import ListView from './../../components/ListView/ListView';
 import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
-import Navigation from './../../components/Navigation/Navigation';
 
 const documentsList = [
   { name: '17.01.17 09:12', _id: '3567357' },
@@ -20,7 +19,6 @@ const Arrival = () => {
       <Helmet title="Arrival" />
       <ListView list={documentsList} urlPrefix="arrival" documentType="Arrival act" header="Arrival acts" />
       <DocumentContainer />
-      <Navigation />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
 import DevTools from './components/ReactDevTools/ReactDevTools';
+import Navigation from './components/Navigation/Navigation';
 
 import styles from './Wms.css';
 
@@ -36,8 +37,10 @@ export default class Wms extends Component {
             ]}
           />
           <div className={styles.wms}>
-            {this.props.children}
+            {this.props.children} {/* Modules: arrival, inventory, etc*/}
+            <Navigation />
           </div>
+          
         </div>
       </div>
     );
