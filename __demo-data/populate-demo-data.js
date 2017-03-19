@@ -7,6 +7,8 @@ import config from '../server/config';
 
 mongoose.Promise = global.Promise;
 
+// this can be run in the command line using postinstall.js
+/* eslint-disable no-console */
 function populateDemoData(mongoURL = config.mongoURL) {
   const shouldHandleConnect = mongoose.connection.readyState !== 1;
 
