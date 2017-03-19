@@ -6,12 +6,11 @@ import demoInventory from '../../../__demo-data/demo-inventory';
 import populateDemoData from '../../../__demo-data/populate-demo-data';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
@@ -23,7 +22,7 @@ function testEditDocument({
   expectQuantity,
   quantity,
 }) {
-  return (t) => {
+  return async (t) => {
     const doc = { ...demoInventory.documents[docIdx] };
     doc.content[contentIdx] = {
       ...demoInventory.documents[docIdx].content[contentIdx],
@@ -33,23 +32,21 @@ function testEditDocument({
     const now = Date.now();
     const userID = demoInventory.owners[0];
 
-    return editDocument({ doc, userID })
-      .then((inventory) => {
-        t.is(inventory.products[prodIdx].quantity, expectQuantity);
-        t.is(inventory.documents.length, demoInventory.documents.length);
-        const {
-          _id,
-          act,
-          content,
-          lastEdit,
-        } = inventory.documents[docIdx];
-        t.is(_id.toString(), doc._id);
-        t.is(act, doc.act);
-        t.is(content[contentIdx].name, doc.content[contentIdx].name);
-        t.is(content[contentIdx].quantity, doc.content[contentIdx].quantity);
-        t.is(lastEdit.user._id.toString(), userID);
-        t.true(lastEdit.date >= now && lastEdit.date <= Date.now());
-      });
+    const inventory = await editDocument({ doc, userID });
+    t.is(inventory.products[prodIdx].quantity, expectQuantity);
+    t.is(inventory.documents.length, demoInventory.documents.length);
+    const {
+      _id,
+      act,
+      content,
+      lastEdit,
+    } = inventory.documents[docIdx];
+    t.is(_id.toString(), doc._id);
+    t.is(act, doc.act);
+    t.is(content[contentIdx].name, doc.content[contentIdx].name);
+    t.is(content[contentIdx].quantity, doc.content[contentIdx].quantity);
+    t.is(lastEdit.user._id.toString(), userID);
+    t.true(lastEdit.date >= now && lastEdit.date <= Date.now());
   };
 }
 

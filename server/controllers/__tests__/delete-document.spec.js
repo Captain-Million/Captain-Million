@@ -7,53 +7,46 @@ import demoInventory from '../../../__demo-data/demo-inventory';
 import deleteDocument from '../delete-document';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('delete and revert an inventory document', (t) => {
+test('delete and revert an inventory document', async (t) => {
   const documentID = demoInventory.documents[9]._id;
   const userID = demoInventory.owners[0];
 
-  return deleteDocument({ documentID, userID })
-    .then((inventory) => {
-      t.is(inventory.products[1].quantity, 3);
-      t.falsy(inventory.documents.find(
-        doc => doc._id.toString() === documentID
-      ));
-    });
+  const inventory = await deleteDocument({ documentID, userID });
+  t.is(inventory.products[1].quantity, 3);
+  t.falsy(inventory.documents.find(
+    doc => doc._id.toString() === documentID
+  ));
 });
 
-test('delete and revert an arrival document', (t) => {
+test('delete and revert an arrival document', async (t) => {
   const documentID = demoInventory.documents[4]._id;
   const userID = demoInventory.owners[0];
 
-  return deleteDocument({ documentID, userID })
-    .then((inventory) => {
-      t.is(inventory.products[9].quantity, 8);
-      t.falsy(inventory.documents.find(
-        doc => doc._id.toString() === documentID
-      ));
-    });
+  const inventory = await deleteDocument({ documentID, userID });
+  t.is(inventory.products[9].quantity, 8);
+  t.falsy(inventory.documents.find(
+    doc => doc._id.toString() === documentID
+  ));
 });
 
-test('delete and revert a dispatch document', (t) => {
+test('delete and revert a dispatch document', async (t) => {
   const documentID = demoInventory.documents[2]._id;
   const userID = demoInventory.owners[0];
 
-  return deleteDocument({ documentID, userID })
-    .then((inventory) => {
-      t.is(inventory.products[0].quantity, 4);
-      t.falsy(inventory.documents.find(
-        doc => doc._id.toString() === documentID
-      ));
-    });
+  const inventory = await deleteDocument({ documentID, userID });
+  t.is(inventory.products[0].quantity, 4);
+  t.falsy(inventory.documents.find(
+    doc => doc._id.toString() === documentID
+  ));
 });
 
 test('reject delete if user does not own the inventory', (t) => {
@@ -68,37 +61,42 @@ test('reject invalid documentID', (t) => {
   t.throws(deleteDocument({ userID, documentID: invalidID }));
 });
 
-test('reject deletion of inventory act if leads to invalid quantity', (t) => {
+test('reject deleting inventory act if causes -ve quantity', async (t) => {
   const documentID = demoInventory.documents[12]._id;
   const userID = demoInventory.owners[0];
 
-  return deleteDocument({ documentID, userID })
-    .then(
-      t.fail,
-      () => Inventory.findOne({ 'documents._id': documentID }).exec()
-    ).then((inventory) => {
-      t.is(inventory.products[4].quantity, 10);
-      t.is(inventory.products[6].quantity, 0);
-      t.truthy(inventory.documents.find(
-        doc => doc._id.toString() === documentID
-      ));
-    });
+  t.plan(3);
+  try {
+    await deleteDocument({ documentID, userID });
+    t.fail();
+  } catch (e) {
+    const inventory = await Inventory
+      .findOne({ 'documents._id': documentID })
+      .exec();
+    t.is(inventory.products[4].quantity, 10);
+    t.is(inventory.products[6].quantity, 0);
+    t.truthy(inventory.documents.find(
+      doc => doc._id.toString() === documentID
+    ));
+  }
 });
 
-test('reject deletion of arrival act if leads to invalid quantity', (t) => {
+test('reject deletion of arrival act if causes -ve quantity', async (t) => {
   const documentID = demoInventory.documents[13]._id;
   const userID = demoInventory.owners[0];
 
-  return deleteDocument({ documentID, userID })
-    .then(
-      t.fail,
-      () => Inventory.findOne({ 'documents._id': documentID }).exec()
-    ).then((inventory) => {
-      t.is(inventory.products[4].quantity, 10);
-      t.is(inventory.products[6].quantity, 0);
-      t.truthy(inventory.documents.find(
-        doc => doc._id.toString() === documentID
-      ));
-    });
+  try {
+    await deleteDocument({ documentID, userID });
+    t.fail();
+  } catch (e) {
+    const inventory = await Inventory
+      .findOne({ 'documents._id': documentID })
+      .exec();
+    t.is(inventory.products[4].quantity, 10);
+    t.is(inventory.products[6].quantity, 0);
+    t.truthy(inventory.documents.find(
+      doc => doc._id.toString() === documentID
+    ));
+  }
 });
 

@@ -6,52 +6,57 @@ import populateDemoData from '../../../__demo-data/populate-demo-data';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('changing name of product updates all associated documents', (t) => {
+test('changing product name updates all related documents', async (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.creator;
   const productName = demoInventory.products[0].name;
   const updates = { name: 'HP PROBOOK100' };
 
-  return editProduct({ inventoryID, userID, productName, updates })
-    .then((inventory) => {
-      t.true(inventory.products.some(
-        prod => prod.name === updates.name.trim()
-      ));
-      t.true(inventory.documents.some(
-        doc => doc.content.some(entry => entry.name === updates.name.trim())
-      ));
-    });
+  const inventory = await editProduct({
+    inventoryID,
+    userID,
+    productName,
+    updates,
+  });
+  t.true(inventory.products.some(
+    prod => prod.name === updates.name.trim()
+  ));
+  t.true(inventory.documents.some(
+    doc => doc.content.some(entry => entry.name === updates.name.trim())
+  ));
 });
 
-test('editing the quantity/_id of a product has NO effect', (t) => {
+test('editing the quantity/_id of a product has NO effect', async (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.creator;
   const productName = demoInventory.products[1].name;
   const updates = { _id: '58cd382fdd7859eb18dfffb6', quantity: 1000 };
 
-  return editProduct({ inventoryID, userID, productName, updates })
-    .then((inventory) => {
-      const targetProduct = inventory.products
-        .find(prod => prod.name === productName);
-      t.true(
-        targetProduct._id.toString() === demoInventory.products[1]._id &&
-        demoInventory.products[1]._id !== updates._id
-      );
-      t.true(
-        targetProduct.quantity === demoInventory.products[1].quantity &&
-        demoInventory.products[1].quantity !== updates.quantity
-      );
-    });
+  const inventory = await editProduct({
+    inventoryID,
+    userID,
+    productName,
+    updates,
+  });
+  const targetProduct = inventory.products
+    .find(prod => prod.name === productName);
+  t.true(
+    targetProduct._id.toString() === demoInventory.products[1]._id &&
+    demoInventory.products[1]._id !== updates._id
+  );
+  t.true(
+    targetProduct.quantity === demoInventory.products[1].quantity &&
+    demoInventory.products[1].quantity !== updates.quantity
+  );
 });
 
 test('reject if product does not exist', (t) => {

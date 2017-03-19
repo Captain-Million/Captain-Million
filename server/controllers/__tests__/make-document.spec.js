@@ -7,17 +7,16 @@ import demoUser from '../../../__demo-data/demo-user';
 import demoInventory from '../../../__demo-data/demo-inventory';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('creates an arrival document with custom title', (t) => {
+test('creates an arrival document with custom title', async (t) => {
   const productIndex = 0;
   const increment = 1999;
 
@@ -31,18 +30,16 @@ test('creates an arrival document with custom title', (t) => {
   };
 
   const now = Date.now();
-
-  return makeDocument({
+  const inventory = await makeDocument({
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then((inventory) => {
-    t.is(
-      inventory.products[productIndex].quantity,
-      demoInventory.products[productIndex].quantity + increment,
-    );
-    return inventory;
-  }).then(inventory => t.true(inventory.documents.some(
+  });
+  t.is(
+    inventory.products[productIndex].quantity,
+    demoInventory.products[productIndex].quantity + increment,
+  );
+  t.true(inventory.documents.some(
     doc => (
       doc.act === newDoc.act &&
       doc.content[0].name === newDoc.content[0].name &&
@@ -52,10 +49,10 @@ test('creates an arrival document with custom title', (t) => {
       doc.lastEdit.date >= now &&
       doc.title === newDoc.title
     )
-  )));
+  ));
 });
 
-test('creates a dispatch document with default title', (t) => {
+test('creates a dispatch document with default title', async (t) => {
   const productIndices = [1, 4];
   const decrement = 3;
 
@@ -70,17 +67,16 @@ test('creates a dispatch document with default title', (t) => {
   const now = Date.now();
   const defaultTitle = 'Untitled';
 
-  return makeDocument({
+  const inventory = await makeDocument({
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then((inventory) => {
-    productIndices.forEach(idx => t.is(
-      inventory.products[idx].quantity,
-      demoInventory.products[idx].quantity - decrement
-    ));
-    return inventory;
-  }).then(inventory => t.true(inventory.documents.some(
+  });
+  productIndices.forEach(idx => t.is(
+    inventory.products[idx].quantity,
+    demoInventory.products[idx].quantity - decrement
+  ));
+  t.true(inventory.documents.some(
     doc => (
       doc.title === defaultTitle &&
       doc.act === newDoc.act &&
@@ -90,10 +86,10 @@ test('creates a dispatch document with default title', (t) => {
       doc.lastEdit.date <= Date.now() &&
       doc.lastEdit.date >= now
     )
-  )));
+  ));
 });
 
-test('creates an inventory document with trimmed title', (t) => {
+test('creates an inventory document with trimmed title', async (t) => {
   const productIndices = [2, 3];
   const value = 42;
 
@@ -107,18 +103,16 @@ test('creates an inventory document with trimmed title', (t) => {
   };
 
   const now = Date.now();
-
-  return makeDocument({
+  const inventory = await makeDocument({
     doc: newDoc,
     inventoryID: demoInventory._id,
     userID: demoUser._id,
-  }).then((inventory) => {
-    productIndices.forEach(idx => t.is(
-      inventory.products[idx].quantity,
-      value
-    ));
-    return inventory;
-  }).then(inventory => t.true(inventory.documents.some(
+  });
+  productIndices.forEach(idx => t.is(
+    inventory.products[idx].quantity,
+    value
+  ));
+  t.true(inventory.documents.some(
     doc => (
       doc.title === newDoc.title.trim() &&
       doc.act === newDoc.act &&
@@ -128,7 +122,7 @@ test('creates an inventory document with trimmed title', (t) => {
       doc.lastEdit.date <= Date.now() &&
       doc.lastEdit.date >= now
     )
-  )));
+  ));
 });
 
 test('reject invalid inventoryID', (t) => {
@@ -188,3 +182,4 @@ test('reject if user does not own the inventory', (t) => {
   };
   t.throws(makeDocument({ doc, inventoryID, userID }));
 });
+

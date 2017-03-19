@@ -7,32 +7,26 @@ import updateOwners from '../update-owners';
 import User from '../../models/user';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('update owners array in an inventory created by user', (t) => {
+test('update owners array in an inventory created by user', async (t) => {
   const userID = demoInventory.creator;
   const inventoryID = demoInventory._id;
   const owners = [userID];
+  const user = await User.create({ name: 'foo' });
+  owners.push(user._id.toString());
 
-  return User.create({ name: 'foo' })
-    .then((user) => {
-      owners.push(user._id.toString());
-
-      return updateOwners({ userID, inventoryID, owners });
-    })
-    .then((inventory) => {
-      const updatedOwners = inventory.owners
-        .map(owner => owner._id.toString());
-      t.deepEqual(updatedOwners, owners);
-    });
+  const inventory = await updateOwners({ userID, inventoryID, owners });
+  const updatedOwners = inventory.owners
+    .map(owner => owner._id.toString());
+  t.deepEqual(updatedOwners, owners);
 });
 
 test('reject if removing creator from owners', (t) => {

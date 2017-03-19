@@ -4,39 +4,34 @@ import test from 'ava';
 import User from '../user';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => User.remove({}));
 test.after.always(() => mongoose.disconnect());
 
-test('User has a name', (t) => {
+test('User has a name', async (t) => {
   const name = 'John Doe';
-  return User.create({ name })
-    .then(user => t.is(user.name, name));
+  const user = await User.create({ name });
+  t.is(user.name, name);
 });
 
-test('registerDate and lastActivity set correctly for a new user', (t) => {
+test('registerDate/lastActivity set for a new user', async (t) => {
   const now = Date.now();
-
-  return User.create({ name: 'Foo Bar' })
-    .then(user => t.true(
-      user.registerDate >= now &&
-      user.registerDate <= Date.now() &&
-      user.lastActivity >= now &&
-      user.lastActivity <= Date.now()
-    ));
+  const user = await User.create({ name: 'Foo Bar' });
+  t.true(user.registerDate >= now);
+  t.true(user.registerDate <= Date.now());
+  t.true(user.lastActivity >= now);
+  t.true(user.lastActivity <= Date.now());
 });
 
-test('User name is trimmed', (t) => {
+test('User name is trimmed', async (t) => {
   const name = 'I am awesome';
-
-  return User.create({ name: `  ${name}  ` })
-    .then(user => t.is(user.name, name));
+  const user = await User.create({ name: `  ${name}  ` });
+  t.is(user.name, name);
 });
 
 test('User cannot be created without a name', (t) => {

@@ -7,40 +7,32 @@ import demoInventory from '../../../__demo-data/demo-inventory';
 import getInventories from '../get-inventories';
 import config from '../../config';
 
-test.before(() => {
+test.before(async () => {
   mongoose.Promise = Promise;
   const mockgoose = new Mockgoose(mongoose);
-
-  return mockgoose.prepareStorage()
-    .then(() => mongoose.connect(config.mongoURL));
+  await mockgoose.prepareStorage();
+  await mongoose.connect(config.mongoURL);
 });
 test.before(() => populateDemoData());
 test.after.always(() => mongoose.disconnect());
 
-test('get the inventory with inventoryID', (t) => {
+test('get the inventory with inventoryID', async (t) => {
   const inventoryID = demoInventory._id;
   const userID = demoInventory.owners[0];
-
-  return getInventories({ inventoryID, userID })
-    .then(inventory => t.is(inventory._id.toString(), demoInventory._id));
+  const inventory = await getInventories({ inventoryID, userID });
+  t.is(inventory._id.toString(), demoInventory._id);
 });
 
-test('get inventories array with userID', (t) => {
-  return getInventories({ userID: demoUser._id })
-    .then(inventories => t.is(
-      inventories[0]._id.toString(),
-      demoInventory._id,
-    ));
+test('get inventories array with userID', async (t) => {
+  const inventories = await getInventories({ userID: demoUser._id });
+  t.is(inventories[0]._id.toString(), demoInventory._id);
 });
 
-test('get empty array if user does not own any inventory', (t) => {
+test('get empty array if user does not own any inventory', async (t) => {
   const userID = '58c9355432bf6fee550eca40';
-
-  return getInventories({ userID })
-    .then((inventories) => {
-      t.true(Array.isArray(inventories));
-      t.is(inventories.length, 0);
-    });
+  const inventories = await getInventories({ userID });
+  t.true(Array.isArray(inventories));
+  t.is(inventories.length, 0);
 });
 
 test('reject if user does not own the inventory', (t) => {
