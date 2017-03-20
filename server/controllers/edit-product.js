@@ -21,6 +21,17 @@ function editProduct({ userID, inventoryID, productName, updates }) {
       }
 
       const newProductFields = { ...updates };
+
+      // in case of rename, check for name collisions
+      if (targetProduct.name !== newProductFields.name) {
+        const hasCollision = inventory.products.some(
+          prod => prod.name === newProductFields.name
+        );
+        if (hasCollision) {
+          throw new Error(`Fail to edit product: ${newProductFields.name} already exists!`);
+        }
+      }
+
       if (newProductFields.name) {
         newProductFields.name = newProductFields.name.trim();
         if (targetProduct.name !== newProductFields.name) {
