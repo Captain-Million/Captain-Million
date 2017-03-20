@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import formatDate from './../../../util/formatDate';
 
@@ -7,7 +7,7 @@ import styles from './ListView.css';
 
 const ListView = ({ list = [], urlPrefix = '', documentType = '', header = '' } = {}) => {
   const documentsList = list.map((item) => {
-    return (<li key={item._id} ><Link to={`/wms/${urlPrefix}/${item._id}`} activeClassName={styles.active}>{documentType} {formatDate(item.date)}</Link></li>);
+    return (<li key={item._id} ><NavLink to={`/wms/${urlPrefix}/${item._id}`} activeClassName={styles.active}>{documentType} {formatDate(item.date)}</NavLink></li>);
   });
   return (
     <div className={styles.listView}>

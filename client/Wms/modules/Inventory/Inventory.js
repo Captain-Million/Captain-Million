@@ -16,17 +16,17 @@ const documentsListView = documentsList.map((item) => {
   return ({ _id, date });
 });
 
-const currentDocumentName = '17.11.17 10:12';
-
-const Inventory = () => {
+const Inventory = ({ match }) => {
   const documentType = 'Inventory act';
+  let currentDocument = documentsList.filter(x => x._id === match.params.id)[0];
+  currentDocument = currentDocument || documentsList[0];
   return (
     <div>
       <Helmet title="Arrival acts" />
       <ListView list={documentsListView} urlPrefix="inventory" documentType={documentType} header="Inventory acts" />
       <DocumentContainer>
-        <DocumentHeader documentType={documentType} name={currentDocumentName} />
-        <Table products={documentsList[0].content} />
+        <DocumentHeader documentType={documentType} date={currentDocument.lastEdit.date} />
+        <Table products={currentDocument.content} />
         <DocumentControls eventhandlers="some_event_handlers" />
       </DocumentContainer>
     </div>

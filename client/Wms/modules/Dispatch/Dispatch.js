@@ -9,21 +9,21 @@ import Table from './components/Table/Table';
 
 const demoData = require('./../../../../__demo-data/demo-data');
 
-const documentsList = demoData.documents.filter(item => item.act === 'arrival');
+const documentsList = demoData.documents.filter(item => item.act === 'dispatch');
 
 const documentsListView = documentsList.map((item) => {
   const { _id, lastEdit: { date } } = item;
   return ({ _id, date });
 });
 
-const Arrival = ({ match }) => {
-  const documentType = 'Arrival act';
+const Dispatch = ({ match }) => {
+  const documentType = 'Dispatch act';
   let currentDocument = documentsList.filter(x => x._id === match.params.id)[0];
   currentDocument = currentDocument || documentsList[0];
   return (
     <div>
-      <Helmet title="Arrival acts" />
-      <ListView list={documentsListView} urlPrefix="arrival" documentType={documentType} header="Arrival acts" />
+      <Helmet title="Dispatch acts" />
+      <ListView list={documentsListView} urlPrefix="dispatch" documentType={documentType} header="Dispatch acts" />
       <DocumentContainer>
         <DocumentHeader documentType={documentType} date={currentDocument.lastEdit.date} />
         <Table products={currentDocument.content} />
@@ -33,4 +33,4 @@ const Arrival = ({ match }) => {
   );
 };
 
-export default Arrival;
+export default Dispatch;

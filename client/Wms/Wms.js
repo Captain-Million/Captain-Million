@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
@@ -6,7 +6,9 @@ import DevTools from './components/ReactDevTools/ReactDevTools';
 import Navigation from './components/Navigation/Navigation';
 
 import Arrival from './modules/Arrival/Arrival';
+import Dispatch from './modules/Dispatch/Dispatch';
 import Inventory from './modules/Inventory/Inventory';
+import Report from './modules/Report/Report';
 
 import styles from './Wms.css';
 
@@ -44,10 +46,18 @@ export default class Wms extends Component {
           />
           <div className={styles.wms}>
             <Switch>
-              <Route exact path={url} component={Arrival} />
+              <Route exact path={url} component={Report} />
+
               <Route path={`${url}/arrival/:id`} component={Arrival} />
-              <Route path={`${url}/inventory`} component={Inventory} />
-              <Route component={Arrival} />
+              <Route path={`${url}/arrival/`} component={Arrival} />
+
+              <Route path={`${url}/dispatch/:id`} component={Dispatch} />
+              <Route path={`${url}/dispatch/`} component={Dispatch} />
+
+              <Route path={`${url}/inventory/:id`} component={Inventory} />
+              <Route path={`${url}/inventory/`} component={Inventory} />
+
+              <Route path={`${url}/report/`} component={Report} />
             </Switch>
             <Navigation />
           </div>
@@ -56,7 +66,3 @@ export default class Wms extends Component {
     );
   }
 }
-
-Wms.propTypes = {
-  children: PropTypes.element.isRequired,
-};

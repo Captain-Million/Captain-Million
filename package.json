@@ -95,7 +95,6 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
     "eventsource-polyfill": "^0.9.6",
-    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
     "json-loader": "^0.5.4",
     "nock": "^9.0.9",

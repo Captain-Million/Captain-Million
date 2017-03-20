@@ -20,12 +20,12 @@ const products = [
 const documents = [{
   _id: '58c7a4ade748491b9adb2d7e',
   act: 'inventory',
-  content: [{ _id: products[0]._id, name: products[0].name, quantity: 1 }],
+  content: [{ _id: products[2]._id, name: products[2].name, quantity: 33 }],
   lastEdit: { user: demoUser._id, date: new Date(2017, 0, 17, 9, 12) },
 }, {
   _id: '58c7a4e5b0533722fb818ac1',
   act: 'arrival',
-  content: [{ _id: products[0]._id, name: products[0].name, quantity: 3 }],
+  content: [{ _id: products[0]._id, name: products[0].name, quantity: 11 }],
   lastEdit: { user: demoUser._id, date: new Date(2017, 0, 17, 9, 15) },
 }, {
   _id: '58c7a4ec0db825e0b0c79100',
@@ -89,16 +89,16 @@ const documents = [{
   _id: '58c7a52e0b58429a64c1aac5',
   act: 'arrival',
   content: [
-    { _id: products[0]._id, name: products[4].name, quantity: 7 },
-    { _id: products[0]._id, name: products[6].name, quantity: 1 },
+    { _id: products[4]._id, name: products[4].name, quantity: 7 },
+    { _id: products[6]._id, name: products[6].name, quantity: 1 },
   ],
   lastEdit: { user: demoUser._id, date: new Date(2017, 0, 17, 13, 15) },
 }, {
   _id: '58c7a5372d4e2868514bf109',
   act: 'dispatch',
   content: [
-    { _id: products[0]._id, name: products[4].name, quantity: 2 },
-    { _id: products[0]._id, name: products[6].name, quantity: 4 },
+    { _id: products[4]._id, name: products[4].name, quantity: 2 },
+    { _id: products[6]._id, name: products[6].name, quantity: 4 },
   ],
   lastEdit: { user: demoUser._id, date: new Date(2017, 0, 17, 13, 17) },
 }];
