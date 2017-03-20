@@ -75,3 +75,11 @@ test('reject if user does not own the inventory', (t) => {
   t.throws(editProduct({ inventoryID, userID, productName, updates }));
 });
 
+test('reject if new name already exists', (t) => {
+  const inventoryID = demoInventory._id;
+  const userID = demoInventory.creator;
+  const productName = demoInventory.products[2].name;
+  const updates = { name: demoInventory.products[3].name };
+  t.throws(editProduct({ inventoryID, userID, productName, updates }));
+});
+
