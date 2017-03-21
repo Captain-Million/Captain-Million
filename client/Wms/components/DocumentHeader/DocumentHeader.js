@@ -1,14 +1,12 @@
 import React from 'react';
 
-import formatDate from './../../../util/formatDate';
-
 import styles from './DocumentHeader.css';
 
-const DocumentHeader = ({ documentType = 'Document', date = new Date() } = {}) => {
+const DocumentHeader = ({ itemType = '', name = '' } = {}) => {
   return (
     <div className={styles.documentHeader}>
-      <span className={styles.type}>{documentType} </span>
-      <span className={styles.name}>{formatDate(date)}</span>
+      {(itemType) && (<span className={styles.type}>{itemType} </span>)}
+      {(name) && (<span className={styles.name}>{name} </span>)}
     </div>
   );
 };

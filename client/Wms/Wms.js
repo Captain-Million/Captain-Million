@@ -7,6 +7,7 @@ import Navigation from './components/Navigation/Navigation';
 
 import Arrival from './modules/Arrival/Arrival';
 import Dispatch from './modules/Dispatch/Dispatch';
+import Products from './modules/Products/Products';
 import Inventory from './modules/Inventory/Inventory';
 import Report from './modules/Report/Report';
 
@@ -53,6 +54,9 @@ export default class Wms extends Component {
 
               <Route path={`${url}/dispatch/:id`} component={Dispatch} />
               <Route path={`${url}/dispatch/`} component={Dispatch} />
+
+              <Route path={`${url}/products/:id`} component={Products} />
+              <Route path={`${url}/products/`} component={Products} />
 
               <Route path={`${url}/inventory/:id`} component={Inventory} />
               <Route path={`${url}/inventory/`} component={Inventory} />

@@ -6,14 +6,17 @@ import DocumentContainer from './../../components/DocumentContainer/DocumentCont
 import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
 import DocumentControls from './../../components/DocumentControls/DocumentControls';
 import Table from './components/Table/Table';
-
-const demoData = require('./../../../../__demo-data/demo-data');
+import formatDate from './../../../util/formatDate';
+import demoData from './../../../../__demo-data/demo-data';
 
 const documentsList = demoData.documents.filter(item => item.act === 'inventory');
 
 const documentsListView = documentsList.map((item) => {
-  const { _id, lastEdit: { date } } = item;
-  return ({ _id, date });
+  const newItem = {
+    _id: item._id,
+    title: formatDate(item.lastEdit.date),
+  };
+  return (newItem);
 });
 
 const Inventory = ({ match }) => {
@@ -23,9 +26,9 @@ const Inventory = ({ match }) => {
   return (
     <div>
       <Helmet title="Arrival acts" />
-      <ListView list={documentsListView} urlPrefix="inventory" documentType={documentType} header="Inventory acts" />
+      <ListView list={documentsListView} urlPrefix="inventory" itemType={documentType} header="Inventory acts" />
       <DocumentContainer>
-        <DocumentHeader documentType={documentType} date={currentDocument.lastEdit.date} />
+        <DocumentHeader itemType={documentType} name={formatDate(currentDocument.lastEdit.date)} />
         <Table products={currentDocument.content} />
         <DocumentControls eventhandlers="some_event_handlers" />
       </DocumentContainer>

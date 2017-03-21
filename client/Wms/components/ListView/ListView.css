@@ -1,6 +1,7 @@
 .list_view {
   padding: 1em;
-  background-color: #BDBDBD;
+  background-color: #eceff1;
+  border-right: 1px solid #b5bcbf;
   order: 1;
 }
 
