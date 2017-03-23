@@ -2,11 +2,9 @@ import React from 'react';
 
 import styles from './DocumentContainer.css';
 
-const DocumentContainer = ({ children = [] } = {}) => {
+const DocumentContainer = (props) => {
   return (
-    <div className={styles.documentContainer}>
-      {children}
-    </div>
+    <div {...props} className={styles.documentContainer} />
   );
 };
 
