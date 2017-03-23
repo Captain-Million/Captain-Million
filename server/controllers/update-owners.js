@@ -2,7 +2,7 @@ import Inventory from '../models/inventory';
 import populateInventory from './populate-inventory';
 
 function updateOwners({ inventoryID, userID, owners }) {
-  if (!owners.includes(userID)) {
+  if (!owners.includes(userID.toString())) {
     return Promise.reject(new Error('Cannot remove creator from owners!'));
   }
 

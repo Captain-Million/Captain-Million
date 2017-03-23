@@ -1,5 +1,3 @@
-import User from '../models/user';
-
 function populateInventory(inventory) {
   if (!inventory) throw new Error('Fail to populate inventory!');
 

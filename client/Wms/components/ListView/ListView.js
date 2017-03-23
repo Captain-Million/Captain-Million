@@ -6,11 +6,12 @@ import styles from './ListView.css';
 const ListView = ({ list = [], urlPrefix = '', itemType = '', header = '' } = {}) => {
   const renderedItemsList = list.map((item) => {
     return (<li key={item._id} >
-    <NavLink 
-    to={`/wms/${urlPrefix}/${item._id}`} 
-    activeClassName={styles.active}>
-    {itemType} {item.title}
-    </NavLink>
+      <NavLink
+        to={`/wms/${urlPrefix}/${item._id}`}
+        activeClassName={styles.active}
+      >
+        {itemType} {item.title}
+      </NavLink>
     </li>);
   });
   return (

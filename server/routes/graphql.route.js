@@ -1,15 +1,18 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { schema, rootValue } from '../models/graphql';
-import demoUser from '../../__demo-data/demo-user';
+import identifyUser from '../controllers/identify-user';
 
 const router = new express.Router();
 
-// set user as demo user in order to access some demo data
-// TODO: remove this after we have authentication
+// fake authentication logic that identifies all users as demo user
+// TODO: remove this after we have real authentication
 router.use((req, res, next) => {
-  if (!req.user) Object.assign(req, { user: demoUser });
-  next();
+  identifyUser({ name: 'Demo User' })
+    .then((demoUser) => {
+      Object.assign(req, { user: demoUser });
+      next();
+    });
 });
 
 router.use('/graphql', graphqlHTTP({
