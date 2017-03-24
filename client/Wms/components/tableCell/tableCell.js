@@ -13,7 +13,7 @@ const tableCell = (type) => ({ fieldType, fieldText, fieldOptions }) => {
   const cell = type === 'th'
     ? <th className={className}>{text}</th>
     : <td className={className}>{text}</td>
-  console.log(cell)
+
   return cell;
 };
 

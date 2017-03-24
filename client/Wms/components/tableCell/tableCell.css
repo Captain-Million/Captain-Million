@@ -1,10 +1,10 @@
-table .results {
+table tr .results {
   color: #F4511E;
   font-weight: 400;
   background-color: #f6f8f8;
 }
 
-table .disabled {
+table tr .disabled {
   font-weight: 400;
   background-color: #f6f8f8;
 }
