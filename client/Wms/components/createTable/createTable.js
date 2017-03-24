@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TableRow from '../TableRow';
-import TableHeading from '../TableHeading';
+import TableRow from './TableRow';
+import TableHeading from './TableHeading';
 import styles from './createTable.css';
 
 const createTable = (fields) => ({ products }) => {

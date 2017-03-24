@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import tableCell from '../tableCell';
+import createCell from '../createCell';
 import styles from './TableRow.css';
 
-const Td = tableCell(
+const Td = createCell(
   (props) => (<td {...props}/>)
 );
 

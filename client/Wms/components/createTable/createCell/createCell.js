@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cn from 'classnames';
 
-import styles from './tableCell.css';
+import styles from './createCell.css';
 
 const createCell = (TableCell) => ({ fieldType, fieldText, fieldOptions }) => {
   const className = cn(styles[fieldType], styles[fieldOptions])
