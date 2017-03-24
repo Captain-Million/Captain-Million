@@ -1,4 +1,5 @@
 import React from 'react';
+import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 
 import {
@@ -10,19 +11,18 @@ import {
 
 import Table from './components/Table';
 import formatDate from '../../../util/formatDate';
-import demoData from '../../../../__demo-data/demo-data';
 
-const documentsList = demoData.documents.filter(item => item.act === 'arrival');
+const Arrival = ({ match, inventories }) => {
+  console.log(inventories);
+  const documentsList = inventories.inventories[0].documents.filter(item => item.act === 'arrival');
+  const documentsListView = documentsList.map((item) => {
+    const newItem = {
+      _id: item._id,
+      title: `${item.title} ${item.createDate}`,
+    };
+    return (newItem);
+  });
 
-const documentsListView = documentsList.map((item) => {
-  const newItem = {
-    _id: item._id,
-    title: formatDate(item.lastEdit.date),
-  };
-  return (newItem);
-});
-
-const Arrival = ({ match }) => {
   const documentType = 'Arrival act';
   let currentDocument = documentsList.filter(x => x._id === match.params.id)[0];
   currentDocument = currentDocument || documentsList[0];
@@ -31,7 +31,7 @@ const Arrival = ({ match }) => {
       <Helmet title="Arrival acts" />
       <ListView list={documentsListView} urlPrefix="arrival" itemType={documentType} header="Arrival acts" />
       <DocumentContainer>
-        <DocumentHeader itemType={documentType} name={formatDate(currentDocument.lastEdit.date)} />
+        <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
         <Table products={currentDocument.content} />
         <DocumentControls eventhandlers="some_event_handlers" />
       </DocumentContainer>
@@ -39,4 +39,26 @@ const Arrival = ({ match }) => {
   );
 };
 
-export default Arrival;
+const ArrivalContainer = Relay.createContainer(Arrival, {
+  fragments: {
+    inventories: () => Relay.QL`
+      fragment on Inventories {
+        inventories {
+          documents {
+            act,
+            _id,
+            title,
+            createDate,
+            content {
+              name,
+              quantity,
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+export default ArrivalContainer;
+
