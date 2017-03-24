@@ -12,7 +12,7 @@ import {
 const Products = ({ match, inventories }) => {
   const productsList = inventories.inventories[0].products;
 
-  const productsListView = productsList.map((item, idx) => {
+  const productsListView = productsList.map((item) => {
     const newItem = {
       _id: item._id,
       title: item.name,

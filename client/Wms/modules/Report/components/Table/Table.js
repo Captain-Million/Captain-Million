@@ -26,6 +26,7 @@ const TableContainer = Relay.createContainer(Table, {
   fragments: {
     products: () => Relay.QL`
       fragment on Product @relay(plural: true) {
+        _id
         ${TableRow.getFragment('product')}
       }
     `,

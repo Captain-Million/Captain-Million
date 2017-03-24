@@ -31,7 +31,7 @@ const Inventory = ({ match, inventories }) => {
 
   const tableData = currentDocument.content.map((item) => {
     const data = { ...item };
-    data.expected = Math.floor(Math.random() * 2),
+    data.expected = Math.floor(Math.random() * 2);
     data.divergence = data.quantity - data.expected;
     return data;
   });
