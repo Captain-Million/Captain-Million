@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
 
-import TableRow from './TableRow';
-import TableHeading from './TableHeading';
+import createRowType from './createRowType';
 import styles from './createTable.css';
+
+export const Th = props => (<th {...props}/>);
+const TableHeading = createRowType(Th);
+
+export const Td = props => (<td {...props}/>);
+const TableRow = createRowType(Td);
 
 export default function createTable(fields) {
   const Table = ({ products }) => {
@@ -14,15 +19,14 @@ export default function createTable(fields) {
     });
 
     return (
-      <div className={styles.documentTable}>
-        <table>
+      <table className={styles.documentTable}>
+        <thead>
           <TableHeading fields={fields}/>
-          <tbody>
-            {productsList}
-          </tbody>
-        </table>
-
-      </div>
+        </thead>
+        <tbody>
+          {productsList}
+        </tbody>
+      </table>
     );
   };
 

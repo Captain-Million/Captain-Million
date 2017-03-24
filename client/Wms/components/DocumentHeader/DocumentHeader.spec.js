@@ -4,8 +4,7 @@ import { shallow } from 'enzyme';
 import DocumentHeader from './DocumentHeader';
 import styles from './DocumentHeader.css';
 
-//NOTE: Removed the space for now
-test('should have a document-eader class', t => {
+test('should have a document-header class', t => {
   const wrapper = shallow(<DocumentHeader/>);
   t.is(wrapper.type(), 'div');
   t.true(wrapper.hasClass(styles.documentHeader));
@@ -25,5 +24,5 @@ test('should be able to add a name', t => {
   const nameSpan = wrapper.find('div').find('span');
 
   t.true(nameSpan.hasClass(styles.name));
-  t.is(nameSpan.text(), props.name);
+  t.is(nameSpan.text(), ' ' + props.name);
 });
