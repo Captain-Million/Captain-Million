@@ -16,7 +16,8 @@
     "clean": "rimraf dist",
     "slate": "rimraf node_modules && npm install",
     "lint": "eslint client server __demo-data",
-    "update-schema": "node update-schema.js"
+    "update-schema": "node update-schema.js",
+    "reset-database": "node __demo-data/postinstall.js"
   },
   "pre-commit": [
     "lint",
