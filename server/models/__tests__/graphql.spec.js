@@ -48,6 +48,7 @@ const inventoryFields = `
     name
   }
   products {
+    _id
     name
     quantity
   }

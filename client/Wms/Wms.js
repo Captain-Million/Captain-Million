@@ -24,31 +24,27 @@ const inventoriesRoute = {
   name: 'InventoriesRoute',
 };
 
-class ReportRootContainer extends React.Component {
-  render() {
-    return (
-      <Relay.RootContainer
-        Component={Report}
-        route={inventoriesRoute}
-      />
-    );
-  }
-};
+function createRelayRootContainer(WrappedComponent) {
+  return class extends Component {
+    render() {
+      return (
+        <Relay.RootContainer
+          Component={WrappedComponent}
+          route={inventoriesRoute}
+          renderFetched={data => <WrappedComponent {...this.props} {...data} />}
+        />
+      );
+    }
+  };
+}
 
-class ArrivalRootContainer extends React.Component {
-  render() {
-    return (
-      <Relay.RootContainer
-        Component={Arrival}
-        route={inventoriesRoute}
-        renderFetched={data => <Arrival {...this.props} {...data} />}
-      />
-    );
-  }
-};
-
-
-
+const [
+  ReportRootContainer,
+  ArrivalRootContainer,
+  DispatchRootContainer,
+  InventoryRootContainer,
+  ProductsRootContainer,
+] = [Report, Arrival, Dispatch, Inventory, Products].map(createRelayRootContainer);
 
 class Wms extends Component {
   constructor(props) {
@@ -89,14 +85,14 @@ class Wms extends Component {
               <Route path={`${url}/arrival/:id`} component={ArrivalRootContainer} />
               <Route path={`${url}/arrival/`} component={ArrivalRootContainer} />
 
-              <Route path={`${url}/dispatch/:id`} component={Dispatch} />
-              <Route path={`${url}/dispatch/`} component={Dispatch} />
+              <Route path={`${url}/dispatch/:id`} component={DispatchRootContainer} />
+              <Route path={`${url}/dispatch/`} component={DispatchRootContainer} />
 
-              <Route path={`${url}/products/:id`} component={Products} />
-              <Route path={`${url}/products/`} component={Products} />
+              <Route path={`${url}/products/:id`} component={ProductsRootContainer} />
+              <Route path={`${url}/products/`} component={ProductsRootContainer} />
 
-              <Route path={`${url}/inventory/:id`} component={Inventory} />
-              <Route path={`${url}/inventory/`} component={Inventory} />
+              <Route path={`${url}/inventory/:id`} component={InventoryRootContainer} />
+              <Route path={`${url}/inventory/`} component={InventoryRootContainer} />
 
               <Route path={`${url}/report/`} component={ReportRootContainer} />
             </Switch>

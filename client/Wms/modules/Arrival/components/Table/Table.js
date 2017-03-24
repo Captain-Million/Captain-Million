@@ -7,18 +7,18 @@ const Table = createTable([
   {
     type: 'lineNumber',
     name: 'lineNumber',
-    title: null
+    title: null,
   },
   {
     type: 'text',
     name: 'name',
-    title: 'Product Name'
+    title: 'Product Name',
   },
   {
     type: 'number',
     name: 'quantity',
-    title: 'Quantity'
-  }
+    title: 'Quantity',
+  },
 ]);
 
 export default Table;

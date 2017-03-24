@@ -10,17 +10,17 @@ test('should have a document-header class', t => {
   t.true(wrapper.hasClass(styles.documentHeader));
 });
 
-test('should be able to add an item type', t => {
+test('should be able to add an item type', (t) => {
   const props = { itemType: 'item' };
-  const wrapper = shallow(<DocumentHeader {...props}/>);
+  const wrapper = shallow(<DocumentHeader {...props} />);
   const itemSpan = wrapper.find('div').find('span');
   t.true(itemSpan.hasClass(styles.type));
   t.is(itemSpan.text(), props.itemType);
 });
 
-test('should be able to add a name', t => {
+test('should be able to add a name', (t) => {
   const props = { name: 'name' };
-  const wrapper = shallow(<DocumentHeader {...props}/>);
+  const wrapper = shallow(<DocumentHeader {...props} />);
   const nameSpan = wrapper.find('div').find('span');
 
   t.true(nameSpan.hasClass(styles.name));

@@ -13,7 +13,6 @@ import Table from './components/Table';
 import formatDate from '../../../util/formatDate';
 
 const Arrival = ({ match, inventories }) => {
-  console.log(inventories);
   const documentsList = inventories.inventories[0].documents.filter(item => item.act === 'arrival');
   const documentsListView = documentsList.map((item) => {
     const newItem = {

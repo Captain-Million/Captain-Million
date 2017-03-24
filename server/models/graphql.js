@@ -43,11 +43,13 @@ const schema = buildSchema(`
   }
 
   type Product {
+    _id: ID
     name: String
     quantity: Float
   }
 
   input ProductInput {
+    _id: ID
     name: String!
     quantity: Float
   }

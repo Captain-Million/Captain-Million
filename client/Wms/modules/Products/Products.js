@@ -1,4 +1,5 @@
 import React from 'react';
+import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 
 import {
@@ -8,19 +9,17 @@ import {
   ListView
 } from '../../components';
 
-import demoData from './../../../../__demo-data/demo-data';
+const Products = ({ match, inventories }) => {
+  const productsList = inventories.inventories[0].products;
 
-const productsList = demoData.products;
+  const productsListView = productsList.map((item, idx) => {
+    const newItem = {
+      _id: item._id,
+      title: item.name,
+    };
+    return (newItem);
+  });
 
-const productsListView = productsList.map((item) => {
-  const newItem = {
-    _id: item._id,
-    title: item.name,
-  };
-  return (newItem);
-});
-
-const Products = ({ match }) => {
   const itemType = 'Product';
   let currentProduct = productsList.filter(x => x._id === match.params.id)[0];
   currentProduct = currentProduct || productsList[0];
@@ -36,4 +35,20 @@ const Products = ({ match }) => {
   );
 };
 
-export default Products;
+const ProductsContainer = Relay.createContainer(Products, {
+  fragments: {
+    inventories: () => Relay.QL`
+      fragment on Inventories {
+        inventories {
+          products {
+            _id,
+            name,
+          }
+        }
+      }
+    `,
+  },
+});
+
+export default ProductsContainer;
+
