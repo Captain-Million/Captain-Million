@@ -5,7 +5,7 @@ import ListView from './../../components/ListView/ListView';
 import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
 import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
 import DocumentControls from './../../components/DocumentControls/DocumentControls';
-import Table from './components/Table/Table';
+import Table from './components/Table';
 import formatDate from './../../../util/formatDate';
 import demoData from './../../../../__demo-data/demo-data';
 

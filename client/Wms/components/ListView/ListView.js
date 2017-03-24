@@ -14,6 +14,7 @@ const ListView = ({ list = [], urlPrefix = '', itemType = '', header = '' } = {}
       </NavLink>
     </li>);
   });
+  
   return (
     <div className={styles.listView}>
       <span className={styles.listHeader}>{header}</span>

@@ -1,0 +1,31 @@
+.document__table table {
+  width: 100%;
+}
+
+.document__table td {
+  background-color: #fff;
+}
+
+.document__table td, .document__table th {
+  border: 1px solid #b5bcbf;
+  font-size: 13px;
+  padding: .4em .4em .3em .4em;
+  color: #263238;
+}
+
+.document__table th, .document__table td:first-child {
+  background-color: #eceff1;
+}
+
+.document__table th {
+  font-weight: 400;
+}
+
+/* Active row */
+.document__table tr:hover td {
+  background-color: #eceff1;
+}
+
+.document__table tr:hover td:first-child {
+  background-color: #f6f8f8;
+}

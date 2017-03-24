@@ -1,29 +1,37 @@
 import React from 'react';
 
-import TableRow from './../TableRow/TableRow';
-import TableHeading from './../TableHeading/TableHeading';
+import table from '../../../../components/table'
 
 import styles from './Table.css';
 
-const Table = ({ products = [] } = {}) => {
-  const productsList = products.map((item, index) => {
-    const getExpectedQuantity = Math.floor(Math.random() * 2);
-    const lineNumber = index + 1;
-    return (
-      <TableRow lineNumber={lineNumber} expected={getExpectedQuantity} name={item.name} actual={item.quantity} key={item._id} />
-    );
-  });
-  return (
-    <div className={styles.documentTable}>
-      <table>
-        <TableHeading />
-        <tbody>
-          {productsList}
-        </tbody>
-      </table>
-
-    </div>
-  );
-};
+const Table = table([
+  {
+    type: 'lineNumber',
+    name: 'lineNumber',
+    title: null
+  },
+  {
+    type: 'text',
+    name: 'name',
+    title: 'Product Name'
+  },
+  {
+    type: 'number',
+    name: 'expected',
+    title: 'Expected',
+    options: 'disabled'
+  },
+  {
+    type: 'number',
+    name: 'quantity',
+    title: 'Actual'
+  },
+  {
+    type: 'number',
+    name: 'divergence',
+    title: 'Divergence',
+    options: 'results'
+  }
+]);
 
 export default Table;

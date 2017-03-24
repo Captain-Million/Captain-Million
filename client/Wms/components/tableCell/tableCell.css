@@ -1,0 +1,23 @@
+table .results {
+  color: #F4511E;
+  font-weight: 400;
+  background-color: #f6f8f8;
+}
+
+table .disabled {
+  font-weight: 400;
+  background-color: #f6f8f8;
+}
+
+.line_number  {
+  text-align: center;
+  padding-left: .7em;
+  padding-right: .7em;
+  width: auto;
+}
+.text {
+  text-align: left;
+}
+.number {
+  text-align: right;
+}

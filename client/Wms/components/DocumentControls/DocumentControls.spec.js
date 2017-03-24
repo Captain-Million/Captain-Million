@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import DocumentControls from './DocumentControls';
 import styles from './DocumentControls.css';
 
-test('contains links', t => {
+test('should contain links', t => {
   const wrapper = shallow(<DocumentControls/>);
   const links = wrapper.find('a');
 
@@ -14,9 +14,9 @@ test('contains links', t => {
   );
 });
 
-test('contains a default link', t => {
+test('should contain a default link', t => {
   const wrapper = shallow(<DocumentControls/>);
-  
+
   t.true(wrapper
     .find('a')
     .find(`.${styles.button_default}`)
