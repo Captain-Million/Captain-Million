@@ -1,6 +1,6 @@
 import React from 'react';
 
-import createTable from '../../../../components/createTable'
+import createTable from '../../../../HOC/createTable'
 
 const Table = createTable([
   {

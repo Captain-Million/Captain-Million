@@ -5,7 +5,7 @@ import DocumentHeader from './DocumentHeader';
 import styles from './DocumentHeader.css';
 
 //NOTE: Removed the space for now
-test('should add a styled div element', t => {
+test('should have a document-eader class', t => {
   const wrapper = shallow(<DocumentHeader/>);
   t.is(wrapper.type(), 'div');
   t.true(wrapper.hasClass(styles.documentHeader));

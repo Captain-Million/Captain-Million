@@ -1,26 +1,42 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+
+import NavOption from '../NavOption';
 import styles from './Navigation.css';
 
+const basePath = '/wms';
+
+const navOptions = [
+  {
+    path: `${basePath}/arrival`,
+    name: 'Arrival'
+  },
+  {
+    path: `${basePath}/dispatch`,
+    name: 'Dispatch'
+  },
+  {
+    path: `${basePath}/products`,
+    name: 'Products'
+  },
+  {
+    path: `${basePath}/inventory`,
+    name: 'Inventory'
+  },
+  {
+    path: `${basePath}/report`,
+    name: 'Report'
+  },
+]
+
 const Navigation = () => {
+  const navLinks = navOptions.map(option =>
+    <NavOption key={option.name} {...option}/>
+  )
+
   return (
     <div className={styles.nav}>
       <ul>
-        <li>
-          <NavLink to="/wms/arrival" activeClassName={styles.active} exact={false}><span>Arrival</span></NavLink>
-        </li>
-        <li>
-          <NavLink to="/wms/dispatch"><span>Dispatch</span></NavLink>
-        </li>
-        <li>
-          <NavLink to="/wms/products"><span>Products</span></NavLink>
-        </li>
-        <li>
-          <NavLink to="/wms/inventory"><span>Inventory</span></NavLink>
-        </li>
-        <li>
-          <NavLink to="/wms/report"><span>Report</span></NavLink>
-        </li>
+        {navLinks}
       </ul>
     </div>
   );

@@ -1,10 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import ListView from './../../components/ListView/ListView';
-import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
-import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
-import DocumentControls from './../../components/DocumentControls/DocumentControls';
+import {
+  DocumentContainer,
+  DocumentControls,
+  DocumentHeader,
+  ListView
+} from '../../components';
+
 import demoData from './../../../../__demo-data/demo-data';
 
 const productsList = demoData.products;

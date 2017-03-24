@@ -1,20 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { PropTypes } from 'react';
 
+import ListItem from '../ListItem';
 import styles from './ListView.css';
 
-const ListView = ({ list = [], urlPrefix = '', itemType = '', header = '' } = {}) => {
-  const renderedItemsList = list.map((item) => {
-    return (<li key={item._id} >
-      <NavLink
-        to={`/wms/${urlPrefix}/${item._id}`}
-        activeClassName={styles.active}
-      >
-        {itemType} {item.title}
-      </NavLink>
-    </li>);
-  });
-  
+const ListView = ({ list, header, ...otherProps }) => {
+  const renderedItemsList = list.map((item) =>
+    <ListItem key={item._id} {...otherProps} {...item}/>
+  );
+
   return (
     <div className={styles.listView}>
       <span className={styles.listHeader}>{header}</span>
@@ -24,5 +17,10 @@ const ListView = ({ list = [], urlPrefix = '', itemType = '', header = '' } = {}
     </div>
   );
 };
+
+ListView.propTypes = {
+  list: PropTypes.array.isRequired,
+  header: PropTypes.string.isRequired
+}
 
 export default ListView;
