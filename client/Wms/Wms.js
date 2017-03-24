@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
@@ -13,7 +14,43 @@ import Report from './modules/Report/Report';
 
 import styles from './Wms.css';
 
-export default class Wms extends Component {
+const inventoriesRoute = {
+  queries: {
+    inventories: () => Relay.QL`
+      query { getMyInventories }
+    `,
+  },
+  params: {},
+  name: 'InventoriesRoute',
+};
+
+class ReportRootContainer extends React.Component {
+  render() {
+    return (
+      <Relay.RootContainer
+        Component={Report}
+        route={inventoriesRoute}
+      />
+    );
+  }
+};
+
+class ArrivalRootContainer extends React.Component {
+  render() {
+    return (
+      <Relay.RootContainer
+        Component={Arrival}
+        route={inventoriesRoute}
+        renderFetched={data => <Arrival {...this.props} {...data} />}
+      />
+    );
+  }
+};
+
+
+
+
+class Wms extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
@@ -47,10 +84,10 @@ export default class Wms extends Component {
           />
           <div className={styles.wms}>
             <Switch>
-              <Route exact path={url} component={Report} />
+              <Route exact path={url} component={ReportRootContainer} />
 
-              <Route path={`${url}/arrival/:id`} component={Arrival} />
-              <Route path={`${url}/arrival/`} component={Arrival} />
+              <Route path={`${url}/arrival/:id`} component={ArrivalRootContainer} />
+              <Route path={`${url}/arrival/`} component={ArrivalRootContainer} />
 
               <Route path={`${url}/dispatch/:id`} component={Dispatch} />
               <Route path={`${url}/dispatch/`} component={Dispatch} />
@@ -61,7 +98,7 @@ export default class Wms extends Component {
               <Route path={`${url}/inventory/:id`} component={Inventory} />
               <Route path={`${url}/inventory/`} component={Inventory} />
 
-              <Route path={`${url}/report/`} component={Report} />
+              <Route path={`${url}/report/`} component={ReportRootContainer} />
             </Switch>
             <Navigation />
           </div>
@@ -70,3 +107,6 @@ export default class Wms extends Component {
     );
   }
 }
+
+export default Wms;
+

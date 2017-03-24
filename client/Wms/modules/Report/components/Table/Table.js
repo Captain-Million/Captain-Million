@@ -1,4 +1,5 @@
 import React from 'react';
+import Relay from 'react-relay';
 
 import createTable from '../../../../HOC/createTable'
 
@@ -21,4 +22,15 @@ const Table = createTable([
   }
 ]);
 
-export default Table;
+const TableContainer = Relay.createContainer(Table, {
+  fragments: {
+    products: () => Relay.QL`
+      fragment on Product @relay(plural: true) {
+        ${TableRow.getFragment('product')}
+      }
+    `,
+  },
+});
+
+export default TableContainer;
+
