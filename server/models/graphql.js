@@ -16,13 +16,13 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    createInventory: Inventory
-    deleteDocument(documentID: ID!): Inventory
-    editDocument(doc: DocumentInput!): Inventory
-    editProduct(inventoryID: ID!, productName: String!, updates: ProductInput!): Inventory
-    editProductList(editedProductNames: [String]!, inventoryID: ID!): Inventory
-    makeDocument(doc: DocumentInput!, inventoryID: ID!): Inventory
-    updateOwners(owners: [ID]!, inventoryID: ID!): Inventory
+    createInventory(input: CreateInventoryInput!): InventoryPayload
+    deleteDocument(input: DeleteDocumentInput!): InventoryPayload
+    editDocument(input: EditDocumentInput!): InventoryPayload
+    editProduct(input: EditProductInput!): InventoryPayload
+    editProductList(input: EditProductListInput!): InventoryPayload
+    makeDocument(input: MakeDocumentInput!): InventoryPayload
+    updateOwners(input: UpdateOwnersInput!): InventoryPayload
   }
 
   type User {
@@ -87,8 +87,57 @@ const schema = buildSchema(`
     dispatch
     inventory
   }
+
+  input CreateInventoryInput {
+    clientMutationId: String
+  }
+
+  input DeleteDocumentInput {
+    clientMutationId: String
+    documentID: ID!
+  }
+
+  input EditDocumentInput {
+    clientMutationId: String
+    doc: DocumentInput!
+  }
+
+  input EditProductInput {
+    clientMutationId: String
+    inventoryID: ID!
+    productName: String!
+    updates: ProductInput!
+  }
+
+  input EditProductListInput {
+    clientMutationId: String
+    editedProductNames: [String]!
+    inventoryID: ID!
+  }
+
+  input MakeDocumentInput {
+    clientMutationId: String
+    doc: DocumentInput!
+    inventoryID: ID!
+  }
+
+  input UpdateOwnersInput {
+    clientMutationId: String
+    owners: [ID]!
+    inventoryID: ID!
+  }
+
+  type InventoryPayload {
+    inventory: Inventory!
+    clientMutationId: String!
+  }
 `);
 
+function createInventoryPayload(clientMutationId) {
+  return function insertInventory(inventory) {
+    return { inventory, clientMutationId };
+  };
+}
 
 const rootValue = {
   me(args, req) {
@@ -103,41 +152,46 @@ const rootValue = {
     return { inventories: getInventories({ userID: req.user._id }) };
   },
 
-  createInventory(args, req) {
-    return createInventory({ userID: req.user._id });
+  createInventory({ input: { clientMutationId } }, req) {
+    return createInventory({ userID: req.user._id })
+      .then(createInventoryPayload(clientMutationId));
   },
 
-  deleteDocument({ documentID }, req) {
-    return deleteDocument({ documentID, userID: req.user._id });
+  deleteDocument({ input: { documentID, clientMutationId } }, req) {
+    return deleteDocument({ documentID, userID: req.user._id })
+      .then(createInventoryPayload(clientMutationId));
   },
 
-  editDocument({ doc }, req) {
-    return editDocument({ doc, userID: req.user._id });
+  editDocument({ input: { doc, clientMutationId } }, req) {
+    return editDocument({ doc, userID: req.user._id })
+      .then(createInventoryPayload(clientMutationId));
   },
 
-  editProduct({ productName, inventoryID, updates }, req) {
+  editProduct({ input: { productName, inventoryID, updates, clientMutationId } }, req) {
     return editProduct({
       productName,
       inventoryID,
       updates,
       userID: req.user._id,
-    });
+    }).then(createInventoryPayload(clientMutationId));
   },
 
-  editProductList({ editedProductNames, inventoryID }, req) {
+  editProductList({ input: { editedProductNames, inventoryID, clientMutationId } }, req) {
     return editProductList({
       editedProductNames,
       inventoryID,
       userID: req.user._id,
-    });
+    }).then(createInventoryPayload(clientMutationId));
   },
 
-  makeDocument({ doc, inventoryID }, req) {
-    return makeDocument({ doc, inventoryID, userID: req.user._id });
+  makeDocument({ input: { doc, inventoryID, clientMutationId } }, req) {
+    return makeDocument({ doc, inventoryID, userID: req.user._id })
+      .then(createInventoryPayload(clientMutationId));
   },
 
-  updateOwners({ inventoryID, owners }, req) {
-    return updateOwners({ inventoryID, owners, userID: req.user._id });
+  updateOwners({ input: { inventoryID, owners, clientMutationId } }, req) {
+    return updateOwners({ inventoryID, owners, userID: req.user._id })
+      .then(createInventoryPayload(clientMutationId));
   },
 };
 
