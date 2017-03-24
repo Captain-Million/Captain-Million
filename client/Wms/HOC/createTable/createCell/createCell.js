@@ -3,19 +3,19 @@ import cn from 'classnames';
 
 import styles from './createCell.css';
 
-const createCell = (TableCell) => ({ fieldType, fieldText, fieldOptions }) => {
+const createCell = (TableCell) => ({ fieldType, fieldData, fieldOptions }) => {
   const className = cn(styles[fieldType], styles[fieldOptions])
-  const text = fieldText !== null ? fieldText: '';
+  const data = fieldData !== null ? fieldData: '';
 
   TableCell.propTypes = {
     className: PropTypes.string.isRequired,
-    text: PropTypes.oneOfType([
+    data: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ])
   };
 
-  return (<TableCell className={className}>{text}</TableCell>);
+  return (<TableCell className={className}>{data}</TableCell>);
 };
 
 export default createCell;

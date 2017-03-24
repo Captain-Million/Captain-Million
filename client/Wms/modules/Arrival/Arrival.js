@@ -1,13 +1,16 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import ListView from './../../components/ListView/ListView';
-import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
-import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
-import DocumentControls from './../../components/DocumentControls/DocumentControls';
+import {
+  DocumentContainer,
+  DocumentControls,
+  DocumentHeader,
+  ListView
+} from '../../components';
+
 import Table from './components/Table';
-import formatDate from './../../../util/formatDate';
-import demoData from './../../../../__demo-data/demo-data';
+import formatDate from '../../../util/formatDate';
+import demoData from '../../../../__demo-data/demo-data';
 
 const documentsList = demoData.documents.filter(item => item.act === 'arrival');
 

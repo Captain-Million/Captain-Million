@@ -1,9 +1,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import DocumentContainer from './../../components/DocumentContainer/DocumentContainer';
-import DocumentHeader from './../../components/DocumentHeader/DocumentHeader';
-import Table from './components/Table/Table';
+import { DocumentContainer, DocumentHeader } from '../../components';
+import Table from './components/Table';
 import formatDate from './../../../util/formatDate';
 import demoData from './../../../../__demo-data/demo-data';
 
