@@ -7,7 +7,11 @@ const Th = tableCell('th');
 
 const TableHeading = ({ fields }) => {
   const tableHeaders = fields.map((field, i) =>
-    <Th key={i} fieldType={field.type} fieldText={field.title}/>
+    <Th
+      key={`${field.type} ${field.title} ${field.name}`}
+      fieldType={field.type}
+      fieldText={field.title}
+    />
   );
 
   return (

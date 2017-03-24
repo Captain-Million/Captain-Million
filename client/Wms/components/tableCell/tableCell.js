@@ -4,9 +4,7 @@ import cn from 'classnames';
 import styles from './tableCell.css';
 
 const tableCell = (type) => ({ fieldType, fieldText, fieldOptions }) => {
-  const className = fieldOptions
-    ? cn(styles[fieldType], styles[fieldOptions])
-    : styles[fieldType]
+  const className = cn(styles[fieldType], styles[fieldOptions])
 
   const text = fieldText !== null ? fieldText: '';
 

@@ -1,10 +1,8 @@
 import React from 'react';
 
-import table from '../../../../components/table'
+import createTable from '../../../../components/createTable'
 
-import styles from './Table.css';
-
-const Table = table([
+const Table = createTable([
   {
     type: 'lineNumber',
     name: 'lineNumber',

@@ -8,7 +8,7 @@ const Td = tableCell('td');
 const TableRow = ({ fields, data }) => {
   const tableRowWithFields = fields.map((field, i) =>
     <Td
-      key={i}
+      key={`${field.type} ${field.title} ${field.name}`}
       fieldType={field.type}
       fieldText={data[field.name]}
       fieldOptions={field.options}

@@ -2,9 +2,9 @@ import React from 'react';
 
 import TableRow from '../TableRow';
 import TableHeading from '../TableHeading';
-import styles from './table.css';
+import styles from './createTable.css';
 
-const table = (fields) => ({ products }) => {
+const createTable = (fields) => ({ products }) => {
   const productsList = products.map((item, index) => {
     const data = { ...item, lineNumber: index + 1 }
     return (
@@ -25,4 +25,4 @@ const table = (fields) => ({ products }) => {
   );
 };
 
-export default table;
+export default createTable;
