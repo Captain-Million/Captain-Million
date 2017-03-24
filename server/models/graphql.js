@@ -12,7 +12,7 @@ const schema = buildSchema(`
   type Query {
     me: User
     getInventory(inventoryID: ID!): Inventory
-    getMyInventories: [Inventory]
+    getMyInventories: Inventories
   }
 
   type Mutation {
@@ -36,6 +36,10 @@ const schema = buildSchema(`
     owners: [User]
     products: [Product]
     documents: [Document]
+  }
+
+  type Inventories {
+    inventories: [Inventory]
   }
 
   type Product {
@@ -94,7 +98,7 @@ const rootValue = {
   },
 
   getMyInventories(args, req) {
-    return getInventories({ userID: req.user._id });
+    return { inventories: getInventories({ userID: req.user._id }) };
   },
 
   createInventory(args, req) {

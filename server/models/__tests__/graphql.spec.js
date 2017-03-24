@@ -81,7 +81,9 @@ test('me', testGraphQLWith(`
 test('getMyInventories', testGraphQLWith(`
   {
     getMyInventories {
-      ${inventoryFields}
+      inventories {
+        ${inventoryFields}
+      }
     }
   }
 `));
