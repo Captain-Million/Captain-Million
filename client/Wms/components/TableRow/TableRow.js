@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import tableCell from '../tableCell';
 import styles from './TableRow.css';
 
-const Td = tableCell('td');
+const Td = tableCell(
+  (props) => (<td {...props}/>)
+);
 
 const TableRow = ({ fields, data }) => {
   const tableRowWithFields = fields.map((field, i) =>
@@ -21,5 +23,10 @@ const TableRow = ({ fields, data }) => {
     </tr>
   );
 };
+
+TableRow.propTypes = {
+  fields: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired
+}
 
 export default TableRow;

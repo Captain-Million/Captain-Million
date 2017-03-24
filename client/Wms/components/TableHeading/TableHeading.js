@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import tableCell from '../tableCell';
 import styles from './TableHeading.css';
 
-const Th = tableCell('th');
+const Th = tableCell(
+  (props) => (<th {...props}/>)
+);
 
 const TableHeading = ({ fields }) => {
   const tableHeaders = fields.map((field, i) =>
@@ -22,5 +24,9 @@ const TableHeading = ({ fields }) => {
     </thead>
   );
 };
+
+TableHeading.propTypes = {
+  fields: PropTypes.array.isRequired,
+}
 
 export default TableHeading;

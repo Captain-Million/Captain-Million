@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import cn from 'classnames';
 
 import styles from './tableCell.css';
 
-const tableCell = (type) => ({ fieldType, fieldText, fieldOptions }) => {
+const createCell = (TableCell) => ({ fieldType, fieldText, fieldOptions }) => {
   const className = cn(styles[fieldType], styles[fieldOptions])
-
   const text = fieldText !== null ? fieldText: '';
 
-  const cell = type === 'th'
-    ? <th className={className}>{text}</th>
-    : <td className={className}>{text}</td>
+  TableCell.propTypes = {
+    className: PropTypes.string.isRequired,
+    text: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
+  };
 
-  return cell;
+  return (<TableCell className={className}>{text}</TableCell>);
 };
 
-export default tableCell;
+export default createCell;
