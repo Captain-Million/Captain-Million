@@ -1,33 +1,47 @@
 import Relay from 'react-relay';
 
+// eslint-disable class-methods-use-this
+// reason: cannot use static method here since the class
+// interface is defined by Relay, not me :)
 class UpdateOwnersMutation extends Relay.Mutation {
+  static fragments = {
+    inventory: () => Relay.QL`
+      fragment on Inventory {
+        id
+      }
+    `,
+  };
+
   getMutation() {
     return Relay.QL`mutation { updateOwners }`;
   }
 
   getVariables() {
     return {
-      inventoryID: this.props.inventoryID,
+      inventoryID: this.props.inventory.id,
       owners: this.props.owners,
     };
   }
 
   getConfigs() {
-    // TODO
-    return [];
+    return [{
+      type: 'FIELDS_CHANGE',
+      fieldIDs: {
+        inventory: this.props.inventory.id,
+      },
+    }];
   }
 
   getFatQuery() {
-    // TODO
     return Relay.QL`
       fragment on InventoryPayload {
         inventory {
-          _id
+          owners
         }
       }
     `;
   }
-};
+}
 
 export default UpdateOwnersMutation;
 
