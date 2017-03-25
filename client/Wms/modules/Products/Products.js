@@ -27,10 +27,12 @@ const Products = ({ match, inventories }) => {
     <div>
       <Helmet title="Products" />
       <ListView list={productsListView} urlPrefix="products"header="Products" />
-      <DocumentContainer>
-        <DocumentHeader itemType={itemType} name={currentProduct.name} />
-        <DocumentControls eventhandlers="some_event_handlers" />
-      </DocumentContainer>
+      { currentProduct &&
+        <DocumentContainer>
+          <DocumentHeader itemType={itemType} name={currentProduct.name} />
+          <DocumentControls eventhandlers="some_event_handlers" />
+        </DocumentContainer>
+      }
     </div>
   );
 };
