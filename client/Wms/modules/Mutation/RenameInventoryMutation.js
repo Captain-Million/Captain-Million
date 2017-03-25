@@ -1,5 +1,8 @@
 import Relay from 'react-relay';
 
+// eslint-disable class-methods-use-this
+// reason: cannot use static method here since the class
+// interface is defined by Relay, not me :)
 class RenameInventoryMutation extends Relay.Mutation {
   static fragments = {
     inventory: () => Relay.QL`

@@ -1,4 +1,5 @@
 import Relay from 'react-relay';
+import computeProductList from '../../../../server/controllers/compute-product-list';
 
 // eslint-disable class-methods-use-this
 // reason: cannot use static method here since the class
@@ -59,6 +60,30 @@ class EditDocumentMutation extends Relay.Mutation {
         inventory: this.props.inventory.id,
       },
     }];
+  }
+
+  getOptimisticResponse() {
+    const updatedProducts = this.props.inventory.products.map(
+        product => ({ ...product })
+    );
+    const remainingDocuments = this.props.inventory.documents.slice();
+    const editIndex = remainingDocuments.findIndex(
+      doc => doc.id === this.props.doc.id
+    );
+    remainingDocuments.splice(editIndex, 1, this.props.doc);
+
+    computeProductList({
+      products: updatedProducts,
+      documents: remainingDocuments,
+    });
+
+    return {
+      inventory: {
+        id: this.props.inventory.id,
+        products: updatedProducts,
+        documents: remainingDocuments,
+      },
+    };
   }
 }
 
