@@ -30,11 +30,13 @@ const Dispatch = ({ match, inventories }) => {
     <div>
       <Helmet title="Dispatch acts" />
       <ListView list={documentsListView} urlPrefix="dispatch" itemType={documentType} header="Dispatch acts" />
-      <DocumentContainer>
-        <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
-        <Table products={currentDocument.content} />
-        <DocumentControls eventhandlers="some_event_handlers" />
-      </DocumentContainer>
+      { currentDocument && 
+        <DocumentContainer>
+          <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
+          <Table products={currentDocument.content} />
+          <DocumentControls eventhandlers="some_event_handlers" />
+        </DocumentContainer>
+      }
     </div>
   );
 };
