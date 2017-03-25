@@ -7,6 +7,7 @@ import editProduct from '../controllers/edit-product';
 import editProductList from '../controllers/edit-product-list';
 import makeDocument from '../controllers/make-document';
 import updateOwners from '../controllers/update-owners';
+import renameInventory from '../controllers/rename-inventory';
 
 const schema = buildSchema(`
   type Query {
@@ -23,6 +24,7 @@ const schema = buildSchema(`
     editProductList(input: EditProductListInput!): InventoryPayload
     makeDocument(input: MakeDocumentInput!): InventoryPayload
     updateOwners(input: UpdateOwnersInput!): InventoryPayload
+    renameInventory(input: RenameInventoryInput!): InventoryPayload
   }
 
   type User {
@@ -34,6 +36,7 @@ const schema = buildSchema(`
   type Inventory {
     _id: ID
     id: ID
+    name: String
     creator: User
     owners: [User]
     products: [Product]
@@ -133,6 +136,12 @@ const schema = buildSchema(`
     inventoryID: ID!
   }
 
+  input RenameInventoryInput {
+    clientMutationId: String
+    inventoryID: ID!
+    inventoryName: String!
+  }
+
   type InventoryPayload {
     inventory: Inventory!
     clientMutationId: String!
@@ -199,6 +208,20 @@ const rootValue = {
     return updateOwners({ inventoryID, owners, userID: req.user._id })
       .then(createInventoryPayload(clientMutationId));
   },
+
+  renameInventory({
+    input: {
+      inventoryID,
+      inventoryName,
+      clientMutationId
+    }
+  }, req) {
+    return renameInventory({
+      inventoryID,
+      inventoryName,
+      userID: req.user._id
+    }).then(createInventoryPayload(clientMutationId));
+  }
 };
 
 export { schema, rootValue };

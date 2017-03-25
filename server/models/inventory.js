@@ -5,6 +5,12 @@ mongoose.Promise = Promise;
 const isNotEmpty = arr => (arr.length > 0);
 
 const inventorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    default: 'My Inventory',
+    trim: true,
+  },
+
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

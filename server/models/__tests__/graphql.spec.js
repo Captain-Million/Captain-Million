@@ -39,6 +39,7 @@ const userFields = `
 
 const inventoryFields = `
   _id
+  name
   creator {
     _id
     name
@@ -192,6 +193,21 @@ test('updateOwners', testGraphQLWith(`
   input: {
     inventoryID: demoInventory._id,
     owners: [demoInventory.creator],
+  },
+}));
+
+test('renameInventory', testGraphQLWith(`
+  mutation renameInventory($input: RenameInventoryInput!) {
+    renameInventory(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
+    }
+  }
+`, {
+  input: {
+    inventoryID: demoInventory._id,
+    inventoryName: 'A new name',
   },
 }));
 

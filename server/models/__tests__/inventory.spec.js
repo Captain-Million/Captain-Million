@@ -23,6 +23,11 @@ test('Inventory has an owners array', async (t) => {
   t.deepEqual(invOwners, owners);
 });
 
+test('Inventory has a default name', async (t) => {
+  const inventory = await Inventory.create({ owners, creator });
+  t.is(inventory.name, 'My Inventory');
+});
+
 test('Inventory has a creator', async (t) => {
   const inventory = await Inventory.create({ owners, creator });
   t.is(inventory.creator.toString(), creator);
