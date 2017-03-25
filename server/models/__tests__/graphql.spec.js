@@ -48,6 +48,7 @@ const inventoryFields = `
     name
   }
   products {
+    _id
     name
     quantity
   }
@@ -81,7 +82,9 @@ test('me', testGraphQLWith(`
 test('getMyInventories', testGraphQLWith(`
   {
     getMyInventories {
-      ${inventoryFields}
+      inventories {
+        ${inventoryFields}
+      }
     }
   }
 `));
@@ -95,20 +98,24 @@ test('getInventory', testGraphQLWith(`
 `, { id: demoInventory._id }));
 
 test('createInventory', testGraphQLWith(`
-  mutation CreateInventory {
-    createInventory {
-      ${inventoryFields}
+  mutation CreateInventory($input: CreateInventoryInput!) {
+    createInventory(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`));
+`, { input: {} }));
 
 test('deleteDocument', testGraphQLWith(`
-  mutation DeleteDocument($id: ID!) {
-    deleteDocument(documentID: $id) {
-      ${inventoryFields}
+  mutation DeleteDocument($input: DeleteDocumentInput!) {
+    deleteDocument(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`, { id: demoInventory.documents[2]._id }));
+`, { input: { documentID: demoInventory.documents[2]._id } }));
 
 const docToEdit = Object.assign(
   {},
@@ -116,23 +123,29 @@ const docToEdit = Object.assign(
   { content: [{ name: 'HP ProBook', quantity: 99 }] },
 );
 test('editDocument', testGraphQLWith(`
-  mutation editDocument($doc: DocumentInput!) {
-    editDocument(doc: $doc) {
-      ${inventoryFields}
+  mutation editDocument($input: EditDocumentInput!) {
+    editDocument(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`, { doc: docToEdit }));
+`, { input: { doc: docToEdit } }));
 
 test('editProduct', testGraphQLWith(`
-  mutation editProduct($id: ID!, $name: String!, $updates: ProductInput!) {
-    editProduct(inventoryID: $id, productName: $name, updates: $updates) {
-      ${inventoryFields}
+  mutation editProduct($input: EditProductInput!) {
+    editProduct(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
 `, {
-  name: demoInventory.products[0].name,
-  id: demoInventory._id,
-  updates: { name: demoInventory.products[0].name },
+  input: {
+    productName: demoInventory.products[0].name,
+    inventoryID: demoInventory._id,
+    updates: { name: demoInventory.products[0].name },
+  },
 }));
 
 const editedProductNames = [
@@ -140,12 +153,14 @@ const editedProductNames = [
   'OOPS, DELETED EVERYTHING ELSE',
 ];
 test('editProductList', testGraphQLWith(`
-  mutation editProductList($list: [String]!, $id: ID!) {
-    editProductList(editedProductNames: $list, inventoryID: $id) {
-      ${inventoryFields}
+  mutation editProductList($input: EditProductListInput!) {
+    editProductList(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`, { list: editedProductNames, id: demoInventory._id }));
+`, { input: { editedProductNames, inventoryID: demoInventory._id } }));
 
 const newDoc = {
   act: 'arrival',
@@ -156,18 +171,27 @@ const newDoc = {
   title: 'An awesome new doc',
 };
 test('makeDocument', testGraphQLWith(`
-  mutation makeDocument($doc: DocumentInput!, $id: ID!) {
-    makeDocument(doc: $doc, inventoryID: $id) {
-      ${inventoryFields}
+  mutation makeDocument($input: MakeDocumentInput!) {
+    makeDocument(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`, { doc: newDoc, id: demoInventory._id }));
+`, { input: { doc: newDoc, inventoryID: demoInventory._id } }));
 
 test('updateOwners', testGraphQLWith(`
-  mutation updateOwners($id: ID!, $owners: [ID]!) {
-    updateOwners(inventoryID: $id, owners: $owners) {
-      ${inventoryFields}
+  mutation updateOwners($input: UpdateOwnersInput!) {
+    updateOwners(input: $input) {
+      inventory {
+        ${inventoryFields}
+      }
     }
   }
-`, { id: demoInventory._id, owners: [demoInventory.creator] }));
+`, {
+  input: {
+    inventoryID: demoInventory._id,
+    owners: [demoInventory.creator],
+  },
+}));
 

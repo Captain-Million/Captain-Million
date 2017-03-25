@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
@@ -13,7 +14,39 @@ import Report from './modules/Report/Report';
 
 import styles from './Wms.css';
 
-export default class Wms extends Component {
+const inventoriesRoute = {
+  queries: {
+    inventories: () => Relay.QL`
+      query { getMyInventories }
+    `,
+  },
+  params: {},
+  name: 'InventoriesRoute',
+};
+
+function createRelayRootContainer(WrappedComponent) {
+  return class extends Component {
+    render() {
+      return (
+        <Relay.RootContainer
+          Component={WrappedComponent}
+          route={inventoriesRoute}
+          renderFetched={data => <WrappedComponent {...this.props} {...data} />}
+        />
+      );
+    }
+  };
+}
+
+const [
+  ReportRootContainer,
+  ArrivalRootContainer,
+  DispatchRootContainer,
+  InventoryRootContainer,
+  ProductsRootContainer,
+] = [Report, Arrival, Dispatch, Inventory, Products].map(createRelayRootContainer);
+
+class Wms extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
@@ -47,21 +80,21 @@ export default class Wms extends Component {
           />
           <div className={styles.wms}>
             <Switch>
-              <Route exact path={url} component={Report} />
+              <Route exact path={url} component={ReportRootContainer} />
 
-              <Route path={`${url}/arrival/:id`} component={Arrival} />
-              <Route path={`${url}/arrival/`} component={Arrival} />
+              <Route path={`${url}/arrival/:id`} component={ArrivalRootContainer} />
+              <Route path={`${url}/arrival/`} component={ArrivalRootContainer} />
 
-              <Route path={`${url}/dispatch/:id`} component={Dispatch} />
-              <Route path={`${url}/dispatch/`} component={Dispatch} />
+              <Route path={`${url}/dispatch/:id`} component={DispatchRootContainer} />
+              <Route path={`${url}/dispatch/`} component={DispatchRootContainer} />
 
-              <Route path={`${url}/products/:id`} component={Products} />
-              <Route path={`${url}/products/`} component={Products} />
+              <Route path={`${url}/products/:id`} component={ProductsRootContainer} />
+              <Route path={`${url}/products/`} component={ProductsRootContainer} />
 
-              <Route path={`${url}/inventory/:id`} component={Inventory} />
-              <Route path={`${url}/inventory/`} component={Inventory} />
+              <Route path={`${url}/inventory/:id`} component={InventoryRootContainer} />
+              <Route path={`${url}/inventory/`} component={InventoryRootContainer} />
 
-              <Route path={`${url}/report/`} component={Report} />
+              <Route path={`${url}/report/`} component={ReportRootContainer} />
             </Switch>
             <Navigation />
           </div>
@@ -70,3 +103,6 @@ export default class Wms extends Component {
     );
   }
 }
+
+export default Wms;
+

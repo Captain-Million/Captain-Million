@@ -19,8 +19,8 @@ test('should contain links', t => {
   );
 });
 
-test('should contain a default link', t => {
-  const wrapper = shallow(<DocumentControls/>);
+test('should contain a default link', (t) => {
+  const wrapper = shallow(<DocumentControls />);
 
   t.true(wrapper
     .find('a')

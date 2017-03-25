@@ -6,30 +6,31 @@ const Table = createTable([
   {
     type: 'lineNumber',
     name: 'lineNumber',
-    title: null
+    title: null,
   },
   {
     type: 'text',
     name: 'name',
-    title: 'Product Name'
+    title: 'Product Name',
   },
   {
     type: 'number',
     name: 'expected',
     title: 'Expected',
-    options: 'disabled'
+    options: 'disabled',
   },
   {
     type: 'number',
     name: 'quantity',
-    title: 'Actual'
+    title: 'Actual',
   },
   {
     type: 'number',
     name: 'divergence',
     title: 'Divergence',
-    options: 'results'
-  }
+    options: 'results',
+  },
 ]);
 
 export default Table;
+
