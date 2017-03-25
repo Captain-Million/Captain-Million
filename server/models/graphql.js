@@ -150,7 +150,17 @@ const schema = buildSchema(`
 
 function createInventoryPayload(clientMutationId) {
   return function insertInventory(inventory) {
-    return { inventory, clientMutationId };
+    const transformedInventory = inventory.toObject({ virtuals: true });
+    transformedInventory.documents.forEach((doc) => {
+      doc.createDate = String(doc.createDate.getTime());
+      doc.lastEdit.date = String(doc.lastEdit.date.getTime());
+    });
+
+    if(clientMutationId) {
+      return { clientMutationId, inventory: transformedInventory };
+    }
+
+    return transformedInventory;
   };
 }
 
@@ -160,11 +170,14 @@ const rootValue = {
   },
 
   getInventory({ inventoryID }, req) {
-    return getInventories({ inventoryID, userID: req.user._id });
+    return getInventories({ inventoryID, userID: req.user._id })
+      .then(createInventoryPayload());
   },
 
   getMyInventories(args, req) {
-    return { inventories: getInventories({ userID: req.user._id }) };
+    return getInventories({ userID: req.user._id })
+      .then(inventories => inventories.map(createInventoryPayload()))
+      .then(inventories => ({ inventories }));
   },
 
   createInventory({ input: { clientMutationId } }, req) {

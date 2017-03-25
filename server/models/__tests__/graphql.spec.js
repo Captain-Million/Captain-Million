@@ -106,7 +106,7 @@ test('createInventory', testGraphQLWith(`
       }
     }
   }
-`, { input: {} }));
+`, { input: { clientMutationId: '1' } }));
 
 test('deleteDocument', testGraphQLWith(`
   mutation DeleteDocument($input: DeleteDocumentInput!) {
@@ -116,7 +116,12 @@ test('deleteDocument', testGraphQLWith(`
       }
     }
   }
-`, { input: { documentID: demoInventory.documents[2]._id } }));
+`, {
+  input: {
+    clientMutationId: '1',
+    documentID: demoInventory.documents[2]._id,
+  }
+}));
 
 const docToEdit = Object.assign(
   {},
@@ -131,7 +136,7 @@ test('editDocument', testGraphQLWith(`
       }
     }
   }
-`, { input: { doc: docToEdit } }));
+`, { input: { clientMutationId: '1', doc: docToEdit } }));
 
 test('editProduct', testGraphQLWith(`
   mutation editProduct($input: EditProductInput!) {
@@ -146,6 +151,7 @@ test('editProduct', testGraphQLWith(`
     productName: demoInventory.products[0].name,
     inventoryID: demoInventory._id,
     updates: { name: demoInventory.products[0].name },
+    clientMutationId: '1',
   },
 }));
 
@@ -161,7 +167,13 @@ test('editProductList', testGraphQLWith(`
       }
     }
   }
-`, { input: { editedProductNames, inventoryID: demoInventory._id } }));
+`, {
+  input: {
+    editedProductNames,
+    inventoryID: demoInventory._id,
+    clientMutationId: '1',
+  }
+}));
 
 const newDoc = {
   act: 'arrival',
@@ -179,7 +191,13 @@ test('makeDocument', testGraphQLWith(`
       }
     }
   }
-`, { input: { doc: newDoc, inventoryID: demoInventory._id } }));
+`, {
+  input: {
+    doc: newDoc,
+    inventoryID: demoInventory._id,
+    clientMutationId: '1',
+  }
+}));
 
 test('updateOwners', testGraphQLWith(`
   mutation updateOwners($input: UpdateOwnersInput!) {
@@ -193,6 +211,7 @@ test('updateOwners', testGraphQLWith(`
   input: {
     inventoryID: demoInventory._id,
     owners: [demoInventory.creator],
+    clientMutationId: '1',
   },
 }));
 
@@ -208,6 +227,7 @@ test('renameInventory', testGraphQLWith(`
   input: {
     inventoryID: demoInventory._id,
     inventoryName: 'A new name',
+    clientMutationId: '1',
   },
 }));
 
