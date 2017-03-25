@@ -1,4 +1,5 @@
 import Relay from 'react-relay';
+import computeProductList from '../../../../server/controllers/compute-product-list';
 
 // eslint-disable class-methods-use-this
 // reason: cannot use static method here since the class
@@ -64,32 +65,20 @@ class DeleteDocumentMutation extends Relay.Mutation {
     const updatedProducts = this.props.inventory.products.map(
         product => ({ ...product })
     );
+    const remainingDocuments = this.props.inventory.documents.filter(
+      d => d.id !== this.props.documentID
+    );
 
-    doc.content.forEach((entry) => {
-      const matchedProduct = updatedProducts.find(
-        product => product.name === entry.name
-      );
-
-      if (matchedProduct) {
-        switch (doc.act) {
-          case 'arrival':
-            matchedProduct.quantity -= entry.quantity;
-            break;
-          case 'dispatch':
-            matchedProduct.quantity += entry.quantity;
-            break;
-          case 'inventory':
-            break;
-          default:
-            matchedProduct.quantity = 0;
-        }
-      }
-    });
+    computeProductList({
+      products: updatedProducts,
+      documents: remainingDocuments,
+    }, doc);
 
     return {
       inventory: {
         id: this.props.inventory.id,
         products: updatedProducts,
+        documents: remainingDocuments,
       },
     };
   }

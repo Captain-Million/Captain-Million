@@ -7,6 +7,7 @@ import editProduct from '../controllers/edit-product';
 import editProductList from '../controllers/edit-product-list';
 import makeDocument from '../controllers/make-document';
 import updateOwners from '../controllers/update-owners';
+import renameInventory from '../controllers/rename-inventory';
 
 const schema = buildSchema(`
   type Query {
@@ -23,6 +24,7 @@ const schema = buildSchema(`
     editProductList(input: EditProductListInput!): InventoryPayload
     makeDocument(input: MakeDocumentInput!): InventoryPayload
     updateOwners(input: UpdateOwnersInput!): InventoryPayload
+    renameInventory(input: RenameInventoryInput!): InventoryPayload
   }
 
   type User {
@@ -34,6 +36,7 @@ const schema = buildSchema(`
   type Inventory {
     _id: ID
     id: ID
+    name: String
     creator: User
     owners: [User]
     products: [Product]
@@ -133,6 +136,12 @@ const schema = buildSchema(`
     inventoryID: ID!
   }
 
+  input RenameInventoryInput {
+    clientMutationId: String
+    inventoryID: ID!
+    inventoryName: String!
+  }
+
   type InventoryPayload {
     inventory: Inventory!
     clientMutationId: String!
@@ -141,7 +150,17 @@ const schema = buildSchema(`
 
 function createInventoryPayload(clientMutationId) {
   return function insertInventory(inventory) {
-    return { inventory, clientMutationId };
+    const transformedInventory = inventory.toObject({ virtuals: true });
+    transformedInventory.documents.forEach((doc) => {
+      doc.createDate = String(doc.createDate.getTime());
+      doc.lastEdit.date = String(doc.lastEdit.date.getTime());
+    });
+
+    if(clientMutationId) {
+      return { clientMutationId, inventory: transformedInventory };
+    }
+
+    return transformedInventory;
   };
 }
 
@@ -151,11 +170,14 @@ const rootValue = {
   },
 
   getInventory({ inventoryID }, req) {
-    return getInventories({ inventoryID, userID: req.user._id });
+    return getInventories({ inventoryID, userID: req.user._id })
+      .then(createInventoryPayload());
   },
 
   getMyInventories(args, req) {
-    return { inventories: getInventories({ userID: req.user._id }) };
+    return getInventories({ userID: req.user._id })
+      .then(inventories => inventories.map(createInventoryPayload()))
+      .then(inventories => ({ inventories }));
   },
 
   createInventory({ input: { clientMutationId } }, req) {
@@ -199,6 +221,20 @@ const rootValue = {
     return updateOwners({ inventoryID, owners, userID: req.user._id })
       .then(createInventoryPayload(clientMutationId));
   },
+
+  renameInventory({
+    input: {
+      inventoryID,
+      inventoryName,
+      clientMutationId
+    }
+  }, req) {
+    return renameInventory({
+      inventoryID,
+      inventoryName,
+      userID: req.user._id
+    }).then(createInventoryPayload(clientMutationId));
+  }
 };
 
 export { schema, rootValue };

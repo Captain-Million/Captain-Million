@@ -109,6 +109,7 @@ const demoInventory = {
   products,
   documents,
   _id: '564a4a24f63d409f526659c4',
+  name: 'Demo Inventory',
 };
 
 export default demoInventory;
