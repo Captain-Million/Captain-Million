@@ -1,39 +1,99 @@
 import Relay from 'react-relay';
 
+// eslint-disable class-methods-use-this
+// reason: cannot use static method here since the class
+// interface is defined by Relay, not me :)
 class DeleteDocumentMutation extends Relay.Mutation {
+  static fragments = {
+    inventory: () => Relay.QL`
+      fragment on Inventory {
+        id
+        products {
+          name
+          quantity
+        }
+        documents {
+          id
+          content {
+            name
+            quantity
+          }
+          act
+        }
+      }
+    `,
+  };
+
   getMutation() {
     return Relay.QL`mutation { deleteDocument }`;
   }
 
   getVariables() {
-    return { documentID: this.props.doc._id };
+    return { documentID: this.props.documentID };
   }
 
   getFatQuery() {
-    // TODO
     return Relay.QL`
-      fragment on Inventory {
-        documents {
-          _id,
+      fragment on InventoryPayload {
+        inventory {
+          documents
+          products
         }
       }
     `;
   }
 
   getConfigs() {
-    // TODO
-    return [];
+    return [{
+      type: 'FIELDS_CHANGE',
+      fieldIDs: {
+        inventory: this.props.inventory.id,
+      },
+    }];
   }
 
-  static fragments = {
-    // TODO
-    doc: () => Relay.QL`
-      fragment on Document {
-        _id
+  getOptimisticResponse() {
+    const doc = {
+      ...this.props.inventory.documents.find(
+        d => d.id === this.props.documentID
+      ),
+    };
+
+    if (!doc) return {};
+
+    const updatedProducts = this.props.inventory.products.map(
+        product => ({ ...product })
+    );
+
+    doc.content.forEach((entry) => {
+      const matchedProduct = updatedProducts.find(
+        product => product.name === entry.name
+      );
+
+      if (matchedProduct) {
+        switch (doc.act) {
+          case 'arrival':
+            matchedProduct.quantity -= entry.quantity;
+            break;
+          case 'dispatch':
+            matchedProduct.quantity += entry.quantity;
+            break;
+          case 'inventory':
+            break;
+          default:
+            matchedProduct.quantity = 0;
+        }
       }
-    `,
-  };
-};
+    });
+
+    return {
+      inventory: {
+        id: this.props.inventory.id,
+        products: updatedProducts,
+      },
+    };
+  }
+}
 
 export default DeleteDocumentMutation;
 

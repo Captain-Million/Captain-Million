@@ -28,10 +28,12 @@ const schema = buildSchema(`
   type User {
     name: String
     _id: ID
+    id: ID
   }
 
   type Inventory {
     _id: ID
+    id: ID
     creator: User
     owners: [User]
     products: [Product]
@@ -44,18 +46,21 @@ const schema = buildSchema(`
 
   type Product {
     _id: ID
+    id: ID
     name: String
     quantity: Float
   }
 
   input ProductInput {
     _id: ID
+    id: ID
     name: String!
     quantity: Float
   }
 
   type Document {
     _id: ID
+    id: ID
     act: Act
     content: [Product]
     title: String
@@ -65,6 +70,7 @@ const schema = buildSchema(`
 
   input DocumentInput {
     _id: ID
+    id: ID
     act: Act!
     content: [ProductInput]!
     title: String
