@@ -1,5 +1,16 @@
-const getBabelRelayPlugin = require('babel-relay-plugin');
-const schema = require('./server/models/graphql.json');
+try {
+  const getBabelRelayPlugin = require('babel-relay-plugin');
+  const schema = require('./server/models/graphql.json');
 
-module.exports = getBabelRelayPlugin(schema.data);
+  module.exports = getBabelRelayPlugin(schema.data);
+} catch(e) {
+  function noop() {
+    return {
+      visitor: {
+      }
+    };
+  }
+
+  module.exports = noop;
+}
 
