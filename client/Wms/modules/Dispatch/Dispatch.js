@@ -6,7 +6,7 @@ import {
   DocumentContainer,
   DocumentControls,
   DocumentHeader,
-  ListView
+  ListView,
 } from '../../components';
 
 import Table from './components/Table';

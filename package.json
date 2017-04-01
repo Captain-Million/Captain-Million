@@ -124,10 +124,12 @@
   },
   "ava": {
     "files": [
-      "client/**/*.spec.js"
+      "client/**/*.spec.js",
+      "server/**/*.spec.js"
     ],
     "source": [
-      "client/**/*.js"
+      "client/**/*.js",
+      "server/**/*.js"
     ],
     "failFast": true,
     "babel": "inherit",

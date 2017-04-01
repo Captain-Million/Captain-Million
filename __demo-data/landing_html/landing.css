@@ -162,7 +162,10 @@ em {
   color: #FFF;
 }
 .hero h1 .thin {
-  font-weight: 300;
+  display: block;
+  font-size: 80px;
+  font-family: 'Droid Serif', serif;
+  font-weight: 400;
   color: #eceff1;
 }
 .hero p {
@@ -171,7 +174,11 @@ em {
 }
 @media (max-width: 500px) {
   .hero h1 {
-  font-size: 60px;
+    font-size: 60px;
+  }
+  .hero h1 .thin {
+    display: inline;
+    font-size: 60px;
   }
   .hero p {
     font-size: 24px;

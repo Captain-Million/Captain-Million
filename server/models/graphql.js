@@ -156,7 +156,7 @@ function createInventoryPayload(clientMutationId) {
       doc.lastEdit.date = String(doc.lastEdit.date.getTime());
     });
 
-    if(clientMutationId) {
+    if (clientMutationId) {
       return { clientMutationId, inventory: transformedInventory };
     }
 
@@ -226,15 +226,15 @@ const rootValue = {
     input: {
       inventoryID,
       inventoryName,
-      clientMutationId
-    }
+      clientMutationId,
+    },
   }, req) {
     return renameInventory({
       inventoryID,
       inventoryName,
-      userID: req.user._id
+      userID: req.user._id,
     }).then(createInventoryPayload(clientMutationId));
-  }
+  },
 };
 
 export { schema, rootValue };

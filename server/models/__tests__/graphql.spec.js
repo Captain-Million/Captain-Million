@@ -120,7 +120,7 @@ test('deleteDocument', testGraphQLWith(`
   input: {
     clientMutationId: '1',
     documentID: demoInventory.documents[2]._id,
-  }
+  },
 }));
 
 const docToEdit = Object.assign(
@@ -172,7 +172,7 @@ test('editProductList', testGraphQLWith(`
     editedProductNames,
     inventoryID: demoInventory._id,
     clientMutationId: '1',
-  }
+  },
 }));
 
 const newDoc = {
@@ -196,7 +196,7 @@ test('makeDocument', testGraphQLWith(`
     doc: newDoc,
     inventoryID: demoInventory._id,
     clientMutationId: '1',
-  }
+  },
 }));
 
 test('updateOwners', testGraphQLWith(`
