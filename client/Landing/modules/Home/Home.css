@@ -1,0 +1,117 @@
+.home {
+  background-color: grey;
+}
+
+.home > div {
+  width: 100%;
+}
+
+.section {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 .5em;
+}
+
+.skew {
+  transform: skewY(-5deg);
+}
+
+.skew > div{
+  transform: skewY(5deg);
+}
+
+/*------------------------*/
+/* NAV */
+.nav {
+  padding-top: .55em;
+  padding-bottom: .55em;
+  background-color: #263238;
+  text-align: right;
+}
+.nav li {
+  padding: .55em .8em;
+  display: inline-block;
+  clear: none;
+  transition: color 0.5s ease;
+  color: #00bcd4;
+}
+.nav li:hover {
+  transition: color 0.5s ease;
+  color: #e91e63;
+}
+.nav-button {
+  transition: background-color 0.5s ease;
+  background-color: #00bcd4;
+  border-radius: 3px;
+}
+.nav-button:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+}
+.nav-button a {
+  color: #FFF;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+/*------------------------*/
+
+.hero {
+  padding-top: 6.5em;
+  padding-bottom: 6em;
+  background-color: #263238;
+  background-image: linear-gradient(to bottom, #263238, #000000);
+  overflow: hidden;
+}
+.hero > div {
+  display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+}
+.hero-description {
+  order: 1;
+  padding-bottom: 4em;
+  padding-right: 2em;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.3),
+    0px 2px 2px rgba(0,0,0,0.3);
+}
+.hero-img {
+  min-width: 40%;
+  order: 2;
+  flex: 3 0px;
+  position: relative;
+  bottom: -1em;
+}
+.hero img {
+  max-width: 100%;
+} 
+
+.hero p {
+  font-size: 32px;
+  color: #eceff1;
+}
+
+.app-name {
+  font-size: 96px;
+  color: #FFF;
+}
+.app-name-thin {
+  display: block;
+  font-size: 80px;
+  font-family: 'Droid Serif', serif;
+  font-weight: 400;
+  color: #eceff1;
+}
+
+@media (max-width: 500px) {
+  .app-name {
+    font-size: 60px;
+  }
+  .app-name-thin {
+    display: inline;
+    font-size: 60px;
+  }
+  .hero p {
+    font-size: 24px;
+  }
+}

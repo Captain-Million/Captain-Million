@@ -1,3 +1,25 @@
-.container * {
-  color: black;
+.container {
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.container ::selection { 
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+}
+.container p + p {
+  margin-top: .2em;
+}
+.container h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  padding-bottom: .35em;
+}
+.container strong {
+  font-weight: 700;
+}
+.container em {
+    font-style: oblique;
 }

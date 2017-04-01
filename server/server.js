@@ -69,7 +69,7 @@ if (process.env.NODE_ENV === 'development') {
 // start app
 app.listen(serverConfig.port, (error) => {
   if (!error) {
-    console.log(`WMS proj. is running on port: ${serverConfig.port}!`); // eslint-disable-line
+    console.log(`Captain Million is running on port: ${serverConfig.port}!`); // eslint-disable-line
   }
 });
 

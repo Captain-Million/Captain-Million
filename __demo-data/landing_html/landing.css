@@ -49,10 +49,10 @@ table {
 	border-spacing: 0;
 }
 
-/* END RESET */
+
 
 /* general */
-body, html {
+/*body, html {
   background-color: #fff;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -75,10 +75,10 @@ strong {
 }
 em {
     font-style: oblique;
-}
+}*/
 
 /* all wrappers, footer and nav*/
-.root > div {
+/*.root > div {
   width: 100%;
 }
 
@@ -86,17 +86,17 @@ em {
   max-width: 1170px;
   margin: 0 auto;
   padding: 0 .5em;
-}
+}*/
 
-.skew {
+/*.skew {
   transform: skewY(-5deg);
 }
 .skew > div{
   transform: skewY(5deg);
-}
+}*/
 
 /* NAV */
-.nav {
+/*.nav {
   padding-top: .55em;
   padding-bottom: .55em;
   background-color: #263238;
@@ -124,7 +124,7 @@ em {
   transition: background-color 0.5s ease;
   background-color: #e91e63;
   color: #FFF;
-}
+}*/
 
 /* HERO */
 .hero {
