@@ -115,3 +115,206 @@
     font-size: 24px;
   }
 }
+
+/*-------------------------*/
+.features {
+  padding-top: 4em;
+  padding-bottom: 2em;
+  padding-bottom: 4em;
+  margin-top: -10em;
+  background-color: #eceff1;
+  box-shadow: 0px -1px 2px rgba(167, 167, 167, 0.55),
+    0px 1px 2px rgba(167, 167, 167, 0.55);
+}
+.features h2 {
+  font-size: 48px;
+  text-align: center;
+}
+.features h3 {
+  font-size: 36px;
+}
+.features img {
+  border-radius: 3px;
+  max-width: 100%;
+  box-shadow: 0px -1px 1px rgba(0,0,0,0.1),
+    0px 1px 1px rgba(0,0,0,0.1),
+    0px 2px 2px rgba(0,0,0,0.1),
+    0px 3px 3px rgba(0,0,0,0.1);
+}
+.feature {
+  display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+}
+.feature + .feature {
+  margin-top: 1.5em;
+}
+.feature-text {
+  flex: 3 0px;
+  min-width: 300px;
+}
+@media (min-width: 550px) and (max-width: 800px) {
+  .feature-img {
+    width: 100%;
+    text-align: left;
+    margin-bottom: .5em;
+  }
+  .feature + .feature {
+  margin-top: 3em;
+}
+}
+@media (min-width: 800px) and (max-width: 1600px) {
+  .feature-img {
+    width: 60%;
+    text-align: right;
+    padding-right: 1em;
+  }
+}
+
+/* DISCLAIMER */
+.disclaimer {
+  padding-top: 4em;
+  padding-bottom: 2em;
+  margin-top: -.5em;
+  background-color: #FFF;
+}
+ 
+.disclaimer > div > h3,
+.disclaimer > div > p {
+  padding: .3em;
+  border-radius: 3px;
+  background-color: #FFF;
+  
+}
+.yellow {
+  background-color: #E91E63;
+  background-image: linear-gradient(to right, #E91E63, #00BCD4);
+  color: #FFF;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+  padding: .7em;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.1),
+    0px 2px 2px rgba(0,0,0,0.1);
+  display: inline-block;
+  clear: both;
+}
+
+/* small screens bg style */
+@media (min-width: 550px) and (max-width: 800px) {
+  .disclaimer {
+  /* background-image: url(./images/bad.png);*/
+  background-repeat: no-repeat;
+  background-position-x: -270px;
+  background-position-y: top;
+  background-size: contain;
+  }
+  .disclaimer > div {
+    padding-left: 200px;
+  }
+}
+/* relatively big screens bg style */
+@media (min-width: 800px) and (max-width: 2000px) {
+  .disclaimer {
+  /* background-image: url(./images/bad.png);*/
+  background-repeat: no-repeat;
+  background-position-x: left;
+  background-position-y: top;
+  background-size: contain;
+  }
+  .disclaimer > div {
+    padding-left: 450px;
+  }
+}
+
+.disclaimer p + p {
+  margin-top: .5em;
+}
+.disclaimer h3 {
+  font-size: 36px;
+}
+.disclaimer-btn {
+  margin-top: 1em;
+  padding: .55em .8em;
+  display: inline-block;
+  clear: none;
+  transition: background-color 0.5s ease;
+  background-color: #00bcd4;
+  color: #FFF;
+  border-radius: 3px;
+  font-weight: 400;
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.1),
+    0px 2px 2px rgba(0,0,0,0.1);
+}
+.disclaimer-btn:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+}
+
+/* FOOTER */
+.footer {
+  padding-top: 1.1em;
+  padding-bottom: 1.1em;
+  background-color: #263238;
+  color: #eceff1;
+  font-size: .8em
+}
+.footer > div {
+  display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+}
+.footer > div > div {
+  flex: 3;
+  padding: .55em;
+}
+.footer > div > div:first-child,
+.footer > div > div:last-child {
+  flex: none;
+}
+.footer h3{
+  font-size: 40px;
+}
+.thin {
+  font-weight: 300;
+}
+.footer h4{
+  text-transform: uppercase;
+  color: #bec1c3;
+}
+.footer a {
+  display: block;
+  transition: color 0.5s ease;
+  padding: .3em 0;
+}
+.footer a:hover {
+  transition: color 0.5s ease;
+  color: #e91e63;
+}
+
+.footer-btn {
+  display: inline-block;
+  transition: background-color 0.5s ease;
+  background-color: #FFF;
+  color: #263238;
+  padding: .55em;
+  border-radius: 3px;
+  font-weight: 400;
+}
+.footer-btn:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+  color: #FFF;
+}
+
+.footer input {
+  background-color: #263238;
+  color: #FFF;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid #597582;
+}
+
+.form {
+  padding: .3em 0;
+}
