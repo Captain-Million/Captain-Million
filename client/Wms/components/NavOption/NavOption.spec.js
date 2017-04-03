@@ -7,16 +7,16 @@ import NavOption from './NavOption';
 
 const props = {
   name: 'name',
-  path: 'path'
+  path: 'path',
 };
 
-test('should be a li element', t => {
-  const wrapper = shallow(<NavOption {...props}/>);
+test('should be a li element', (t) => {
+  const wrapper = shallow(<NavOption {...props} />);
   t.is(wrapper.type(), 'li');
 });
 
-test('should have a NavLink', t => {
-  const wrapper = shallow(<NavOption {...props}/>);
+test('should have a NavLink', (t) => {
+  const wrapper = shallow(<NavOption {...props} />);
   const LinkComponent = wrapper.find(NavLink);
 
   t.is(LinkComponent.length, 1);

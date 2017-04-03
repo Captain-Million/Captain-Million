@@ -8,30 +8,30 @@ const basePath = '/wms';
 const navOptions = [
   {
     path: `${basePath}/arrival`,
-    name: 'Arrival'
+    name: 'Arrival',
   },
   {
     path: `${basePath}/dispatch`,
-    name: 'Dispatch'
+    name: 'Dispatch',
   },
   {
     path: `${basePath}/products`,
-    name: 'Products'
+    name: 'Products',
   },
   {
     path: `${basePath}/inventory`,
-    name: 'Inventory'
+    name: 'Inventory',
   },
   {
     path: `${basePath}/report`,
-    name: 'Report'
+    name: 'Report',
   },
-]
+];
 
 const Navigation = () => {
   const navLinks = navOptions.map(option =>
-    <NavOption key={option.name} {...option}/>
-  )
+    <NavOption key={option.name} {...option} />
+  );
 
   return (
     <div className={styles.nav}>

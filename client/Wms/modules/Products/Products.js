@@ -6,7 +6,7 @@ import {
   DocumentContainer,
   DocumentControls,
   DocumentHeader,
-  ListView
+  ListView,
 } from '../../components';
 
 const Products = ({ match, inventories }) => {
@@ -35,6 +35,11 @@ const Products = ({ match, inventories }) => {
       }
     </div>
   );
+};
+
+Products.propTypes = {
+  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
 
 const ProductsContainer = Relay.createContainer(Products, {

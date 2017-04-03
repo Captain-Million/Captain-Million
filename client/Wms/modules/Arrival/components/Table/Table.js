@@ -1,7 +1,4 @@
-import React from 'react';
-import Relay from 'react-relay';
-
-import createTable from '../../../../HOC/createTable'
+import createTable from '../../../../HOC/createTable';
 
 const Table = createTable([
   {

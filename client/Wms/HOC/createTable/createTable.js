@@ -3,25 +3,25 @@ import React, { PropTypes } from 'react';
 import createRowType from './createRowType';
 import styles from './createTable.css';
 
-export const Th = props => (<th {...props}/>);
+export const Th = props => (<th {...props} />);
 const TableHeading = createRowType(Th);
 
-export const Td = props => (<td {...props}/>);
+export const Td = props => (<td {...props} />);
 const TableRow = createRowType(Td);
 
 export default function createTable(fields) {
   const Table = ({ products }) => {
     const productsList = products.map((item, index) => {
-      const data = { ...item, lineNumber: index + 1 }
+      const data = { ...item, lineNumber: index + 1 };
       return (
-        <TableRow key={item._id} fields={fields} data={data}/>
+        <TableRow key={item._id} fields={fields} data={data} />
       );
     });
 
     return (
       <table className={styles.documentTable}>
         <thead>
-          <TableHeading fields={fields}/>
+          <TableHeading fields={fields} />
         </thead>
         <tbody>
           {productsList}
@@ -31,7 +31,7 @@ export default function createTable(fields) {
   };
 
   Table.propTypes = {
-    products: PropTypes.array.isRequired
+    products: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   return Table;

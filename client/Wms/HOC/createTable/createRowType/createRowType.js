@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 
 import createCell from '../createCell';
-import styles from './createRowType.css';
+// import styles from './createRowType.css';
+import './createRowType.css';
 
 /**
  * This HOC creates a row instance with either th or td cells
@@ -30,9 +31,15 @@ export default function createRowType(CellComponent) {
   };
 
   CustomRow.propTypes = {
-    fields: PropTypes.array.isRequired,
-    data: PropTypes.object
-  }
+    fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+    data: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
+  };
+
+  CustomRow.defaultProps = {
+    data: undefined,
+  };
 
   return CustomRow;
 }

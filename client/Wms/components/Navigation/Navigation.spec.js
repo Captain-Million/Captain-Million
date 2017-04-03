@@ -6,13 +6,13 @@ import NavOption from '../NavOption';
 import Navigation from './Navigation';
 import styles from './Navigation.css';
 
-test('should have a nav class', t => {
-  const wrapper = shallow(<Navigation/>);
+test('should have a nav class', (t) => {
+  const wrapper = shallow(<Navigation />);
   t.true(wrapper.hasClass(styles.nav));
 });
 
-test('should have an ul element with NavOptions', t => {
-  const wrapper = shallow(<Navigation/>);
+test('should have an ul element with NavOptions', (t) => {
+  const wrapper = shallow(<Navigation />);
   const ul = wrapper.find('ul');
   const options = ul.find(NavOption);
 

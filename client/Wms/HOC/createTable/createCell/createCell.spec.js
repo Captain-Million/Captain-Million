@@ -6,14 +6,14 @@ import cn from 'classnames';
 import createCell from './createCell';
 import styles from './createCell.css';
 
-const TestCell = props => (<div {...props}/>);
+const TestCell = props => (<div {...props} />);
 
 const TestComponent = createCell(TestCell);
 
 const propsNoDataOrOptions = {
   fieldType: 'type',
-  fieldData: null
-}
+  fieldData: null,
+};
 
 const propsNoOptions = {
   fieldType: 'type',
@@ -22,25 +22,25 @@ const propsNoOptions = {
 
 const propsOptions = {
   ...propsNoOptions,
-  fieldOptions: 'options'
+  fieldOptions: 'options',
 };
 
-test('should be a TableCell component', t => {
-  const wrapper = shallow(<TestComponent {...propsNoDataOrOptions}/>);
+test('should be a TableCell component', (t) => {
+  const wrapper = shallow(<TestComponent {...propsNoDataOrOptions} />);
   t.is(wrapper.type(), TestCell);
 });
 
-test('should show the cell data', t => {
-  const wrapperNoData = shallow(<TestComponent {...propsNoDataOrOptions}/>);
-  const wrapperData = shallow(<TestComponent {...propsNoOptions}/>);
+test('should show the cell data', (t) => {
+  const wrapperNoData = shallow(<TestComponent {...propsNoDataOrOptions} />);
+  const wrapperData = shallow(<TestComponent {...propsNoOptions} />);
 
   t.is(wrapperNoData.children().node, undefined);
   t.is(wrapperData.children().node, propsNoOptions.fieldData);
 });
 
-test('should have type class with a possible option class', t => {
-  const wrapperNoOptions = shallow(<TestComponent {...propsNoOptions}/>);
-  const wrapperOptions = shallow(<TestComponent {...propsOptions}/>);
+test('should have type class with a possible option class', (t) => {
+  const wrapperNoOptions = shallow(<TestComponent {...propsNoOptions} />);
+  const wrapperOptions = shallow(<TestComponent {...propsOptions} />);
 
   t.true(wrapperNoOptions.hasClass(
     styles[propsNoOptions.fieldType]

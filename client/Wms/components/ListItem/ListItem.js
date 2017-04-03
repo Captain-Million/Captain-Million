@@ -18,7 +18,12 @@ ListItem.propTypes = {
   itemType: PropTypes.string,
   urlPrefix: PropTypes.string.isRequired,
   _id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
-}
+  title: PropTypes.string.isRequired,
+};
+
+ListItem.defaultProps = {
+  itemType: undefined,
+};
 
 export default ListItem;
+

@@ -10,7 +10,7 @@ import {
 } from '../../components';
 
 import Table from './components/Table';
-import formatDate from '../../../util/formatDate';
+// import formatDate from '../../../util/formatDate';
 
 const Arrival = ({ match, inventories }) => {
   const documentsList = inventories.inventories[0].documents.filter(item => item.act === 'arrival');
@@ -38,6 +38,11 @@ const Arrival = ({ match, inventories }) => {
       }
     </div>
   );
+};
+
+Arrival.propTypes = {
+  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
 
 const ArrivalContainer = Relay.createContainer(Arrival, {

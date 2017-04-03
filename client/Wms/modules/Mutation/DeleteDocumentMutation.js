@@ -1,7 +1,7 @@
 import Relay from 'react-relay';
 import computeProductList from '../../../../server/controllers/compute-product-list';
 
-// eslint-disable class-methods-use-this
+/* eslint-disable class-methods-use-this */
 // reason: cannot use static method here since the class
 // interface is defined by Relay, not me :)
 class DeleteDocumentMutation extends Relay.Mutation {

@@ -8,6 +8,7 @@ test('should add a css styled container for its children', (t) => {
   const props = { children: 'test' };
   const wrapper = shallow(<DocumentContainer {...props} />);
   t.true(wrapper.contains(
-    <div children="test" className={styles.documentContainer} />
+    <div className={styles.documentContainer}>test</div>
   ));
 });
+

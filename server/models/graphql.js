@@ -152,8 +152,12 @@ function createInventoryPayload(clientMutationId) {
   return function insertInventory(inventory) {
     const transformedInventory = inventory.toObject({ virtuals: true });
     transformedInventory.documents.forEach((doc) => {
-      doc.createDate = String(doc.createDate.getTime());
-      doc.lastEdit.date = String(doc.lastEdit.date.getTime());
+      Object.assign(doc, {
+        createDate: String(doc.createDate.getTime()),
+      });
+      Object.assign(doc.lastEdit, {
+        date: String(doc.lastEdit.date.getTime()),
+      });
     });
 
     if (clientMutationId) {

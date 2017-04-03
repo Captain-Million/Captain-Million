@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import styles from './NavOption.css';
 
-const NavOption = ({ name, path}) => (
+const NavOption = ({ name, path }) => (
   <li>
     <NavLink
       to={path}
@@ -15,4 +15,10 @@ const NavOption = ({ name, path}) => (
   </li>
 );
 
+NavOption.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  path: React.PropTypes.string.isRequired,
+};
+
 export default NavOption;
+

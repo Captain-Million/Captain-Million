@@ -10,7 +10,7 @@ import {
 } from '../../components';
 
 import Table from './components/Table';
-import formatDate from './../../../util/formatDate';
+// import formatDate from './../../../util/formatDate';
 
 
 const Inventory = ({ match, inventories }) => {
@@ -50,6 +50,11 @@ const Inventory = ({ match, inventories }) => {
       }
     </div>
   );
+};
+
+Inventory.propTypes = {
+  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
 
 const InventoryContainer = Relay.createContainer(Inventory, {

@@ -10,7 +10,7 @@ import {
 } from '../../components';
 
 import Table from './components/Table';
-import formatDate from './../../../util/formatDate';
+// import formatDate from './../../../util/formatDate';
 
 const Dispatch = ({ match, inventories }) => {
   const documentsList = inventories.inventories[0].documents.filter(item => item.act === 'dispatch');
@@ -30,7 +30,7 @@ const Dispatch = ({ match, inventories }) => {
     <div>
       <Helmet title="Dispatch acts" />
       <ListView list={documentsListView} urlPrefix="dispatch" itemType={documentType} header="Dispatch acts" />
-      { currentDocument && 
+      { currentDocument &&
         <DocumentContainer>
           <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
           <Table products={currentDocument.content} />
@@ -39,6 +39,11 @@ const Dispatch = ({ match, inventories }) => {
       }
     </div>
   );
+};
+
+Dispatch.propTypes = {
+  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
 };
 
 const DispatchContainer = Relay.createContainer(Dispatch, {

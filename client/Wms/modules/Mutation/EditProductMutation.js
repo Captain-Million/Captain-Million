@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-// eslint-disable class-methods-use-this
+/* eslint-disable class-methods-use-this */
 // reason: cannot use static method here since the class
 // interface is defined by Relay, not me :)
 class EditProductMutation extends Relay.Mutation {
@@ -55,7 +55,9 @@ class EditProductMutation extends Relay.Mutation {
       .filter(product => product.name === this.props.productName)
       .forEach((product) => {
         if (this.props.updates.name) {
-          product.name = this.props.updates.name;
+          Object.assign(product, {
+            name: this.props.updates.name,
+          });
         }
       });
 

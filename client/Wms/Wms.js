@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
@@ -12,31 +11,9 @@ import Products from './modules/Products/Products';
 import Inventory from './modules/Inventory/Inventory';
 import Report from './modules/Report/Report';
 
+import createRelayRootContainer from './create-relay-root-container';
+
 import styles from './Wms.css';
-
-const inventoriesRoute = {
-  queries: {
-    inventories: () => Relay.QL`
-      query { getMyInventories }
-    `,
-  },
-  params: {},
-  name: 'InventoriesRoute',
-};
-
-function createRelayRootContainer(WrappedComponent) {
-  return class extends Component {
-    render() {
-      return (
-        <Relay.RootContainer
-          Component={WrappedComponent}
-          route={inventoriesRoute}
-          renderFetched={data => <WrappedComponent {...this.props} {...data} />}
-        />
-      );
-    }
-  };
-}
 
 const [
   ReportRootContainer,
@@ -47,6 +24,10 @@ const [
 ] = [Report, Arrival, Dispatch, Inventory, Products].map(createRelayRootContainer);
 
 class Wms extends Component {
+  static propTypes = {
+    match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = { isMounted: false };

@@ -12,8 +12,8 @@ const DocumentHeader = ({ itemType, name }) => {
 };
 
 DocumentHeader.propTypes = {
-  itemType: PropTypes.string,
-  name: PropTypes.string
-}
+  itemType: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default DocumentHeader;

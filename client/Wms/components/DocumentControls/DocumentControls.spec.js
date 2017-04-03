@@ -4,13 +4,13 @@ import { shallow } from 'enzyme';
 import DocumentControls from './DocumentControls';
 import styles from './DocumentControls.css';
 
-test('should have a document-controls class', t => {
-  const wrapper = shallow(<DocumentControls/>);
+test('should have a document-controls class', (t) => {
+  const wrapper = shallow(<DocumentControls />);
   t.true(wrapper.hasClass(styles.documentControls));
 });
 
-test('should contain links', t => {
-  const wrapper = shallow(<DocumentControls/>);
+test('should contain links', (t) => {
+  const wrapper = shallow(<DocumentControls />);
   const links = wrapper.find('a');
 
   t.true(links.length >= 1);

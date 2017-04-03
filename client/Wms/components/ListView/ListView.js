@@ -4,8 +4,8 @@ import ListItem from '../ListItem';
 import styles from './ListView.css';
 
 const ListView = ({ list, header, ...otherProps }) => {
-  const renderedItemsList = list.map((item) =>
-    <ListItem key={item._id} {...otherProps} {...item}/>
+  const renderedItemsList = list.map(item =>
+    <ListItem key={item._id} {...otherProps} {...item} />
   );
 
   return (
@@ -19,8 +19,8 @@ const ListView = ({ list, header, ...otherProps }) => {
 };
 
 ListView.propTypes = {
-  list: PropTypes.array.isRequired,
-  header: PropTypes.string.isRequired
-}
+  list: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  header: PropTypes.string.isRequired,
+};
 
 export default ListView;

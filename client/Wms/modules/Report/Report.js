@@ -18,6 +18,10 @@ const Report = (props) => {
   );
 };
 
+Report.propTypes = {
+  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+};
+
 const ReportContainer = Relay.createContainer(Report, {
   fragments: {
     inventories: () => Relay.QL`
