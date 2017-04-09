@@ -18,13 +18,11 @@ const Home = () => {
       <Helmet title="Home" />
       <div className={styles.nav}>
         <div className={styles.section}>
-          <ul>
-            <li>Product</li>
-            <li>Pricing</li>
-            <li>Support</li>
-            <li>Sign In</li>
-            <li className={styles.navButton}><Link to="/wms">Start using Captain Million</Link></li>
-          </ul>
+          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Product</a>
+          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Pricing</a>
+          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Support</a>
+          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Sign In</a>
+          <Link to="/wms" className={styles.navButton}>Start using Captain Million</Link>
         </div>
       </div>
       <div className={styles.hero}>
@@ -103,39 +101,39 @@ const Home = () => {
           <br />nor&nbsp;technical support or&nbsp;even&nbsp;backups.</p>
           <p>The less you&nbsp;get, the&nbsp;less&nbsp;you&nbsp;can worry&nbsp;about,&nbsp;isn’t&nbsp;it&nbsp;so?</p>
           <p>Join <strong>0</strong>&nbsp;companies, already using WMS-proj. Today,&nbsp;for&nbsp;Free!</p>
-          <a className={styles.disclaimerBtn}>Start using it for&nbsp;Free</a>
+          <Link to="/wms" className={styles.disclaimerBtn}>Start using Captain Million</Link>
         </div>
       </div>
       <div className={styles.footer}>
         <div className={styles.section}>
           <div>
-            <h3>Captain<span className={styles.thin}> Million</span></h3>
-            <a>Star us on Github</a>
+            <h3 className={styles.footerName}><span className={styles.footerNameThin}>Captain</span> Million</h3>
+            <a href="https://github.com/Captain-Million/Captain-Million">Star us on Github</a>
           </div>
           <div>
             <h4>LEARN MORE</h4>
-            <a>New features</a>
-            <a>Plans and pricing</a>
-            <a>Customers</a>
+            <a href="http://captain-million.herokuapp.com/">New features</a>
+            <a href="http://captain-million.herokuapp.com/">Plans and pricing</a>
+            <a href="http://captain-million.herokuapp.com/">Customers</a>
           </div>
           <div>
             <h4>RESOURCES</h4>
-            <a>Help Center</a>
-            <a>User Guide</a>
-            <a>Release notes</a>
+            <a href="http://captain-million.herokuapp.com/">Help Center</a>
+            <a href="http://captain-million.herokuapp.com/">User Guide</a>
+            <a href="http://captain-million.herokuapp.com/">Release notes</a>
           </div>
           <div>
             <h4>COMPANY</h4>
-            <a>About us</a>
-            <a>Terms of service</a>
-            <a>Privacy policy</a>
-            <a>Contact us</a>
+            <a href="http://captain-million.herokuapp.com/">About us</a>
+            <a href="http://captain-million.herokuapp.com/">Terms of service</a>
+            <a href="http://captain-million.herokuapp.com/">Privacy policy</a>
+            <a href="http://captain-million.herokuapp.com/">Contact us</a>
           </div>
           <div>
             <h4>NEWSLETTER</h4>
             <div className={styles.form}>
               <input type="text" placeholder="your email address" />
-              <a className={styles.footerBtn}>Subscribe</a>
+              <a href="http://captain-million.herokuapp.com/" className={styles.footerBtn}>Subscribe</a>
             </div>
           </div>
         </div>
