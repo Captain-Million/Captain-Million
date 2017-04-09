@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import styles from './Home.css';
 
-import logo from './images/ipad.png';
+import ipad from './images/ipad.png';
 import arrival from './images/arrival.png';
 import dispatch from './images/dispatch.png';
 import products from './images/products.png';
@@ -36,7 +36,7 @@ const Home = () => {
             <p>Keep it simple.</p>
           </div>
           <div className={styles.heroImg}>
-            <img src={logo} alt="Captain Million" />
+            <img src={ipad} alt="Captain Million" />
           </div>
         </div>
       </div>

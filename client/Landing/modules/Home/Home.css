@@ -12,16 +12,7 @@
   padding: 0 .5em;
 }
 
-.skew {
-  transform: skewY(-5deg);
-}
-
-.skew > div{
-  transform: skewY(5deg);
-}
-
 /*------------------------*/
-/* NAV */
 .nav {
   padding-top: .55em;
   padding-bottom: .55em;
@@ -57,34 +48,35 @@
 /*------------------------*/
 
 .hero {
-  padding-top: 6.5em;
-  padding-bottom: 6em;
+  padding-top: 2em;
   background-color: #263238;
   background-image: linear-gradient(to bottom, #263238, #000000);
-  overflow: hidden;
 }
 .hero > div {
   display: flex;
-  flex-direction: column;
   flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 .hero-description {
+  align-self: center;
   order: 1;
-  padding-bottom: 4em;
-  padding-right: 2em;
+  flex: 2 2;
+}
+.hero-img {
+  line-height: 0;
+  min-width: 400px;
+  order: 2;
+  flex: 3 3;
+}
+.hero-img img {
+  max-width: 100%;
+}
+
+.hero-description {
   text-shadow: 0px 1px 1px rgba(0,0,0,0.3),
     0px 2px 2px rgba(0,0,0,0.3);
 }
-.hero-img {
-  min-width: 40%;
-  order: 2;
-  flex: 3 0px;
-  position: relative;
-  bottom: -1em;
-}
-.hero img {
-  max-width: 100%;
-} 
 
 .hero p {
   font-size: 32px;
@@ -92,12 +84,13 @@
 }
 
 .app-name {
-  font-size: 96px;
+  font-size: 100px;
   color: #FFF;
+  line-height: 1.15;
 }
 .app-name-thin {
   display: block;
-  font-size: 80px;
+  font-size: .75em;
   font-family: 'Droid Serif', serif;
   font-weight: 400;
   color: #eceff1;
@@ -105,10 +98,6 @@
 
 @media (max-width: 500px) {
   .app-name {
-    font-size: 60px;
-  }
-  .app-name-thin {
-    display: inline;
     font-size: 60px;
   }
   .hero p {
@@ -119,9 +108,7 @@
 /*-------------------------*/
 .features {
   padding-top: 4em;
-  padding-bottom: 2em;
   padding-bottom: 4em;
-  margin-top: -10em;
   background-color: #eceff1;
   box-shadow: 0px -1px 2px rgba(167, 167, 167, 0.55),
     0px 1px 2px rgba(167, 167, 167, 0.55);
@@ -175,7 +162,6 @@
 .disclaimer {
   padding-top: 4em;
   padding-bottom: 2em;
-  margin-top: -.5em;
   background-color: #FFF;
 }
  
@@ -277,7 +263,7 @@
 .thin {
   font-weight: 300;
 }
-.footer h4{
+.footer h4 {
   text-transform: uppercase;
   color: #bec1c3;
 }

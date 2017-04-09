@@ -12,7 +12,7 @@
 .container p + p {
   margin-top: .2em;
 }
-.container h1, h2, h3 {
+.container h1, .container h2, .container h3 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   padding-bottom: .35em;
