@@ -14,13 +14,16 @@
 
 /*------------------------*/
 
+.nav {
+  background-color: #263238;
+  padding-top: .55em;
+  padding-bottom: .55em;
+}
+
 .nav > div {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
-  background-color: #263238;
-  padding-top: .55em;
-  padding-bottom: .55em;
 }
 
 @media all and (max-width: 800px) {
@@ -254,14 +257,26 @@
   display: flex;
   flex-direction: column;
   flex-flow: row wrap;
+  justify-content: space-between;
 }
-.footer > div > div {
-  flex: 3;
-  padding: .55em;
+.footer > div > div+div {
+  padding-left: 1em;
 }
-.footer > div > div:first-child,
-.footer > div > div:last-child {
-  flex: none;
+
+@media all and (max-width: 800px) {
+  .footer > div  {
+    justify-content: space-around;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .footer > div  {
+    flex-direction: column;
+  }
+  .footer > div > div+div {
+    margin-top: 1em;
+    padding-left: 0;
+  }
 }
 .footer-name {
   font-size: 40px;
@@ -278,7 +293,7 @@
 
 .footer h4 {
   text-transform: uppercase;
-  color: #bec1c3;
+  color: #767b7f;
 }
 .footer a {
   display: block;
@@ -292,30 +307,38 @@
   color: #e91e63;
 }
 
-.footer-btn {
-  display: inline-block;
-  transition: background-color 0.5s ease;
-  background-color: #FFF;
-  color: #263238;
-  padding: .55em;
-  border-radius: 3px;
-  font-weight: 400;
-}
-.footer-btn:hover {
-  transition: background-color 0.5s ease;
-  background-color: #e91e63;
-  color: #FFF;
+.form {
+  padding: .3em 0;
 }
 
 .footer input {
   background-color: #263238;
   color: #FFF;
   font-size: 16px;
-  padding: 8px;
+  padding: 7px;
   border-radius: 3px;
   border: 1px solid #597582;
+  display: inline-block;
+  clear: both;
 }
 
-.form {
-  padding: .3em 0;
+.footer .footer-btn {
+  display: inline-block;
+  margin-left: .55em;
+  padding: .55em .8em;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #FFF;
+  font-weight: 400;
+  transition: background-color 0.5s ease;
+  background-color: #00bcd4;
 }
+
+.footer .footer-btn:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+  color: #FFF;
+}
+
+
+

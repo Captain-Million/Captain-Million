@@ -108,7 +108,6 @@ const Home = () => {
         <div className={styles.section}>
           <div>
             <h3 className={styles.footerName}><span className={styles.footerNameThin}>Captain</span> Million</h3>
-            <a href="https://github.com/Captain-Million/Captain-Million">Star us on Github</a>
           </div>
           <div>
             <h4>LEARN MORE</h4>
@@ -128,8 +127,9 @@ const Home = () => {
             <a href="http://captain-million.herokuapp.com/">Terms of service</a>
             <a href="http://captain-million.herokuapp.com/">Privacy policy</a>
             <a href="http://captain-million.herokuapp.com/">Contact us</a>
+            <a href="https://github.com/Captain-Million/Captain-Million">Star us on Github</a>
           </div>
-          <div>
+          <div className={styles.subscribeSection}>
             <h4>NEWSLETTER</h4>
             <div className={styles.form}>
               <input type="text" placeholder="your email address" />
