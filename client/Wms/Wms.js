@@ -46,7 +46,7 @@ class Wms extends Component {
         <div>
           <Helmet
             title="Default"
-            titleTemplate="%s - WMS proj."
+            titleTemplate="%s - Captain Million"
             meta={[
               { charset: 'utf-8' },
               {

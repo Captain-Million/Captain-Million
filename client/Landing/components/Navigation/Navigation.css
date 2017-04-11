@@ -1,0 +1,55 @@
+/*------------------------*/
+
+.nav {
+  background-color: #263238;
+  padding-top: .55em;
+  padding-bottom: .55em;
+}
+
+.nav > div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+
+@media all and (max-width: 800px) {
+  .nav > div  {
+    justify-content: space-around;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .nav > div  {
+    flex-direction: column;
+  }
+}
+
+.nav-link, 
+.nav-button {
+  padding: .55em .8em;
+  text-decoration: none;
+  display: block;
+}
+
+.nav-link {
+  transition: color 0.5s ease;
+  color: #00bcd4;
+}
+
+.nav-link:hover {
+  transition: color 0.5s ease;
+  color: #e91e63;
+}
+
+.nav-button {
+  border-radius: 3px;
+  color: #FFF;
+  font-weight: 400;
+  transition: background-color 0.5s ease;
+  background-color: #00bcd4;
+}
+
+.nav-button:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+}

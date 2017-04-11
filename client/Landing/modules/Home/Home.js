@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import cn from 'classnames';
 
+import Navigation from '../../components/Navigation';
+import Footer from '../../components/Footer';
+
 import styles from './Home.css';
 
 import ipad from './images/ipad.png';
@@ -16,17 +19,9 @@ const Home = () => {
   return (
     <div className={styles.home} >
       <Helmet title="Home" />
-      <div className={styles.nav}>
-        <div className={styles.section}>
-          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Product</a>
-          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Pricing</a>
-          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Support</a>
-          <a href="http://captain-million.herokuapp.com/" className={styles.navLink}>Sign In</a>
-          <Link to="/wms" className={styles.navButton}>Start using Captain Million</Link>
-        </div>
-      </div>
+      <Navigation />
       <div className={styles.hero}>
-        <div className={styles.section}>
+        <div>
           <div className={styles.heroDescription}>
             <h1 className={styles.appName}><span className={styles.appNameThin}>Captain</span> Million</h1>
             <p>Keep things in order.</p>
@@ -39,7 +34,7 @@ const Home = () => {
         </div>
       </div>
       <div className={cn(styles.features, styles.skew)}>
-        <div className={styles.section}>
+        <div>
           <h2>Revolutionary new features</h2>
           <div className={styles.feature}>
             <div className={styles.featureImg}>
@@ -94,7 +89,7 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.disclaimer}>
-        <div className={styles.section}>
+        <div>
           <h3>Live dangerously!</h3>
           <p>We offer our&nbsp;software <strong>as&nbsp;is</strong>,&nbsp;for&nbsp;free.</p>
           <p className={styles.yellow}>We do&nbsp;not promise&nbsp;you neither&nbsp;uninterrupted&nbsp;operation,
@@ -104,40 +99,7 @@ const Home = () => {
           <Link to="/wms" className={styles.disclaimerBtn}>Start using Captain Million</Link>
         </div>
       </div>
-      <div className={styles.footer}>
-        <div className={styles.section}>
-          <div>
-            <h3 className={styles.footerName}><span className={styles.footerNameThin}>Captain</span> Million</h3>
-          </div>
-          <div>
-            <h4>LEARN MORE</h4>
-            <a href="http://captain-million.herokuapp.com/">New features</a>
-            <a href="http://captain-million.herokuapp.com/">Plans and pricing</a>
-            <a href="http://captain-million.herokuapp.com/">Customers</a>
-          </div>
-          <div>
-            <h4>RESOURCES</h4>
-            <a href="http://captain-million.herokuapp.com/">Help Center</a>
-            <a href="http://captain-million.herokuapp.com/">User Guide</a>
-            <a href="http://captain-million.herokuapp.com/">Release notes</a>
-          </div>
-          <div>
-            <h4>COMPANY</h4>
-            <a href="http://captain-million.herokuapp.com/">About us</a>
-            <a href="http://captain-million.herokuapp.com/">Terms of service</a>
-            <a href="http://captain-million.herokuapp.com/">Privacy policy</a>
-            <a href="http://captain-million.herokuapp.com/">Contact us</a>
-            <a href="https://github.com/Captain-Million/Captain-Million">Star us on Github</a>
-          </div>
-          <div className={styles.subscribeSection}>
-            <h4>NEWSLETTER</h4>
-            <div className={styles.form}>
-              <input type="text" placeholder="your email address" />
-              <a href="http://captain-million.herokuapp.com/" className={styles.footerBtn}>Subscribe</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 };
