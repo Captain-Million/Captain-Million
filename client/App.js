@@ -11,7 +11,8 @@ export default function App({ store = {} } = {}) {
       <Router>
         <Switch>
           <Route path="/wms" component={Wms} />
-          <Route path="/" component={Landing} />
+          <Route path="/product" component={Landing} />
+          <Route exact path="/" component={Landing} />
         </Switch>
       </Router>
     </Provider>

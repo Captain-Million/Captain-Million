@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import Home from './modules/Home/Home';
+import Support from './modules/Support/Support';
 import styles from './Landing.css';
 import favicon16x16 from './../icons/favicon-16x16.png';
 import favicon32x32 from './../icons/favicon-32x32.png';
@@ -23,7 +24,6 @@ export default class Landing extends Component {
 
   render() {
     const url = this.props.match.url;
-
     return (
       <div>
         <div>
@@ -34,9 +34,9 @@ export default class Landing extends Component {
             <meta name="theme-color" content="#000000" />
           </Helmet>
           <div className={styles.container}>
-
             <Switch>
               <Route exact path={url} component={Home} />
+              <Route path={`${url}/support`} component={Support} />
             </Switch>
           </div>
         </div>
