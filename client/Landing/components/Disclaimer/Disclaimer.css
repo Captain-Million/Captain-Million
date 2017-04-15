@@ -1,0 +1,53 @@
+.disclaimer {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background-color: #FFF;
+}
+ 
+.disclaimer > div > h3,
+.disclaimer > div > p {
+  padding: .3em 20px;
+  border-radius: 3px;
+  background-color: #FFF;
+}
+
+.disclaimer .yellow {
+  background-color: #E91E63;
+  background-image: linear-gradient(to right, #E91E63, #00BCD4);
+  color: #FFF;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+  padding: 20px;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.1),
+    0px 2px 2px rgba(0,0,0,0.1);
+  display: inline-block;
+  clear: both;
+}
+
+.disclaimer p + p {
+  margin-top: .5em;
+}
+
+.disclaimer h3 {
+  font-size: 36px;
+}
+
+.disclaimer-btn {
+  margin-top: 1em;
+  padding: .55em .8em;
+  text-decoration: none;
+  display: inline-block;
+  clear: none;
+  transition: background-color 0.5s ease;
+  background-color: #00bcd4;
+  color: #FFF;
+  border-radius: 3px;
+  font-weight: 400;
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.1),
+    0px 2px 2px rgba(0,0,0,0.1);
+}
+.disclaimer-btn:hover {
+  transition: background-color 0.5s ease;
+  background-color: #e91e63;
+}
+
