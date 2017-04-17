@@ -75,7 +75,7 @@
     "webpack-manifest-plugin": "^1.0.1"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
+    "ava": "^0.18.2",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
