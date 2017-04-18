@@ -1,3 +1,24 @@
-ul a:hover, .active {
+.nav-link {
+  display: block;
+  color: #FAFAFA;
+  text-decoration: none;
+  opacity: .7;
+  font-size: 13px;
+}
+
+.nav-link img {
+  max-width: 36px;
+  text-align: center;
+  margin-bottom: .3em;
+}
+
+.nav-link span {
+  display: block;
+}
+
+.nav-link:hover, 
+.active-nav-link {
   opacity: 1;
 }
+
+

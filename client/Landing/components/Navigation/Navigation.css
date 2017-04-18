@@ -1,4 +1,5 @@
 .nav {
+  flex: 0!important;
   background-color: #263238;
   padding-top: .55em;
   padding-bottom: .55em;
@@ -34,7 +35,7 @@
   color: #00bcd4;
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link-active {
   transition: color 0.5s ease;
   color: #e91e63;
 }

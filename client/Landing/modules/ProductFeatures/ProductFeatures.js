@@ -3,10 +3,10 @@ import Helmet from 'react-helmet';
 
 import { Navigation, Hero, Features, Disclaimer, Footer } from '../../components';
 
-const Home = () => {
+const ProductFeatures = () => {
   return (
     <div>
-      <Helmet title="Home" />
+      <Helmet title="Features" />
       <Navigation />
       <Hero />
       <Features />
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ProductFeatures;
