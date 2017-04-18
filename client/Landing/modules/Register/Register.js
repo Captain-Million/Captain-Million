@@ -3,14 +3,14 @@ import Helmet from 'react-helmet';
 
 import { Navigation, Footer } from '../../components';
 
-const Support = () => {
+const Register = () => {
   return (
     <div>
-      <Helmet title="Support" />
+      <Helmet title="Register" />
       <Navigation />
       <div>
         <div>
-          <p>Hey, stop it! Stop It! Go away! We offer no support!</p>
+          <p>No registration — no million.</p>
         </div>
       </div>
       <Footer />
@@ -18,4 +18,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default Register;

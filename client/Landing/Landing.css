@@ -21,13 +21,23 @@
   font-weight: 700;
 }
 .container em {
-    font-style: oblique;
+  font-style: oblique;
 }
 
+/* real container for all wrappers */
+.container > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* each wrapper */
 .container > div > div {
   display: flex;
+  flex: 1;
 }
 
+/* each section */
 .container > div > div > div {
   width: 1100px;
   padding: 0 .5em;
