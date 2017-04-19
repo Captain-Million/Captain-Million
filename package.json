@@ -18,8 +18,7 @@
     "lint": "eslint client server __demo-data",
     "postinstall": "npm run update-schema",
     "update-schema": "node update-schema.js",
-    "reset-database": "node __demo-data/postinstall.js",
-    "heroku-prebuild": "npm install --only=dev"
+    "reset-database": "node __demo-data/postinstall.js"
   },
   "pre-commit": [
     "lint",
