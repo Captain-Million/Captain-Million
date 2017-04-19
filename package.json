@@ -17,7 +17,7 @@
     "slate": "rimraf node_modules && npm install",
     "lint": "eslint client server __demo-data",
     "postinstall": "npm run update-schema",
-    "update-schema": "node update-schema.js",
+    "update-schema": "cross-env NODE_ENV=development node update-schema.js",
     "reset-database": "node __demo-data/postinstall.js"
   },
   "pre-commit": [
@@ -38,7 +38,7 @@
     "babel-core": "^6.9.1",
     "babel-polyfill": "^6.9.1",
     "babel-register": "^6.9.0",
-    "babel-relay-plugin": "^0.11.0",
+    "babel-relay-plugin": "0.10.0",
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",
@@ -60,7 +60,7 @@
     "react-helmet": "^5.0.2",
     "react-intl": "^2.1.2",
     "react-redux": "^5.0.3",
-    "react-relay": "^0.10.0",
+    "react-relay": "0.10.0",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "redux": "^3.5.2",
