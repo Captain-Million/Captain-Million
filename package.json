@@ -18,7 +18,8 @@
     "lint": "eslint client server __demo-data",
     "postinstall": "npm run update-schema",
     "update-schema": "cross-env NODE_ENV=development node update-schema.js",
-    "reset-database": "node __demo-data/postinstall.js"
+    "reset-database": "node __demo-data/postinstall.js",
+    "heroku-postbuild": "npm run clean && npm run build && npm run build:server"
   },
   "pre-commit": [
     "lint",

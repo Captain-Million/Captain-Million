@@ -1,2 +1,2 @@
-web: npm run bs
+web: npm run start:prod
 
