@@ -1,5 +1,5 @@
 const config = {
-  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/wms-proj',
+  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/wms',
   port: process.env.PORT || 3000,
 };
 
