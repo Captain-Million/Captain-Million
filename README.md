@@ -36,14 +36,22 @@
 
 #### TODO: needs to be definitely documented
 
-- `npm cover` nyc npm run test
+- `npm run cover` nyc npm run test
+  - run tests once with coverage report
 - `npm run check-coverage` nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100
+  - check for 100% coverage in the last test
 - `npm run bs` npm run clean && npm run build && npm run build:server && npm run start:prod
+  - clear the previous build, build the latest version of the app and start the production server
 - `npm run build` cross-env NODE_ENV=production webpack --config webpack.config.prod.js
+  - build the client side code for production
 - `npm run build:server`cross-env NODE_ENV=production webpack --config webpack.config.server.js
+  - build the server side code for production
 - `npm run postinstall` npm run update-schema
+  - update/create graphQL schema after install
 - `npm run update-schema` cross-env NODE_ENV=development node update-schema.js
+  - generate graphQL schema that will be used by Relay. This should be run after installation/ changes to graphQL schema
 - `npm run heroku-postbuild` npm run clean && npm run build && npm run build:server
+  - This is invoked automatically by heroku after a successful deployment
 
 ### Known dev issues
 
