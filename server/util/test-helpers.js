@@ -15,3 +15,15 @@ export function dropDB(t) {
     if (err) t.fail('Unable to reset test database');
   });
 }
+
+export function expectValidationError(Model, params) {
+  return async (t) => {
+    const model = new Model(params);
+    try {
+      await model.validate();
+      t.fail('It should throw ValidationError');
+    } catch (err) {
+      t.regex(err.name, /validation\s*error/i);
+    }
+  };
+}

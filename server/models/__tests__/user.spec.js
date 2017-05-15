@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import test from 'ava';
 import User from '../user';
+import { expectValidationError } from '../../util/test-helpers';
 
 mongoose.Promise = global.Promise;
 
@@ -25,6 +26,7 @@ test('User name is trimmed', (t) => {
   t.is(user.name, name);
 });
 
-test('User cannot be created without a name', (t) => {
-  t.throws(User.create({ foo: 'bar' }));
-});
+test(
+  'User cannot be created without a name',
+  expectValidationError(User, { foo: 'bar' })
+);

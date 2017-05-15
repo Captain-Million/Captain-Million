@@ -1,6 +1,7 @@
 import test from 'ava';
 import mongoose from 'mongoose';
 import Inventory from '../inventory';
+import { expectValidationError } from '../../util/test-helpers';
 
 mongoose.Promise = global.Promise;
 
@@ -24,10 +25,15 @@ test('Inventory has a creator', (t) => {
   t.is(inventory.creator.toString(), creator);
 });
 
-test('Inventory cannot be created without owners', (t) => {
-  t.throws(Inventory.create({ creator, owners: [] }));
-  t.throws(Inventory.create({}));
-});
+test(
+  'Inventory cannot be created with 0 owners',
+  expectValidationError(Inventory, { creator, owners: [] })
+);
+
+test(
+  'Inventory cannot be created without owners',
+  expectValidationError(Inventory, {})
+);
 
 test('Inventory has a products array', (t) => {
   const inventory = new Inventory({ owners, products, creator });
@@ -38,21 +44,23 @@ test('Inventory has a products array', (t) => {
   t.deepEqual(invProducts, products);
 });
 
-test('Name is required for a product', (t) => {
-  t.throws(Inventory.create({
+test(
+  'Name is required for a product',
+  expectValidationError(Inventory, {
     owners,
     creator,
     products: [{ quantity: 42 }],
-  }));
-});
+  })
+);
 
-test('Quantity of a product cannot be negative', (t) => {
-  t.throws(Inventory.create({
+test(
+  'Quantity of a product cannot be negative',
+  expectValidationError(Inventory, {
     owners,
     creator,
     products: [{ name: 'bar', quantity: -1 }],
-  }));
-});
+  })
+);
 
 test('Quantity of a product defaults to 0', (t) => {
   const inventory = new Inventory({
@@ -85,14 +93,19 @@ test('Inventory has a documents array', (t) => {
   t.deepEqual(invDocuments, documents);
 });
 
-test('act of document must be arrival/dispatch/inventory', (t) => {
-  const invalidDoc = { act: 'Invalid Act', content: products };
-  const documents = [invalidDoc];
-  t.throws(Inventory.create({ owners, documents, creator }));
-});
+test(
+  'act of document must be arrival/dispatch/inventory',
+  expectValidationError(Inventory, {
+    owners,
+    creator,
+    documents: [{ act: 'Invalid Act', content: products }],
+  })
+);
 
-test('document cannot have empty content', (t) => {
-  const emptyDoc = { act: 'arrival', content: [] };
-  const documents = [emptyDoc];
-  t.throws(Inventory.create({ owners, documents, creator }));
-});
+test('document cannot have empty content',
+  expectValidationError(Inventory, {
+    owners,
+    creator,
+    documents: [{ act: 'arrival', content: [] }],
+  })
+);
