@@ -1,35 +1,26 @@
 import test from 'ava';
 import mongoose from 'mongoose';
-import { Mockgoose } from 'mockgoose';
 import Inventory from '../inventory';
-import config from '../../config';
 
-test.before(async () => {
-  mongoose.Promise = Promise;
-  const mockgoose = new Mockgoose(mongoose);
-  await mockgoose.prepareStorage();
-  await mongoose.connect(config.mongoURL);
-});
-test.before(() => Inventory.remove({}));
-test.after.always(() => mongoose.disconnect());
+mongoose.Promise = global.Promise;
 
 const owners = ['58c6b51d7ecdf50770494ba7'];
 const creator = owners[0];
 const products = [{ name: 'foo', quantity: 42 }];
 
-test('Inventory has an owners array', async (t) => {
-  const inventory = await Inventory.create({ owners, creator });
+test('Inventory has an owners array', (t) => {
+  const inventory = new Inventory({ owners, creator });
   const invOwners = inventory.owners.map(owner => owner.toString());
   t.deepEqual(invOwners, owners);
 });
 
-test('Inventory has a default name', async (t) => {
-  const inventory = await Inventory.create({ owners, creator });
+test('Inventory has a default name', (t) => {
+  const inventory = new Inventory({ owners, creator });
   t.is(inventory.name, 'My Inventory');
 });
 
-test('Inventory has a creator', async (t) => {
-  const inventory = await Inventory.create({ owners, creator });
+test('Inventory has a creator', (t) => {
+  const inventory = new Inventory({ owners, creator });
   t.is(inventory.creator.toString(), creator);
 });
 
@@ -38,8 +29,8 @@ test('Inventory cannot be created without owners', (t) => {
   t.throws(Inventory.create({}));
 });
 
-test('Inventory has a products array', async (t) => {
-  const inventory = await Inventory.create({ owners, products, creator });
+test('Inventory has a products array', (t) => {
+  const inventory = new Inventory({ owners, products, creator });
   const invProducts = inventory.products.map((product) => {
     const { name, quantity } = product;
     return { name, quantity };
@@ -63,8 +54,8 @@ test('Quantity of a product cannot be negative', (t) => {
   }));
 });
 
-test('Quantity of a product defaults to 0', async (t) => {
-  const inventory = await Inventory.create({
+test('Quantity of a product defaults to 0', (t) => {
+  const inventory = new Inventory({
     owners,
     creator,
     products: [{ name: 'new' }],
@@ -72,14 +63,14 @@ test('Quantity of a product defaults to 0', async (t) => {
   t.is(inventory.products[0].quantity, 0);
 });
 
-test('Inventory has a documents array', async (t) => {
+test('Inventory has a documents array', (t) => {
   const documents = [
     { act: 'arrival', content: products, title: 'my title' },
     { act: 'dispatch', content: products, title: 'my title 2' },
     { act: 'inventory', content: products, title: 'foo bar baz' },
   ];
   const now = Date.now();
-  const inventory = await Inventory.create({ owners, documents, creator });
+  const inventory = new Inventory({ owners, documents, creator });
   const invDocuments = inventory.documents.map((doc) => {
     const { act, content, title, createDate } = doc;
     t.true(createDate >= now);
@@ -105,4 +96,3 @@ test('document cannot have empty content', (t) => {
   const documents = [emptyDoc];
   t.throws(Inventory.create({ owners, documents, creator }));
 });
-
