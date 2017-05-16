@@ -1,9 +1,9 @@
 {
-  "name": "wms-proj",
+  "name": "Captain-Million",
   "version": "1.0.0",
   "description": "Warehouse management, Data exchange, Advertising",
   "scripts": {
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/wms-proj nyc ava --serial",
+    "test": "cross-env NODE_ENV=test PORT=8080 nyc ava --serial",
     "watch:test": "npm run test --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
@@ -27,12 +27,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wms-proj/wms-proj.git"
+    "url": "git+https://github.com/Captain-Million/Captain-Million.git"
   },
   "bugs": {
-    "url": "https://github.com/wms-proj/wms-proj/issues"
+    "url": "https://github.com/Captain-Million/Captain-Million/issues"
   },
-  "homepage": "https://github.com/wms-proj/wms-proj#readme",
+  "homepage": "https://github.com/Captain-Million/Captain-Million#readme",
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -148,7 +148,6 @@
       "client/reducers.js",
       "client/store.js",
       "server/util/setup-test-env.js",
-      "server/util/test-helpers.js",
       "server/config.js",
       "server/dummyData.js"
     ],

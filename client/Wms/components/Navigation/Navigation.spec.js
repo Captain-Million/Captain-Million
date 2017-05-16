@@ -13,9 +13,9 @@ test('should have a nav class', (t) => {
 
 test('should have an ul element with NavOptions', (t) => {
   const wrapper = shallow(<Navigation />);
-  const ul = wrapper.find('ul');
-  const options = ul.find(NavOption);
+  const optionsList = wrapper.find('div');
+  const options = optionsList.find(NavOption);
 
-  t.is(ul.length, 1);
+  t.is(optionsList.length, 1);
   t.is(options.length, 5);
 });

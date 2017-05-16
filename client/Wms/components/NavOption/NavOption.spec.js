@@ -10,11 +10,6 @@ const props = {
   path: 'path',
 };
 
-test('should be a li element', (t) => {
-  const wrapper = shallow(<NavOption {...props} />);
-  t.is(wrapper.type(), 'li');
-});
-
 test('should have a NavLink', (t) => {
   const wrapper = shallow(<NavOption {...props} />);
   const LinkComponent = wrapper.find(NavLink);
