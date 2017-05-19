@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
@@ -25,7 +26,7 @@ const [
 
 class Wms extends Component {
   static propTypes = {
-    match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+    match: PropTypes.objectOf(PropTypes.any).isRequired,
   };
 
   constructor(props) {

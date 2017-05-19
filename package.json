@@ -56,6 +56,7 @@
     "mock-css-modules": "^1.0.0",
     "mockgoose": "^7.0.6",
     "mongoose": "^4.4.20",
+    "prop-types": "^15.5.10",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-helmet": "^5.0.2",

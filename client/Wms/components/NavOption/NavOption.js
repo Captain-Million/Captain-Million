@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import styles from './NavOption.css';
@@ -16,9 +17,9 @@ const NavOption = ({ name, path, icon }) => (
 );
 
 NavOption.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  path: React.PropTypes.string.isRequired,
-  icon: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  name: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  icon: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default NavOption;

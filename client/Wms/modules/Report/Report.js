@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 
@@ -19,7 +20,7 @@ const Report = (props) => {
 };
 
 Report.propTypes = {
-  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  inventories: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const ReportContainer = Relay.createContainer(Report, {

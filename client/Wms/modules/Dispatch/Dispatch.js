@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import Helmet from 'react-helmet';
 
@@ -42,8 +43,8 @@ const Dispatch = ({ match, inventories }) => {
 };
 
 Dispatch.propTypes = {
-  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  inventories: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const DispatchContainer = Relay.createContainer(Dispatch, {
