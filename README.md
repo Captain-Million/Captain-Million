@@ -38,7 +38,6 @@
 #### Auxilary Scripts
 
 - `npm run clean` cleans build folder
-- `npm run slate` reinstalls dependencies
 - `npm run postinstall` update/create graphQL schema after install
 - `npm run heroku-postbuild` This is invoked automatically by heroku after a successful deployment
 - `npm run build` build the client side code for production

@@ -14,7 +14,6 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
     "clean": "rimraf dist",
-    "slate": "rimraf node_modules && npm install",
     "lint": "eslint client server __demo-data",
     "postinstall": "npm run update-schema",
     "update-schema": "cross-env NODE_ENV=development node update-schema.js",
