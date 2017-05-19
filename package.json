@@ -148,8 +148,7 @@
       "client/reducers.js",
       "client/store.js",
       "server/util/setup-test-env.js",
-      "server/config.js",
-      "server/dummyData.js"
+      "server/config.js"
     ],
     "reporter": [
       "lcov",
