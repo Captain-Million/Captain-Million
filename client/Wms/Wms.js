@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
-import DevTools from './components/ReactDevTools/ReactDevTools';
 import Navigation from './components/Navigation/Navigation';
 
 import Arrival from './modules/Arrival/Arrival';
@@ -43,7 +42,6 @@ class Wms extends Component {
 
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
             title="Default"

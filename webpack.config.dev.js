@@ -6,7 +6,6 @@ module.exports = {
 
   entry: {
     app: [
-      'eventsource-polyfill',
       'babel-polyfill',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
