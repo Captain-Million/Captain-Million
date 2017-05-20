@@ -44,7 +44,17 @@ const Dispatch = ({ match, inventories }) => {
 
 Dispatch.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
-  inventories: PropTypes.objectOf(PropTypes.any).isRequired,
+  inventories: PropTypes.shape({
+    inventories: PropTypes.arrayOf(PropTypes.shape({
+      documents: PropTypes.arrayOf(PropTypes.shape({
+        act: PropTypes.string,
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        createDate: PropTypes.string,
+        content: PropTypes.arrayOf(PropTypes.any),
+      })),
+    })),
+  }).isRequired,
 };
 
 const DispatchContainer = Relay.createContainer(Dispatch, {
