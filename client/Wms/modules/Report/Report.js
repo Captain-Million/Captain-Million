@@ -12,7 +12,7 @@ const Report = (props) => {
     <div>
       <Helmet title="Stock quantity report" />
       <DocumentContainer>
-        <DocumentHeader itemType={'Stock Report'} name={formatDate(new Date())} />
+        <DocumentHeader itemType={'Stock Report'} name={formatDate()} />
         <Table products={props.inventories.inventories[0].products} />
       </DocumentContainer>
     </div>

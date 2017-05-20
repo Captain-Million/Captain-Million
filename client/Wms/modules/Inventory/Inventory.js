@@ -11,7 +11,7 @@ import {
 } from '../../components';
 
 import Table from './components/Table';
-// import formatDate from './../../../util/formatDate';
+import formatDate from './../../../util/formatDate';
 
 
 const Inventory = ({ match, inventories }) => {
@@ -20,7 +20,7 @@ const Inventory = ({ match, inventories }) => {
   const documentsListView = documentsList.map((item) => {
     const newItem = {
       _id: item._id,
-      title: `${item.title} ${item.createDate}`,
+      title: `${item.title} ${formatDate(item.createDate)}`,
     };
 
     return (newItem);
@@ -44,7 +44,7 @@ const Inventory = ({ match, inventories }) => {
       <ListView list={documentsListView} urlPrefix="inventory" itemType={documentType} header="Inventory acts" />
       { currentDocument &&
         <DocumentContainer>
-          <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
+          <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${formatDate(currentDocument.createDate)}`} />
           <Table products={tableData} />
           <DocumentControls eventhandlers="some_event_handlers" />
         </DocumentContainer>

@@ -1,5 +1,11 @@
-const formatDate = (date = new Date()) => {
-  if (typeof date.getMonth !== 'function') return date;
+// accepts timestamp Int value (as an Int or as a string).
+// otherwise returns formatted NOW
+const formatDate = (timestamp) => {
+  let date = new Date(+timestamp);
+  if (Object.prototype.toString.call(date) !== '[object Date]' || isNaN(date.getTime())) {
+    date = new Date();
+  }
+
   const pad = n => (n < 10 ? `0${n}` : n);
 
   const days = pad(date.getDate());
