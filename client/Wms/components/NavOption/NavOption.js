@@ -19,7 +19,7 @@ const NavOption = ({ name, path, icon }) => (
 NavOption.propTypes = {
   name: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  icon: PropTypes.objectOf(PropTypes.any).isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
 export default NavOption;
