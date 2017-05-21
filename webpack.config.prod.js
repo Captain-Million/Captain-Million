@@ -1,12 +1,14 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-var cssnext = require('postcss-cssnext');
-var postcssFocus = require('postcss-focus');
-var postcssReporter = require('postcss-reporter');
-var cssnano = require('cssnano');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin'); // plugin to remove previously built files
+const path = require('path'); // required by CleanWebpackPlugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const cssnext = require('postcss-cssnext');
+const postcssFocus = require('postcss-focus');
+const postcssReporter = require('postcss-reporter');
+const cssnano = require('cssnano');
 
 module.exports = {
   devtool: 'hidden-source-map',
@@ -79,6 +81,7 @@ module.exports = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),

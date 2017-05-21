@@ -1,5 +1,6 @@
 import React from 'react';
-import Relay from 'react-relay';
+import PropTypes from 'prop-types';
+import Relay from 'react-relay/classic';
 import Helmet from 'react-helmet';
 
 import {
@@ -38,8 +39,18 @@ const Products = ({ match, inventories }) => {
 };
 
 Products.propTypes = {
-  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  inventories: PropTypes.shape({
+    inventories: PropTypes.arrayOf(PropTypes.shape({
+      documents: PropTypes.arrayOf(PropTypes.shape({
+        act: PropTypes.string,
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        createDate: PropTypes.string,
+        content: PropTypes.arrayOf(PropTypes.any),
+      })),
+    })),
+  }).isRequired,
 };
 
 const ProductsContainer = Relay.createContainer(Products, {

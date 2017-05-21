@@ -4,10 +4,12 @@ import { shallow } from 'enzyme';
 import { NavLink } from 'react-router-dom';
 
 import NavOption from './NavOption';
+import sampleIcon from '../Navigation/icons/arrival.png';
 
 const props = {
   name: 'name',
   path: 'path',
+  icon: sampleIcon,
 };
 
 test('should have a NavLink', (t) => {

@@ -1,5 +1,6 @@
 import React from 'react';
-import Relay from 'react-relay';
+import PropTypes from 'prop-types';
+import Relay from 'react-relay/classic';
 import Helmet from 'react-helmet';
 
 import {
@@ -10,7 +11,7 @@ import {
 } from '../../components';
 
 import Table from './components/Table';
-// import formatDate from './../../../util/formatDate';
+import formatDate from './../../../util/formatDate';
 
 const Dispatch = ({ match, inventories }) => {
   const documentsList = inventories.inventories[0].documents.filter(item => item.act === 'dispatch');
@@ -18,7 +19,7 @@ const Dispatch = ({ match, inventories }) => {
   const documentsListView = documentsList.map((item) => {
     const newItem = {
       _id: item._id,
-      title: `${item.title} ${item.createDate}`,
+      title: `${item.title} ${formatDate(item.createDate)}`,
     };
     return (newItem);
   });
@@ -32,7 +33,7 @@ const Dispatch = ({ match, inventories }) => {
       <ListView list={documentsListView} urlPrefix="dispatch" itemType={documentType} header="Dispatch acts" />
       { currentDocument &&
         <DocumentContainer>
-          <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${currentDocument.createDate}`} />
+          <DocumentHeader itemType={documentType} name={`${currentDocument.title} ${formatDate(currentDocument.createDate)}`} />
           <Table products={currentDocument.content} />
           <DocumentControls eventhandlers="some_event_handlers" />
         </DocumentContainer>
@@ -42,8 +43,18 @@ const Dispatch = ({ match, inventories }) => {
 };
 
 Dispatch.propTypes = {
-  match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-  inventories: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  inventories: PropTypes.shape({
+    inventories: PropTypes.arrayOf(PropTypes.shape({
+      documents: PropTypes.arrayOf(PropTypes.shape({
+        act: PropTypes.string,
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        createDate: PropTypes.string,
+        content: PropTypes.arrayOf(PropTypes.any),
+      })),
+    })),
+  }).isRequired,
 };
 
 const DispatchContainer = Relay.createContainer(Dispatch, {

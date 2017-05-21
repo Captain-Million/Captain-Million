@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
-import DevTools from './components/ReactDevTools/ReactDevTools';
 import Navigation from './components/Navigation/Navigation';
 
 import Arrival from './modules/Arrival/Arrival';
@@ -25,7 +25,7 @@ const [
 
 class Wms extends Component {
   static propTypes = {
-    match: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+    match: PropTypes.objectOf(PropTypes.any).isRequired,
   };
 
   constructor(props) {
@@ -42,7 +42,6 @@ class Wms extends Component {
 
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
             title="Default"

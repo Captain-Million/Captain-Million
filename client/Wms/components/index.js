@@ -5,4 +5,3 @@ export ListItem from './ListItem';
 export ListView from './ListView';
 export Navigation from './Navigation';
 export NavOption from './NavOption';
-export ReactDevTools from './ReactDevTools';

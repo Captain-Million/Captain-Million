@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 
 /* eslint-disable class-methods-use-this */
 // reason: cannot use static method here since the class

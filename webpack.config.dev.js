@@ -1,12 +1,13 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin'); // plugin to remove previously built files
+const path = require('path'); // required by CleanWebpackPlugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
 
   entry: {
     app: [
-      'eventsource-polyfill',
       'babel-polyfill',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
@@ -70,6 +71,7 @@ module.exports = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
