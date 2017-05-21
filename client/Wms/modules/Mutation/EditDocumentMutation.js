@@ -1,4 +1,4 @@
-import Relay from 'react-relay';
+import Relay from 'react-relay/classic';
 import computeProductList from '../../../../server/controllers/compute-product-list';
 
 /* eslint-disable class-methods-use-this */
